@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RealEstateManager</string>
+    <string name="bottom_map">Map</string>
+    <string name="bottom_list">List</string>
 </resources>
