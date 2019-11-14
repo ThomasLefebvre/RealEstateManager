@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import fr.thomas.lefebvre.realestatemanager.R
+import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.DetailsViewModel
 
 class DetailsFragment : Fragment() {
 

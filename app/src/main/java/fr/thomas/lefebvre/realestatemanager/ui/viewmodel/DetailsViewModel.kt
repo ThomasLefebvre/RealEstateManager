@@ -1,4 +1,4 @@
-package fr.thomas.lefebvre.realestatemanager.ui.fragment
+package fr.thomas.lefebvre.realestatemanager.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 
