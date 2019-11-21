@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
 
+
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment!!.navController)
     }
 
@@ -40,5 +42,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_options, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onBackPressed() {
+        alertDialogBoxLeave()
+    }
+
+    fun alertDialogBoxLeave(){
+        val alertDialog=AlertDialog.Builder(this)
+        alertDialog.setTitle(R.string.dialog_leave_title)
+        alertDialog.setMessage(R.string.dialog_leave_message)
+        alertDialog.setPositiveButton(R.string.dialog_yes){dialogInterface, i ->
+            super.onBackPressed()
+        }
+        alertDialog.setNegativeButton(R.string.dialog_no){dialogInterface, i ->  }
+        alertDialog.show()
     }
 }

@@ -28,4 +28,9 @@
             android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.DetailsFragment"
             android:label="details_fragment"
             tools:layout="@layout/details_fragment" />
+    <fragment
+            android:id="@+id/addAgentFragment"
+            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.AddAgentFragment"
+            android:label="add_agent_fragment"
+            tools:layout="@layout/add_agent_fragment" />
 </navigation>

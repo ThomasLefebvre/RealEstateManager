@@ -20,7 +20,7 @@ interface PropertyDAO{
     fun deleteProperty(idProperty: Long)
 
     @Query("SELECT *  FROM property_table ORDER BY id_property DESC LIMIT 1")
-    fun getLastProperty():Property?
+    fun getLastProperty():LiveData<Property>
 
     @Query("SELECT * FROM property_table ORDER BY creation_date DESC")
     fun getAllProperty():LiveData<List<Property>>

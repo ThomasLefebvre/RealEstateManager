@@ -20,7 +20,7 @@ data class Property(
     @ColumnInfo(name = "id_property")
     var idProperty: Long = 0L,
 
-    var type: String = "",
+    var type: String = "Loft",
 
     var price: Float = 0f,
 
@@ -131,9 +131,9 @@ data class Agent(
 
     var name: String = "",
 
-    var mail: String = "",
+    var mail: String = ""
 
-    var photo: String = ""
+
 
 )
 

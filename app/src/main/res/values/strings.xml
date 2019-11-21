@@ -1,5 +1,48 @@
 <resources>
     <string name="app_name">RealEstateManager</string>
+    //bottom menu
     <string name="bottom_map">Map</string>
     <string name="bottom_list">List</string>
+    //option menu
+    <string name="menu_add_agent">Add agent</string>
+    <string name="menu_add_property">Add a new propertie</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_edit">Edit</string>
+    //alert dialog
+    <string name="dialog_leave_title">Exit</string>
+    <string name="dialog_leave_message">You want close RealEstateManager?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    //spinner prompt
+    <string name="spinner_agent">Agent</string>
+    <string name="spinner_type">Type</string>
+    //string add properties
+    <string name="type">Type:</string>
+    <string name="price">Price</string>
+    <string name="surface">Surface</string>
+    <string name="room">Number Room</string>
+    <string name="address">Address</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="city">City</string>
+    <string name="type_way">Type Way</string>
+    <string name="num_way">Num Way</string>
+    <string name="name_way">Name Way</string>
+    <string name="complement">Complement</string>
+    <string name="description">Description</string>
+    <string name="agent">Agent</string>
+    <string name="state">State</string>
+    <string name="new_property">Add a new properties</string>
+    <string name="add_photo">Add photo</string>
+    //checkbox
+    <string name="school">School</string>
+    <string name="parc">Parc</string>
+    <string name="shopping">Shopping</string>
+    <string name="transport">Transports</string>
+    <string name="doctor">Doctor</string>
+    <string name="sports">Sports</string>
+    //add new agent
+    <string name="add_new_agent">Add a new agent</string>
+    <string name="name_agent">Name</string>
+    <string name="email_agent">Email</string>
+
 </resources>

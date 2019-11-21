@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:style="http://schemas.android.com/tools"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+
+        >
+
+    <item
+            android:id="@+id/addAgentFragment"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="@string/menu_add_agent"
+            app:showAsAction="ifRoom"
+
+            />
 
     <item
             android:id="@+id/addPropertyFragment"
             android:icon="@drawable/ic_add_black_24dp"
-            android:title="@string/bottom_list"
-    app:showAsAction="always"/>
+            android:title="@string/menu_add_property"
+            app:showAsAction="ifRoom" />
 
-    <item
-            android:id="@+id/editFragment"
-            android:icon="@drawable/ic_edit_black_24dp"
-            android:title="@string/bottom_map"
-            app:showAsAction="always"/>
+
     <item
             android:id="@+id/findFragment"
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="@string/bottom_map"
-            app:showAsAction="always"/>
+            android:title="@string/menu_search"
+            app:showAsAction="ifRoom" />
 
 
 </menu>
