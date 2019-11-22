@@ -11,6 +11,11 @@
 
             <padding android:bottom="8dp" android:left="8dp" android:right="8dp" android:top="8dp" />
         </shape></item>
+        <item >
+            <bitmap android:gravity="bottom|right"
+                    android:src="@android:drawable/arrow_down_float"
+                    />
+        </item>
 
     </layer-list></item>
 

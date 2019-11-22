@@ -51,7 +51,7 @@ class AddPropertyFragment : Fragment() {
 
     fun onClickButtonSave() {
         floatingActionButton.setOnClickListener {
-            if (viewModel.listAgent.value != null) {
+            if (viewModel.listAgent.value != null) {//TODO NE FONCTIONNE PAS
                 val agentId = viewModel.listAgent.value!![spinnerAgent.selectedItemPosition].idAgent
                 val type = viewModel.listType.value!![spinnerType.selectedItemPosition]
                 viewModel.onSaveProperty(agentId, type)
