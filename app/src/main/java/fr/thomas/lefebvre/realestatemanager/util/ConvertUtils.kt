@@ -1,12 +1,9 @@
 package fr.thomas.lefebvre.realestatemanager.util
 
-import android.content.res.Resources
-import android.os.Build
-import android.text.Html
-import android.text.Spanned
-import androidx.core.text.HtmlCompat
-import fr.thomas.lefebvre.realestatemanager.database.Agent
 
+import fr.thomas.lefebvre.realestatemanager.database.Agent
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 fun formatListAgentToListString(agents: List<Agent>): List<String> {
@@ -15,4 +12,16 @@ fun formatListAgentToListString(agents: List<Agent>): List<String> {
         listNameAgent.add(it.name)
     }
     return listNameAgent
+}
+
+
+val EMAIL_PATTERN =
+    "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
+
+val pattern: Pattern = Pattern.compile(EMAIL_PATTERN)
+lateinit var matcher: Matcher
+
+fun validateEmail(email: String): Boolean {
+    matcher = pattern.matcher(email)
+    return matcher.matches()
 }

@@ -2,10 +2,14 @@ package fr.thomas.lefebvre.realestatemanager.ui.fragment
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 
 import fr.thomas.lefebvre.realestatemanager.R
@@ -16,10 +20,12 @@ import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddAgentViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddAgentViewModelFactory
 import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddPropertyViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddViewModelFactory
+import fr.thomas.lefebvre.realestatemanager.util.validateEmail
+import kotlinx.android.synthetic.main.add_agent_fragment.*
 
 class AddAgentFragment : Fragment() {
 
-    private lateinit var viewModel:AddAgentViewModel
+    private lateinit var viewModel: AddAgentViewModel
 
 
     override fun onCreateView(
@@ -46,6 +52,34 @@ class AddAgentFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        checkEmail()
+        super.onViewCreated(view, savedInstanceState)
+    }
 
+    fun checkEmail() {
+        inputEmail.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (validateEmail(viewModel.editTextEmailAgent.value!!)) {
+                    textInputLayoutEmail.isErrorEnabled = false
+                } else {
+                    textInputLayoutEmail.isErrorEnabled
+                    textInputLayoutEmail.error = getString(R.string.email_not_valid)
+                }
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+        })
+
+
+    }
 
 }

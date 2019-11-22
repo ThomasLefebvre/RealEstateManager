@@ -23,6 +23,14 @@
         <item name="android:popupBackground">#FFFFFF</item>
     </style>
 
+    <style name="floating_button">
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/ic_launcher_background</item>
+
+
+
+    </style>
+
 
 
 </resources>

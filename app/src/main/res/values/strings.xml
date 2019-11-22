@@ -44,5 +44,9 @@
     <string name="add_new_agent">Add a new agent</string>
     <string name="name_agent">Name</string>
     <string name="email_agent">Email</string>
+    //toast alert
+    <string name="complete_all_informations">Complete all informations</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="create_agent">Create agent before</string>
 
 </resources>

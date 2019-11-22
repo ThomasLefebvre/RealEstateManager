@@ -31,10 +31,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
+                        android:theme="@style/floating_button"
                         android:onClick="@{() -> addAgentViewModel.onSaveAgent()}"
                         android:clickable="true"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRoom"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail"
                         app:srcCompat="@drawable/ic_save_black_24dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -45,6 +46,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
+                        app:endIconDrawable="@drawable/ic_account_circle_black_24dp"
+                        app:endIconMode="custom"
                         android:hint="@string/name_agent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -57,23 +60,28 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayoutRoom"
+                        android:id="@+id/textInputLayoutEmail"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
+                        app:endIconDrawable="@drawable/ic_email_black_24dp"
+                        app:endIconMode="custom"
                         android:hint="@string/email_agent"
+                        app:errorEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSurface">
 
                     <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={addAgentViewModel.editTextEmailAgent}" />
+                            android:text="@={addAgentViewModel.editTextEmailAgent}"
+                            />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

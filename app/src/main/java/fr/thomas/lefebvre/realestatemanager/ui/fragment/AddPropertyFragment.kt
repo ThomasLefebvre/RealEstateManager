@@ -50,20 +50,28 @@ class AddPropertyFragment : Fragment() {
     }
 
     fun onClickButtonSave() {
-        floatingActionButton.setOnClickListener {
-            if (viewModel.listAgent.value != null) {//TODO NE FONCTIONNE PAS
-                val agentId = viewModel.listAgent.value!![spinnerAgent.selectedItemPosition].idAgent
-                val type = viewModel.listType.value!![spinnerType.selectedItemPosition]
-                viewModel.onSaveProperty(agentId, type)
-            } else Toast.makeText(
-                requireContext(),
-                "Create agent for create a propertie",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+
+            floatingActionButton.setOnClickListener {
+                if (viewModel.listAgent.value!!.isNotEmpty()){
+                    val agentId = viewModel.listAgent.value?.get(spinnerAgent.selectedItemPosition)?.idAgent
+                    val type = viewModel.listType.value!![spinnerType.selectedItemPosition]
+                    viewModel.onSaveProperty(agentId!!, type)
+
+                }
+                Toast.makeText(requireContext(),getString(R.string.create_agent),Toast.LENGTH_LONG).show()
+
+            }
+
+
+
+
+
+
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         onClickButtonSave()
         super.onViewCreated(view, savedInstanceState)
     }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.Bindable
 import androidx.lifecycle.*
+import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Address
 import fr.thomas.lefebvre.realestatemanager.database.Agent
 import fr.thomas.lefebvre.realestatemanager.database.Property
@@ -94,7 +95,7 @@ class AddPropertyViewModel(
             }
 
         } else {
-            Toast.makeText(getApplication(), "Complete all informations", Toast.LENGTH_LONG).show()
+            Toast.makeText(getApplication(), R.string.complete_all_informations, Toast.LENGTH_LONG).show()
 
 
         }
