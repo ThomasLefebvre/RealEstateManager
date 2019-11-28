@@ -1,23 +1,24 @@
-package fr.thomas.lefebvre.realestatemanager.ui.viewmodel
+package fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
-import androidx.databinding.Bindable
 import androidx.lifecycle.*
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Address
-import fr.thomas.lefebvre.realestatemanager.database.Agent
+import fr.thomas.lefebvre.realestatemanager.database.Media
 import fr.thomas.lefebvre.realestatemanager.database.Property
-import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.AgentDAO
+import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.util.formatListAgentToListString
 import kotlinx.coroutines.*
 
 class AddPropertyViewModel(
     val database: PropertyDAO,
-    val databaseAgent: AgentDAO,
+    databaseAgent: AgentDAO,
+    val databasePhoto: MediaDAO,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -45,6 +46,8 @@ class AddPropertyViewModel(
     val listAgentString = Transformations.map(listAgent) { agents ->
         formatListAgentToListString(listAgent.value!!)
     }
+    val listUriPhoto = ArrayList<Uri>()
+    val listUriPhotoLiveData = MutableLiveData<ArrayList<Uri>>()
 
 
     init {
@@ -62,7 +65,7 @@ class AddPropertyViewModel(
 
     fun onSaveProperty(idAgent: Long, type: String) {
 
-        if (allFieldInformed()) {
+
             uiScope.launch {
                 val address = Address(
                     editTextCity.value!!,
@@ -74,7 +77,7 @@ class AddPropertyViewModel(
                     editTextState.value!!
                 )
                 val property = Property(
-                    0L,
+                    (System.currentTimeMillis()+ editTextPostalCode.value!!.toLong()),
                     type,
                     editTextPrice.value!!.toFloat(),
                     editTextRoom.value!!.toInt(),
@@ -90,15 +93,13 @@ class AddPropertyViewModel(
                     "The property of ${property.address!!.city} is created",
                     Toast.LENGTH_LONG
                 ).show()
-                cleanAllEditText()
+
+                if(listUriPhoto.isNotEmpty()){
+                    onSavePhoto(listUriPhoto,property.idProperty)
+                }
 
             }
 
-        } else {
-            Toast.makeText(getApplication(), R.string.complete_all_informations, Toast.LENGTH_LONG).show()
-
-
-        }
 
     }
 
@@ -111,32 +112,27 @@ class AddPropertyViewModel(
 
     }
 
-    private fun cleanAllEditText() {
-        editTextPrice.value = null
-        editTextSurface.value = null
-        editTextRoom.value = null
-        editTextPostalCode.value = null
-        editTextCity.value = null
-        editTextNameWay.value = null
-        editTextTypeWay.value = null
-        editTextNumWay.value = null
-        editTextDescription.value = null
-        editTextComplement.value=""
-        editTextState.value=null
+    private fun onSavePhoto(listUri: List<Uri>,idProperty:Long){
+        uiScope.launch {
+            listUri.forEach {
+                insertMediaOnDataBase(it,idProperty)
+            }
+
+        }
 
     }
 
-    private fun allFieldInformed(): Boolean =
-        (editTextState.value != null
-                && editTextPrice.value != null
-                && editTextSurface.value != null
-                && editTextRoom.value != null
-                && editTextPostalCode.value != null
-                && editTextCity.value != null
-                && editTextNameWay.value != null
-                && editTextTypeWay.value != null
-                && editTextNumWay.value != null
-                && editTextDescription.value != null)
+    private suspend fun insertMediaOnDataBase(uri: Uri, idProperty: Long) {
+        withContext(Dispatchers.IO){
+            val media=Media(0L,uri,idProperty)
+            databasePhoto.insert(media)
+            Log.i("DEBUG","MEDIA INSERT ON DATABASE")
+        }
+
+    }
 
 
+    fun addPhotoUriToList(uri: Uri) {
+        listUriPhoto.add(uri)
+    }
 }

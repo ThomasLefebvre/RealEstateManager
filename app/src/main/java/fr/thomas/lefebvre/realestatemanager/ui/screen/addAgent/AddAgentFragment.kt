@@ -1,4 +1,4 @@
-package fr.thomas.lefebvre.realestatemanager.ui.fragment
+package fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,18 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.databinding.AddAgentFragmentBinding
-import fr.thomas.lefebvre.realestatemanager.databinding.AddPropertyFragmentBinding
-import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddAgentViewModel
-import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddAgentViewModelFactory
-import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddPropertyViewModel
-import fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddViewModelFactory
 import fr.thomas.lefebvre.realestatemanager.util.validateEmail
 import kotlinx.android.synthetic.main.add_agent_fragment.*
 
@@ -40,7 +33,11 @@ class AddAgentFragment : Fragment() {
 
         val databaseAgent = PropertyDatabase.getInstance(application).agentDAO
 
-        val viewModelFactory = AddAgentViewModelFactory(databaseAgent, application)
+        val viewModelFactory =
+            AddAgentViewModelFactory(
+                databaseAgent,
+                application
+            )
 
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(AddAgentViewModel::class.java)

@@ -9,7 +9,7 @@
 
         <variable
                 name="addPropertyViewModel"
-                type="fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddPropertyViewModel" />
+                type="fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.AddPropertyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,12 +22,13 @@
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_save_black_24dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_save_black_24dp"
+                android:focusable="true" />
 
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -37,7 +38,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:context=".ui.fragment.AddPropertyFragment">
+                    tools:context=".ui.screen.addProperty.AddPropertyActivity">
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutRoom"
@@ -56,20 +57,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="number"
                             android:text="@={addPropertyViewModel.editTextRoom}" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                        android:id="@+id/textView"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/new_property"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
@@ -117,6 +108,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="number"
                             android:text="@={addPropertyViewModel.editTextPrice}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,6 +129,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLines="1"
                             android:text="@={addPropertyViewModel.editTextSurface}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,6 +155,7 @@
                             android:gravity="bottom"
                             android:inputType="textMultiLine"
                             android:text="@={addPropertyViewModel.editTextDescription}" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -178,6 +174,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="number"
                             android:text="@={addPropertyViewModel.editTextPostalCode}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,6 +195,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="text"
                             android:text="@={addPropertyViewModel.editTextCity}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -217,6 +217,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="number"
                             android:text="@={addPropertyViewModel.editTextNumWay}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -237,6 +239,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="text"
                             android:text="@={addPropertyViewModel.editTextTypeWay}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -258,6 +262,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="text"
                             android:text="@={addPropertyViewModel.editTextState}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -278,6 +284,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="text"
                             android:text="@={addPropertyViewModel.editTextNameWay}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -303,12 +311,12 @@
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="Estate"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/estate"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline"
@@ -321,10 +329,10 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="@string/address"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription" />
 
@@ -332,13 +340,12 @@
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:text="Nearby"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/nearby"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/textInputLayoutState"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/textInputLayoutState" />
 
                 <include
                         android:id="@+id/layoutcheckbox"
@@ -365,6 +372,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="text"
                             android:text="@={addPropertyViewModel.editTextComplement}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -373,15 +382,15 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="@string/agent"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/layoutcheckbox" />
 
                 <Button
-                        android:id="@+id/button"
+                        android:id="@+id/button_add_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -390,9 +399,22 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/spinnerAgent" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_photo_propertie"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="96dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button_add_photo" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

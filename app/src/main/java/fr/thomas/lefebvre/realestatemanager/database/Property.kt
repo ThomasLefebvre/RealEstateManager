@@ -1,5 +1,6 @@
 package fr.thomas.lefebvre.realestatemanager.database
 
+import android.net.Uri
 import androidx.room.*
 import java.util.*
 import androidx.room.ColumnInfo
@@ -61,7 +62,7 @@ data class Media(
     @ColumnInfo(name = "id_media")
     var idMedia: Long = 0L,
 
-    var photo: String,
+    var photo: Uri,
 
     @ColumnInfo(name = "id_property_media",index = true)
     var idProperty: Long
@@ -132,8 +133,6 @@ data class Agent(
     var name: String = "",
 
     var mail: String = ""
-
-
 
 )
 

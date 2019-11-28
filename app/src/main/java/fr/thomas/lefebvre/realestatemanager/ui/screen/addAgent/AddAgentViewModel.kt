@@ -1,4 +1,4 @@
-package fr.thomas.lefebvre.realestatemanager.ui.viewmodel
+package fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent
 
 import android.app.Application
 import android.widget.Toast
@@ -27,7 +27,7 @@ class AddAgentViewModel(
                 val newAgent = Agent(0L, editTextNameAgent.value!!, editTextEmailAgent.value!!)
                 insertNewAgent(newAgent)
                 cleanAllEditText()
-                Toast.makeText(getApplication(),  "${newAgent.name}", Toast.LENGTH_LONG)
+                Toast.makeText(getApplication(), newAgent.name, Toast.LENGTH_LONG)
                     .show()
             } else {
                 Toast.makeText(

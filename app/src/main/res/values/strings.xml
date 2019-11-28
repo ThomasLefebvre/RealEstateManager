@@ -31,6 +31,8 @@
     <string name="description">Description</string>
     <string name="agent">Agent</string>
     <string name="state">State</string>
+    <string name="estate">Estate</string>
+    <string name="nearby">Nearby</string>
     <string name="new_property">Add a new properties</string>
     <string name="add_photo">Add photo</string>
     //checkbox
@@ -48,5 +50,8 @@
     <string name="complete_all_informations">Complete all informations</string>
     <string name="email_not_valid">Email not valid</string>
     <string name="create_agent">Create agent before</string>
+    <string name="title_activity_maps">Map</string>
+    //title activity/fragment
+    <string name="add_property">Add Property</string>
 
 </resources>

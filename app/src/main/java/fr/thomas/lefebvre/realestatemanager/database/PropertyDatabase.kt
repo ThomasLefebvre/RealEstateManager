@@ -1,16 +1,16 @@
 package fr.thomas.lefebvre.realestatemanager.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import fr.thomas.lefebvre.realestatemanager.database.dao.*
+import fr.thomas.lefebvre.realestatemanager.util.Converters
 
 @Database(
     entities = [Property::class, Media::class, PointInterest::class, Agent::class],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 
 abstract class PropertyDatabase : RoomDatabase() {
 

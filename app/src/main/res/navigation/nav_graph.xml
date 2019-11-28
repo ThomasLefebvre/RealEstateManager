@@ -8,11 +8,7 @@
               android:label="property_fragment" tools:layout="@layout/property_fragment"/>
     <fragment android:id="@+id/mapFragment" android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.MapFragment"
               android:label="map_fragment" tools:layout="@layout/map_fragment"/>
-    <fragment
-            android:id="@+id/addPropertyFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.AddPropertyFragment"
-            android:label="add_property_fragment"
-            tools:layout="@layout/add_property_fragment" />
+
     <fragment
             android:id="@+id/editFragment"
             android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.EditFragment"
@@ -30,7 +26,11 @@
             tools:layout="@layout/details_fragment" />
     <fragment
             android:id="@+id/addAgentFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.AddAgentFragment"
+            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentFragment"
             android:label="add_agent_fragment"
             tools:layout="@layout/add_agent_fragment" />
+    <activity
+            android:id="@+id/addPropertyActivity"
+            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.AddPropertyActivity"
+            android:label="AddPropertyActivity" />
 </navigation>

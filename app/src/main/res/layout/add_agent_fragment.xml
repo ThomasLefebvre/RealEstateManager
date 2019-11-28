@@ -8,12 +8,26 @@
 
         <variable
                 name="addAgentViewModel"
-                type="fr.thomas.lefebvre.realestatemanager.ui.viewmodel.AddAgentViewModel" />
+                type="fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonSaveAgent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:onClick="@{() -> addAgentViewModel.onSaveAgent()}"
+                android:theme="@style/floating_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_save_black_24dp"
+                android:focusable="true" />
 
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -23,20 +37,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:context=".ui.fragment.AddPropertyFragment">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/floatingActionButtonSaveAgent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:theme="@style/floating_button"
-                        android:onClick="@{() -> addAgentViewModel.onSaveAgent()}"
-                        android:clickable="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail"
-                        app:srcCompat="@drawable/ic_save_black_24dp" />
+                    tools:context=".ui.screen.addProperty.AddPropertyFragment">
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutSurface"
@@ -82,6 +83,7 @@
                             android:layout_height="wrap_content"
                             android:text="@={addAgentViewModel.editTextEmailAgent}"
                             />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

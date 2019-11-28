@@ -15,17 +15,17 @@
             />
 
     <item
-            android:id="@+id/addPropertyFragment"
+            android:id="@+id/addPropertyActivity"
             android:icon="@drawable/ic_add_black_24dp"
             android:title="@string/menu_add_property"
             app:showAsAction="ifRoom" />
 
 
-    <item
-            android:id="@+id/findFragment"
-            android:icon="@drawable/ic_search_black_24dp"
-            android:title="@string/menu_search"
-            app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--            android:id="@+id/"-->
+<!--            android:icon="@drawable/ic_search_black_24dp"-->
+<!--            android:title="@string/menu_search"-->
+<!--            app:showAsAction="ifRoom" />-->
 
 
 </menu>

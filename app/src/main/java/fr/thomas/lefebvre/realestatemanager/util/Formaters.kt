@@ -1,6 +1,8 @@
 package fr.thomas.lefebvre.realestatemanager.util
 
 
+import android.net.Uri
+import androidx.room.TypeConverter
 import fr.thomas.lefebvre.realestatemanager.database.Agent
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -25,3 +27,4 @@ fun validateEmail(email: String): Boolean {
     matcher = pattern.matcher(email)
     return matcher.matches()
 }
+
