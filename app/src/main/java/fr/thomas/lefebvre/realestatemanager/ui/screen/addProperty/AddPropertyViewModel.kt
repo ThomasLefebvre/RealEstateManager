@@ -66,39 +66,39 @@ class AddPropertyViewModel(
     fun onSaveProperty(idAgent: Long, type: String) {
 
 
-            uiScope.launch {
-                val address = Address(
-                    editTextCity.value!!,
-                    editTextPostalCode.value!!.toInt(),
-                    editTextTypeWay.value!!,
-                    editTextNameWay.value!!,
-                    editTextNumWay.value!!.toInt(),
-                    editTextComplement.value!!,//TODO
-                    editTextState.value!!
-                )
-                val property = Property(
-                    (System.currentTimeMillis()+ editTextPostalCode.value!!.toLong()),
-                    type,
-                    editTextPrice.value!!.toFloat(),
-                    editTextRoom.value!!.toInt(),
-                    editTextDescription.value!!,
-                    address,
-                    false,
-                    System.currentTimeMillis(),
-                    0, idAgent
-                )
-                insertNewProperty(property)
-                Toast.makeText(
-                    getApplication(),
-                    "The property of ${property.address!!.city} is created",
-                    Toast.LENGTH_LONG
-                ).show()
+        uiScope.launch {
+            val address = Address(
+                editTextCity.value!!,
+                editTextPostalCode.value!!.toInt(),
+                editTextTypeWay.value!!,
+                editTextNameWay.value!!,
+                editTextNumWay.value!!.toInt(),
+                editTextComplement.value!!,//TODO
+                editTextState.value!!
+            )
+            val property = Property(
+                (System.currentTimeMillis() + editTextPostalCode.value!!.toLong()),
+                type,
+                editTextPrice.value!!.toFloat(),
+                editTextRoom.value!!.toInt(),
+                editTextDescription.value!!,
+                address,
+                false,
+                System.currentTimeMillis(),
+                0, idAgent
+            )
+            insertNewProperty(property)
+            Toast.makeText(
+                getApplication(),
+                "The property of ${property.address!!.city} is created",
+                Toast.LENGTH_LONG
+            ).show()
 
-                if(listUriPhoto.isNotEmpty()){
-                    onSavePhoto(listUriPhoto,property.idProperty)
-                }
-
+            if (listUriPhoto.isNotEmpty()) {
+                onSavePhoto(listUriPhoto, property.idProperty)
             }
+
+        }
 
 
     }
@@ -112,10 +112,10 @@ class AddPropertyViewModel(
 
     }
 
-    private fun onSavePhoto(listUri: List<Uri>,idProperty:Long){
+    private fun onSavePhoto(listUri: List<Uri>, idProperty: Long) {
         uiScope.launch {
             listUri.forEach {
-                insertMediaOnDataBase(it,idProperty)
+                insertMediaOnDataBase(it, idProperty)
             }
 
         }
@@ -123,10 +123,10 @@ class AddPropertyViewModel(
     }
 
     private suspend fun insertMediaOnDataBase(uri: Uri, idProperty: Long) {
-        withContext(Dispatchers.IO){
-            val media=Media(0L,uri,idProperty)
+        withContext(Dispatchers.IO) {
+            val media = Media(0L, uri, idProperty)
             databasePhoto.insert(media)
-            Log.i("DEBUG","MEDIA INSERT ON DATABASE")
+            Log.i("DEBUG", "MEDIA INSERT ON DATABASE")
         }
 
     }

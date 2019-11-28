@@ -1,5 +1,6 @@
 package fr.thomas.lefebvre.realestatemanager.database.dao
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -27,6 +28,9 @@ interface MediaDAO {
 
     @Query("SELECT * FROM media_table ORDER BY id_media DESC")
     fun getAllProperty(): LiveData<List<Media>>
+
+    @Query("SELECT photo FROM media_table WHERE id_property_media=:idMedia")
+    fun getUriPhoto(idMedia: Long): List<Uri>?
 
 
 }
