@@ -35,6 +35,7 @@
     <string name="nearby">Nearby</string>
     <string name="new_property">Add a new properties</string>
     <string name="add_photo">Add photo</string>
+    <string name="select_address">Select Address</string>
     //checkbox
     <string name="school">School</string>
     <string name="parc">Parc</string>
@@ -53,5 +54,9 @@
     <string name="title_activity_maps">Map</string>
     //title activity/fragment
     <string name="add_property">Add Property</string>
+
+
+    //api key
+    <string name="api_key_maps">AIzaSyC7VWXxeOgJAg5XoJdRRcldT6uNxtHMq2o</string>
 
 </resources>

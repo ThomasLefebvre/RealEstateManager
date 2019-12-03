@@ -9,6 +9,10 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- ENABLE PERMISSIONS ABOUT EXTERNAL STORAGE ACCESS -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+            android:name="android.permission.CAMERA"
+            android:required="true" />
+
 
     <application
             android:allowBackup="true"
@@ -18,7 +22,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.screen.addProperty.AddPropertyActivity"></activity>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="fr.thomas.lefebvre.realestatemanager.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths" />
+        </provider>
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/api_key_maps" />
+        <activity android:name=".ui.screen.addProperty.AddPropertyActivity">
+
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

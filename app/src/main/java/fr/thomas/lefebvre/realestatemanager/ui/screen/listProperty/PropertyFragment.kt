@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Property
@@ -84,6 +86,15 @@ class PropertyFragment : Fragment() {
 
 
     private fun articleClick(property: Property) {//method for remove the item on the clic
+        val isLarge:Boolean=resources.getBoolean(R.bool.isLarge)
+        if(isLarge){
+
+        }
+        else{
+            val bundle= bundleOf("idProperty" to property.idProperty)
+            view!!.findNavController().navigate(R.id.action_propertyFragment_to_detailsFragment,
+                bundle)
+        }
 
 
     }

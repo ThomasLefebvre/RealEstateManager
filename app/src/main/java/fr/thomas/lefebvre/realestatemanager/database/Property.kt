@@ -5,6 +5,7 @@ import androidx.room.*
 import java.util.*
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 
 
 @Entity(
@@ -21,28 +22,43 @@ data class Property(
     @ColumnInfo(name = "id_property")
     var idProperty: Long = 0L,
 
-    var type: String = "Loft",
+    var type: String? = "Loft",
 
-    var price: Float = 0f,
+    var price: Long? = null,
+
+    var surface:Int?=null,
 
     @ColumnInfo(name = "number_room")
-    var numberRoom: Int = 0,
+    var numberRoom: Int? = null,
 
-    var description: String = "",
+    var description: String? = "",
 
-    @Embedded
-    var address: Address? = null,
+
+    var address: String? = null,
+
+    var lat: Double? = null,
+
+    var lng: Double? = null,
+
+    var parc:Boolean=false,
+
+    var sport:Boolean=false,
+
+    var school:Boolean=false,
+
+    var transport:Boolean=false,
+
     @ColumnInfo(name = "state_property")
     var stateProperty: Boolean = false,
 
     @ColumnInfo(name = "creation_date")
 
-    var creationDate: Long=0L,
+    var creationDate: Long = 0L,
 
     @ColumnInfo(name = "sale_date")
-    var saleDate: Long=0L,
+    var saleDate: Long = 0L,
 
-    @ColumnInfo(name = "id_agent_property",index = true)
+    @ColumnInfo(name = "id_agent_property", index = true)
     var idAgent: Long = 0L
 
 
@@ -64,31 +80,12 @@ data class Media(
 
     var photo: Uri,
 
-    @ColumnInfo(name = "id_property_media",index = true)
+    var descriptionPhoto:String?=null,
+
+    @ColumnInfo(name = "id_property_media", index = true)
     var idProperty: Long
 )
 
-
-data class Address(
-
-
-    var city: String = "",
-
-    @ColumnInfo(name = "postal_code")
-    var postalCode: Int = 0,
-
-    @ColumnInfo(name = "type_way")
-    var typeWay: String = "",
-
-    @ColumnInfo(name = "name_way")
-    var nameWay: String = "",
-
-    @ColumnInfo(name = "num_way")
-    var numWay: Int = 0,
-
-    var complement: String? = null,
-    var state: String = ""
-)
 
 @Entity(tableName = "point_interest_table")
 data class PointInterest(

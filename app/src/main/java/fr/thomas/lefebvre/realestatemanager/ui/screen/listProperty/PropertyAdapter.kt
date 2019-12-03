@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Database
-import com.squareup.picasso.Picasso
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Media
 import fr.thomas.lefebvre.realestatemanager.database.Property
@@ -21,6 +20,7 @@ import org.w3c.dom.Text
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.Looper
 import android.os.Handler
+import com.squareup.picasso.Picasso
 
 
 class PropertyAdapter(
@@ -58,8 +58,9 @@ class PropertyAdapter(
         fun bind(database: MediaDAO, property: Property, listener: (Property) -> Unit) {
 
             textViewTypeProperty.text = property.type
-            textViewCityProperty.text = property.address!!.city
-            textViewPriceProperty.text = property.price.toString()
+            val city = property.address?.substring(property.address!!.indexOf(",") + 2)
+            textViewCityProperty.text = city
+            textViewPriceProperty.text = property.price.toString() + " $"
 
             uiScope.launch {
 
@@ -67,27 +68,27 @@ class PropertyAdapter(
                     val listUri = database.getUriPhoto(property.idProperty)
                     if (listUri!!.isNotEmpty()) {
 
+                        val uri = listUri[0]
 
                         Handler(Looper.getMainLooper()).post(Runnable {
 
                             Picasso
                                 .get()
-                                .load(listUri[0])
-                                .resize(300,300)
+                                .load(uri)
+                                .resize(300, 300)
                                 .centerCrop()
                                 .into(imageViewProperty)
 
                         })
 
-                    }
-                    else{
+                    } else {
 
                         Handler(Looper.getMainLooper()).post(Runnable {
 
                             Picasso
                                 .get()
                                 .load(R.drawable.house)
-                                .resize(300,300)
+                                .resize(500, 500)
                                 .centerCrop()
                                 .into(imageViewProperty)
 

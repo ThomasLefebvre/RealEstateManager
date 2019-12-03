@@ -5,7 +5,11 @@
             app:startDestination="@+id/propertyFragment">
 
     <fragment android:id="@+id/propertyFragment" android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyFragment"
-              android:label="property_fragment" tools:layout="@layout/property_fragment"/>
+              android:label="property_fragment" tools:layout="@layout/property_fragment">
+        <action
+                android:id="@+id/action_propertyFragment_to_detailsFragment"
+                app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment android:id="@+id/mapFragment" android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.MapFragment"
               android:label="map_fragment" tools:layout="@layout/map_fragment"/>
 
@@ -21,9 +25,14 @@
             tools:layout="@layout/find_fragment" />
     <fragment
             android:id="@+id/detailsFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.DetailsFragment"
+            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsFragment"
             android:label="details_fragment"
-            tools:layout="@layout/details_fragment" />
+            tools:layout="@layout/details_fragment" >
+        <argument
+                android:name="idProperty"
+                app:argType="long"
+                android:defaultValue="0L" />
+    </fragment>
     <fragment
             android:id="@+id/addAgentFragment"
             android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentFragment"

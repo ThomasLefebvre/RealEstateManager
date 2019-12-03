@@ -5,8 +5,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
-import fr.thomas.lefebvre.realestatemanager.R
-import fr.thomas.lefebvre.realestatemanager.database.Address
+import com.google.android.gms.maps.model.LatLng
 import fr.thomas.lefebvre.realestatemanager.database.Media
 import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.dao.AgentDAO
@@ -14,6 +13,7 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.util.formatListAgentToListString
 import kotlinx.coroutines.*
+import kotlin.math.ln
 
 class AddPropertyViewModel(
     val database: PropertyDAO,
@@ -30,14 +30,18 @@ class AddPropertyViewModel(
     val editTextPrice = MutableLiveData<String>()
     val editTextSurface = MutableLiveData<String>()
     val editTextRoom = MutableLiveData<String>()
-    val editTextPostalCode = MutableLiveData<String>()
-    val editTextCity = MutableLiveData<String>()
-    val editTextNameWay = MutableLiveData<String>()
-    val editTextTypeWay = MutableLiveData<String>()
-    val editTextNumWay = MutableLiveData<String>()
     val editTextDescription = MutableLiveData<String>()
     val editTextComplement = MutableLiveData<String>()
-    val editTextState = MutableLiveData<String>()
+
+    val editTextAddress = MutableLiveData<String>()
+    val lat = MutableLiveData<Double>()
+    val lng = MutableLiveData<Double>()
+
+    val parcIsNearby=MutableLiveData<Boolean>()
+    val sportIsNearby=MutableLiveData<Boolean>()
+    val schoolIsNearby=MutableLiveData<Boolean>()
+    val transportIsNearby=MutableLiveData<Boolean>()
+
 
     val listType = MutableLiveData<List<String>>()
 
@@ -47,7 +51,6 @@ class AddPropertyViewModel(
         formatListAgentToListString(listAgent.value!!)
     }
     val listUriPhoto = ArrayList<Uri>()
-    val listUriPhotoLiveData = MutableLiveData<ArrayList<Uri>>()
 
 
     init {
@@ -58,31 +61,37 @@ class AddPropertyViewModel(
     fun initData() {
         editTextComplement.value = ""
         listType.value = listOf("House", "Apartment", "Villa", "Studio", "Castle")
-
+        lat.value=-1.0
+        lng.value=-1.0
+        parcIsNearby.value=false
+        schoolIsNearby.value=false
+        sportIsNearby.value=false
+        transportIsNearby.value=false
 
     }
 
 
-    fun onSaveProperty(idAgent: Long, type: String) {
+    fun onSaveProperty(idAgent: Long, type: String,listDescriptionPhoto:ArrayList<String>) {
 
 
         uiScope.launch {
-            val address = Address(
-                editTextCity.value!!,
-                editTextPostalCode.value!!.toInt(),
-                editTextTypeWay.value!!,
-                editTextNameWay.value!!,
-                editTextNumWay.value!!.toInt(),
-                editTextComplement.value!!,//TODO
-                editTextState.value!!
-            )
+
             val property = Property(
-                (System.currentTimeMillis() + editTextPostalCode.value!!.toLong()),
+                (System.currentTimeMillis()),
                 type,
-                editTextPrice.value!!.toFloat(),
-                editTextRoom.value!!.toInt(),
-                editTextDescription.value!!,
-                address,
+
+                editTextPrice.value?.toLong(),
+                editTextSurface.value?.toInt(),
+                editTextRoom.value?.toInt(),
+                editTextDescription.value,
+                editTextAddress.value,
+                lat.value,
+                lng.value,
+                parcIsNearby.value!!,
+                sportIsNearby.value!!,
+                schoolIsNearby.value!!,
+                transportIsNearby.value!!,
+
                 false,
                 System.currentTimeMillis(),
                 0, idAgent
@@ -90,12 +99,12 @@ class AddPropertyViewModel(
             insertNewProperty(property)
             Toast.makeText(
                 getApplication(),
-                "The property of ${property.address!!.city} is created",
+                "The property is created",
                 Toast.LENGTH_LONG
             ).show()
 
             if (listUriPhoto.isNotEmpty()) {
-                onSavePhoto(listUriPhoto, property.idProperty)
+                onSavePhoto(listUriPhoto, property.idProperty,listDescriptionPhoto)
             }
 
         }
@@ -112,19 +121,19 @@ class AddPropertyViewModel(
 
     }
 
-    private fun onSavePhoto(listUri: List<Uri>, idProperty: Long) {
+    private fun onSavePhoto(listUri: List<Uri>, idProperty: Long,listDescriptionPhoto: ArrayList<String>) {
         uiScope.launch {
-            listUri.forEach {
-                insertMediaOnDataBase(it, idProperty)
+            listUri.forEachIndexed {index,it->
+                insertMediaOnDataBase(it, idProperty,listDescriptionPhoto[index])
             }
 
         }
 
     }
 
-    private suspend fun insertMediaOnDataBase(uri: Uri, idProperty: Long) {
+    private suspend fun insertMediaOnDataBase(uri: Uri, idProperty: Long,description:String) {
         withContext(Dispatchers.IO) {
-            val media = Media(0L, uri, idProperty)
+            val media = Media(0L, uri, description,idProperty)
             databasePhoto.insert(media)
             Log.i("DEBUG", "MEDIA INSERT ON DATABASE")
         }
@@ -133,6 +142,13 @@ class AddPropertyViewModel(
 
 
     fun addPhotoUriToList(uri: Uri) {
-        listUriPhoto.add(uri)
+        listUriPhoto.add(0,uri)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
+
 }
