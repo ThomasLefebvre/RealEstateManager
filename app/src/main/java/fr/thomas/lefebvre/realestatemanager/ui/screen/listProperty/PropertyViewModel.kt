@@ -13,7 +13,6 @@ import kotlinx.coroutines.*
 
 class PropertyViewModel(
     val database: PropertyDAO,
-    val databaseMedia: MediaDAO,
     application: Application
 ) : AndroidViewModel(
     application

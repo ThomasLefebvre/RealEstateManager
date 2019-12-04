@@ -10,6 +10,7 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 
 class DetailsViewModelFactory (
     private val dataSource: PropertyDAO,
+    private val dataMedia:MediaDAO,
     private val application: Application,
    private val idProperty:Long
 
@@ -19,6 +20,7 @@ class DetailsViewModelFactory (
         if (modelClass.isAssignableFrom(DetailsViewModel::class.java)) {
             return DetailsViewModel(
                 dataSource,
+                dataMedia,
                 application,
                 idProperty
 

@@ -19,9 +19,9 @@
         tools:context=".ui.screen.detailsProperty.DetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_photo_details"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view_photo_details"
             app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,9 +55,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    app:srcCompat="@drawable/ic_map_black_24dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_map_black_24dp" />
 
             <ImageView
                     android:id="@+id/imageViewPrice"
@@ -65,9 +65,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    app:srcCompat="@drawable/ic_map_black_24dp"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_map_black_24dp" />
 
             <ImageView
                     android:id="@+id/imageViewSurface"
@@ -75,9 +75,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    app:srcCompat="@drawable/ic_map_black_24dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewType" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewType"
+                    app:srcCompat="@drawable/ic_map_black_24dp" />
 
             <ImageView
                     android:id="@+id/imageViewNumberRoom"
@@ -85,9 +85,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    app:srcCompat="@drawable/ic_map_black_24dp"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewPrice" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewPrice"
+                    app:srcCompat="@drawable/ic_map_black_24dp" />
 
             <TextView
                     android:id="@+id/textView2"
@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="TextView"
+                    android:text="@{detailsFragmentViewModel.address}"
                     app:layout_constraintBottom_toBottomOf="@+id/imageViewType"
                     app:layout_constraintStart_toEndOf="@+id/imageViewType"
                     app:layout_constraintTop_toTopOf="@+id/imageViewType" />
@@ -161,14 +161,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

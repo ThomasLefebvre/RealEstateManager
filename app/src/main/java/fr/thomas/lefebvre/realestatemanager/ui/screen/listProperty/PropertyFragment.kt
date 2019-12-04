@@ -32,8 +32,8 @@ class PropertyFragment : Fragment() {
 
     private lateinit var viewModel: PropertyViewModel
 
-    private lateinit var databaseProperty:PropertyDAO
-    private lateinit var databaseMedia:MediaDAO
+    private lateinit var databaseProperty: PropertyDAO
+    private lateinit var databaseMedia: MediaDAO
 
 
     override fun onCreateView(
@@ -46,13 +46,12 @@ class PropertyFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
 
-         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
-         databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
+        databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
+        databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
 
         val viewModelFactory =
             PropertyViewModelFactory(
                 databaseProperty,
-                databaseMedia,
                 application
             )
 
@@ -67,7 +66,6 @@ class PropertyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
@@ -75,9 +73,10 @@ class PropertyFragment : Fragment() {
         recyclerview_property.layoutManager = layoutManager
 
         viewModel.listProperty.observe(this, Observer { propertys ->
-            recyclerview_property.adapter = PropertyAdapter(databaseMedia,propertys) { property: Property ->
-                articleClick(property)
-            }
+            recyclerview_property.adapter =
+                PropertyAdapter(databaseMedia, propertys) { property: Property ->
+                    articleClick(property)
+                }
         })
 
 
@@ -86,14 +85,15 @@ class PropertyFragment : Fragment() {
 
 
     private fun articleClick(property: Property) {//method for remove the item on the clic
-        val isLarge:Boolean=resources.getBoolean(R.bool.isLarge)
-        if(isLarge){
+        val isLarge: Boolean = resources.getBoolean(R.bool.isLarge)
+        if (isLarge) {
 
-        }
-        else{
-            val bundle= bundleOf("idProperty" to property.idProperty)
-            view!!.findNavController().navigate(R.id.action_propertyFragment_to_detailsFragment,
-                bundle)
+        } else {
+            val bundle = bundleOf("idProperty" to property.idProperty)
+            view!!.findNavController().navigate(
+                R.id.action_propertyFragment_to_detailsFragment,
+                bundle
+            )
         }
 
 

@@ -83,7 +83,7 @@ data class Media(
     var descriptionPhoto:String?=null,
 
     @ColumnInfo(name = "id_property_media", index = true)
-    var idProperty: Long
+    var idProperty: Long=0L
 )
 
 

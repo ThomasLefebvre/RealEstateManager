@@ -6,14 +6,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import fr.thomas.lefebvre.realestatemanager.database.Property
+import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import kotlinx.coroutines.*
 
 class DetailsViewModel(
     private val database: PropertyDAO,
+    private val databaseMedia:MediaDAO,
     application: Application,
     private val idProperty: Long
 ) : AndroidViewModel(application) {
+
+    internal val listMedia=databaseMedia.getListMediaWithIdProperty(idProperty)
 
 
     private val _property = MutableLiveData<Property>()
@@ -43,8 +47,8 @@ class DetailsViewModel(
     private fun initProperty() {
         uiScope.launch {
             _property.value=loadPropertyFromDatabase()
-            _address.value=loadPropertyFromDatabase()!!.address
-            _description.value=loadPropertyFromDatabase()!!.description
+            _address.value=property.value?.address
+            _description.value=property.value?.description
         }
 
     }
@@ -55,6 +59,12 @@ class DetailsViewModel(
             val propert = database.getProperty(idProperty)
 
             propert
+        }
+    }
+
+    private fun initPhotoProperty(){
+        uiScope.launch {
+
         }
     }
 

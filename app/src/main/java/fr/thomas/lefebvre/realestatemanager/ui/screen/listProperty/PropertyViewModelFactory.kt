@@ -10,7 +10,6 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 
 class PropertyViewModelFactory (
     private val dataSource: PropertyDAO,
-    private val dataPhoto: MediaDAO,
     private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
@@ -18,7 +17,6 @@ class PropertyViewModelFactory (
         if (modelClass.isAssignableFrom(PropertyViewModel::class.java)) {
             return PropertyViewModel(
                 dataSource,
-                dataPhoto,
                 application
             ) as T
         }

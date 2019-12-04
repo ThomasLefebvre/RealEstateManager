@@ -29,8 +29,11 @@ interface MediaDAO {
     @Query("SELECT * FROM media_table ORDER BY id_media DESC")
     fun getAllProperty(): LiveData<List<Media>>
 
-    @Query("SELECT photo FROM media_table WHERE id_property_media=:idMedia")
-    fun getUriPhoto(idMedia: Long): List<Uri>?
+    @Query("SELECT photo FROM media_table WHERE id_property_media=:idProperty")
+    fun getUriPhoto(idProperty: Long): List<Uri>?
+
+    @Query("SELECT * FROM media_table WHERE id_property_media=:idProperty")
+    fun getListMediaWithIdProperty(idProperty: Long): LiveData<List<Media>>?
 
 
 }

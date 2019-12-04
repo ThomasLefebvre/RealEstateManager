@@ -8,26 +8,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import fr.thomas.lefebvre.realestatemanager.R
+import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.databinding.DetailsFragmentBinding
 import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
+import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyAdapter
 import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyViewModelFactory
 import kotlinx.android.synthetic.main.details_fragment.*
+import kotlinx.android.synthetic.main.property_fragment.*
 
 class DetailsFragment : Fragment() {
-
-
 
 
     private lateinit var viewModel: DetailsViewModel
 
     private lateinit var databaseProperty: PropertyDAO
 
+    private lateinit var databaseMedia: MediaDAO
 
 
     override fun onCreateView(
@@ -41,19 +45,22 @@ class DetailsFragment : Fragment() {
 
 
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
+        databaseMedia= PropertyDatabase.getInstance(application).mediaDAO
 
 
         val viewModelFactory =
             DetailsViewModelFactory(
                 databaseProperty,
-                application,arguments!!.getLong("idProperty")
+                databaseMedia,
+                application,
+                arguments!!.getLong("idProperty")
 
             )
 
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
 
-        binding.detailsFragmentViewModel=viewModel
+        binding.detailsFragmentViewModel = viewModel
 
         binding.lifecycleOwner = this
 
@@ -63,13 +70,17 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        button2.setOnClickListener {
-            Toast.makeText(requireContext(),viewModel.address.value,Toast.LENGTH_LONG).show()
-        }
+
+        recycler_view_photo_details.layoutManager = layoutManager
+
+        viewModel.listMedia?.observe(this, Observer { medias ->
+            recycler_view_photo_details.adapter = DetailsPhotoAdapter(medias) })
+
         super.onViewCreated(view, savedInstanceState)
     }
-
 
 
 }
