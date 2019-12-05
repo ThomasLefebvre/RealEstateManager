@@ -1,6 +1,7 @@
 package fr.thomas.lefebvre.realestatemanager.database.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import fr.thomas.lefebvre.realestatemanager.database.Property
 
@@ -21,6 +22,9 @@ interface PropertyDAO{
 
     @Query("SELECT *  FROM property_table ORDER BY id_property DESC LIMIT 1")
     fun getLastProperty():LiveData<Property>
+
+    @Query("SELECT id_property  FROM property_table ORDER BY creation_date DESC LIMIT 1")
+    fun getLastPropertyID(): Long
 
     @Query("SELECT * FROM property_table ORDER BY creation_date DESC")
     fun getAllProperty():LiveData<List<Property>>

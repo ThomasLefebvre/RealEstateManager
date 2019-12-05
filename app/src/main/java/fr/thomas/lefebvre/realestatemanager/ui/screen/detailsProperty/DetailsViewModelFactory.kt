@@ -11,8 +11,8 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 class DetailsViewModelFactory (
     private val dataSource: PropertyDAO,
     private val dataMedia:MediaDAO,
-    private val application: Application,
-   private val idProperty:Long
+    private val application: Application
+
 
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
@@ -21,8 +21,8 @@ class DetailsViewModelFactory (
             return DetailsViewModel(
                 dataSource,
                 dataMedia,
-                application,
-                idProperty
+                application
+
 
             ) as T
         }

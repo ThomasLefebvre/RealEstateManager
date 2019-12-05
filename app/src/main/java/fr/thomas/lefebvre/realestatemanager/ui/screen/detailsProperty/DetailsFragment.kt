@@ -1,5 +1,6 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty
 
+import android.app.Application
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,6 +34,8 @@ class DetailsFragment : Fragment() {
 
     private lateinit var databaseMedia: MediaDAO
 
+    private lateinit var viewModelProperty: PropertyViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,22 +48,34 @@ class DetailsFragment : Fragment() {
 
 
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
-        databaseMedia= PropertyDatabase.getInstance(application).mediaDAO
+        databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
 
 
+        //init the property view model
+        val viewModelFactoryProperty=PropertyViewModelFactory(databaseProperty,application)
+        viewModelProperty=activity!!.run {ViewModelProviders.of(this,viewModelFactoryProperty).get(PropertyViewModel::class.java)  }
+
+
+
+        //init the details view model
         val viewModelFactory =
             DetailsViewModelFactory(
                 databaseProperty,
                 databaseMedia,
-                application,
-                arguments!!.getLong("idProperty")
+                application
 
             )
-
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
 
         binding.detailsFragmentViewModel = viewModel
+
+
+
+
+
+
+
 
         binding.lifecycleOwner = this
 
@@ -70,16 +85,59 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
+            //if tab update the idProperty with observable liveData on the property view model
+            viewModelProperty.idProperty.observe(this, Observer { idProperty->
+                viewModel.initProperty(idProperty)
+                viewModel.initMedia(idProperty)
+
+            })
+
+
+
+
+
+        setRecyclerViewPhoto()
+
+
+
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+
+    fun setRecyclerViewPhoto() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
 
         recycler_view_photo_details.layoutManager = layoutManager
 
-        viewModel.listMedia?.observe(this, Observer { medias ->
-            recycler_view_photo_details.adapter = DetailsPhotoAdapter(medias) })
+        viewModel.listMedia.observe(this, Observer { medias ->
+            if (medias.isNotEmpty()) {
+                recycler_view_photo_details.adapter = DetailsPhotoAdapter(medias)
+                recycler_view_photo_details.visibility=View.VISIBLE
+                textViewNoPhoto.visibility = View.GONE
+            } else {
+                textViewNoPhoto.visibility = View.VISIBLE
+                recycler_view_photo_details.visibility=View.GONE
+            }
+        })
+    }
 
-        super.onViewCreated(view, savedInstanceState)
+    fun initDataForMobile(application: Application, binding: DetailsFragmentBinding) {
+        val viewModelFactory =
+            DetailsViewModelFactory(
+                databaseProperty,
+                databaseMedia,
+                application
+
+
+
+            )
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
+
+        binding.detailsFragmentViewModel = viewModel
     }
 
 

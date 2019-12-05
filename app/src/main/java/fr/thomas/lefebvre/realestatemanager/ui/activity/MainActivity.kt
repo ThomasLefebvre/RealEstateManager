@@ -19,24 +19,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment?
-
+        @Suppress("UNUSED_VARIABLE")
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         val navController = findNavController(R.id.myNavHostFragment)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
-
-
-        NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment!!.navController)
 
     }
 
@@ -53,9 +49,6 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onBackPressed() {
-        alertDialogBoxLeave()
-    }
 
     fun alertDialogBoxLeave() {
         val alertDialog = AlertDialog.Builder(this)
@@ -67,10 +60,6 @@ class MainActivity : AppCompatActivity() {
         alertDialog.setNegativeButton(R.string.dialog_no) { dialogInterface, i -> }
         alertDialog.show()
     }
-
-
-
-
 
 
 }

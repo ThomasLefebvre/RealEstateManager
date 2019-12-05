@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@+id/propertyFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@+id/propertyFragment">
 
-    <fragment android:id="@+id/propertyFragment" android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyFragment"
-              android:label="property_fragment" tools:layout="@layout/property_fragment">
+    <fragment
+            android:id="@+id/propertyFragment"
+            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyFragment"
+            android:label="property_fragment"
+            tools:layout="@layout/property_fragment">
         <action
                 android:id="@+id/action_propertyFragment_to_detailsFragment"
-                app:destination="@id/detailsFragment" />
+                app:destination="@id/detailsFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                app:popUpToInclusive="false" />
     </fragment>
-    <fragment android:id="@+id/mapFragment" android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.MapFragment"
-              android:label="map_fragment" tools:layout="@layout/map_fragment"/>
+    <fragment
+            android:id="@+id/mapFragment"
+            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.MapFragment"
+            android:label="map_fragment"
+            tools:layout="@layout/map_fragment" />
 
     <fragment
             android:id="@+id/editFragment"
@@ -27,11 +39,11 @@
             android:id="@+id/detailsFragment"
             android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsFragment"
             android:label="details_fragment"
-            tools:layout="@layout/details_fragment" >
+            tools:layout="@layout/details_fragment">
         <argument
                 android:name="idProperty"
-                app:argType="long"
-                android:defaultValue="0L" />
+                android:defaultValue="0L"
+                app:argType="long" />
     </fragment>
     <fragment
             android:id="@+id/addAgentFragment"

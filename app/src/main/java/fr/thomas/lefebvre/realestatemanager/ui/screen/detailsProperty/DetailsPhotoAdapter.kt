@@ -2,6 +2,8 @@ package fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty
 
 import android.media.Image
 import android.net.Uri
+import android.net.Uri.EMPTY
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,7 @@ import org.w3c.dom.Text
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.Looper
 import android.os.Handler
+import androidx.cardview.widget.CardView
 import com.squareup.picasso.Picasso
 
 
@@ -48,11 +51,12 @@ class DetailsPhotoAdapter(
 
         val textDescription: TextView = itemView.findViewById(R.id.textViewDescription)
         val photoProperty: ImageView = itemView.findViewById(R.id.imageViewPhotoDetails)
+        val cardView: CardView = itemView.findViewById(R.id.cardViewDescription)
 
 
         fun bind(media: Media) {
 
-            textDescription.text=media.descriptionPhoto
+            textDescription.text = media.descriptionPhoto
 
             Picasso
                 .get()
@@ -60,6 +64,14 @@ class DetailsPhotoAdapter(
                 .resize(800, 800)
                 .centerCrop()
                 .into(photoProperty)
+
+
+            if (media.descriptionPhoto != "") {
+                cardView.visibility = View.VISIBLE
+            } else {
+                cardView.visibility = View.GONE
+            }
+
 
         }
     }

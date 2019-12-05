@@ -3,6 +3,7 @@ package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.thomas.lefebvre.realestatemanager.R
@@ -55,8 +57,9 @@ class PropertyFragment : Fragment() {
                 application
             )
 
-        viewModel =
+        viewModel = activity!!.run {
             ViewModelProviders.of(this, viewModelFactory).get(PropertyViewModel::class.java)
+        }
 
         binding.lifecycleOwner = this
 
@@ -87,16 +90,14 @@ class PropertyFragment : Fragment() {
     private fun articleClick(property: Property) {//method for remove the item on the clic
         val isLarge: Boolean = resources.getBoolean(R.bool.isLarge)
         if (isLarge) {
-
+            viewModel.changeIdProperty(property.idProperty)
         } else {
-            val bundle = bundleOf("idProperty" to property.idProperty)
-            view!!.findNavController().navigate(
-                R.id.action_propertyFragment_to_detailsFragment,
-                bundle
-            )
+            viewModel.changeIdProperty(property.idProperty)
+            view!!.findNavController().navigate(R.id.action_propertyFragment_to_detailsFragment)
         }
 
 
     }
+
 
 }

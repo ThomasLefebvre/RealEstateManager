@@ -18,7 +18,47 @@ class PropertyViewModel(
     application
 ) {
 
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
    internal val listProperty=database.getAllProperty()
+
+    private val _idProperty=MutableLiveData<Long>()
+
+    val idProperty:LiveData<Long>
+    get() = _idProperty
+
+
+
+
+
+    fun changeIdProperty(idProperty:Long){
+        _idProperty.value=idProperty
+    }
+
+    init {
+        initLastId()
+    }
+
+
+
+
+    fun initLastId() {
+        uiScope.launch {
+           _idProperty.value=loadLastIdFromDatabase()
+
+        }
+
+    }
+
+
+    private suspend fun loadLastIdFromDatabase(): Long? {
+        return withContext(Dispatchers.IO) {
+            val lastId = database.getLastPropertyID()
+
+            lastId
+        }
+    }
 
 
 

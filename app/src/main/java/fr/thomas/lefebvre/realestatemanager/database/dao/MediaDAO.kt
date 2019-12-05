@@ -33,7 +33,7 @@ interface MediaDAO {
     fun getUriPhoto(idProperty: Long): List<Uri>?
 
     @Query("SELECT * FROM media_table WHERE id_property_media=:idProperty")
-    fun getListMediaWithIdProperty(idProperty: Long): LiveData<List<Media>>?
+    fun getListMediaWithIdProperty(idProperty: Long): List<Media>?
 
 
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import fr.thomas.lefebvre.realestatemanager.database.Media
 import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
@@ -13,11 +14,17 @@ import kotlinx.coroutines.*
 class DetailsViewModel(
     private val database: PropertyDAO,
     private val databaseMedia:MediaDAO,
-    application: Application,
-    private val idProperty: Long
+    application: Application
+
 ) : AndroidViewModel(application) {
 
-    internal val listMedia=databaseMedia.getListMediaWithIdProperty(idProperty)
+
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val _listMedia=MutableLiveData<List<Media>>()
+    val listMedia: LiveData<List<Media>>
+        get() = _listMedia
 
 
     private val _property = MutableLiveData<Property>()
@@ -25,8 +32,6 @@ class DetailsViewModel(
         get() = _property
 
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
     private val _address = MutableLiveData<String>()
@@ -39,14 +44,14 @@ class DetailsViewModel(
 
     init {
 
-        initProperty()
+
 
     }
 
 
-    private fun initProperty() {
+     fun initProperty(idProperty: Long) {
         uiScope.launch {
-            _property.value=loadPropertyFromDatabase()
+            _property.value=loadPropertyFromDatabase(idProperty)
             _address.value=property.value?.address
             _description.value=property.value?.description
         }
@@ -54,7 +59,7 @@ class DetailsViewModel(
     }
 
 
-    private suspend fun loadPropertyFromDatabase(): Property? {
+    private suspend fun loadPropertyFromDatabase(idProperty: Long): Property? {
         return withContext(Dispatchers.IO) {
             val propert = database.getProperty(idProperty)
 
@@ -62,11 +67,23 @@ class DetailsViewModel(
         }
     }
 
-    private fun initPhotoProperty(){
+    fun initMedia(idProperty: Long) {
         uiScope.launch {
+            _listMedia.value=loadMediaFromDatabase(idProperty)
+        }
 
+    }
+
+
+    private suspend fun loadMediaFromDatabase(idProperty: Long): List<Media>? {
+        return withContext(Dispatchers.IO) {
+            val listMedia = databaseMedia.getListMediaWithIdProperty(idProperty)
+
+            listMedia
         }
     }
+
+
 
 }
 
