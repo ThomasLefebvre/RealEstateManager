@@ -99,12 +99,6 @@ class PropertyAdapter(
                 }
 
             }
-
-
-
-
-
-
             itemView.setOnClickListener {
                 listener(property)
             }

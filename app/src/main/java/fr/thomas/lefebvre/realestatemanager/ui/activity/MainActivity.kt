@@ -31,23 +31,23 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.myNavHostFragment)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
 
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item) || item.onNavDestinationSelected(
-            findNavController(
-                R.id.myNavHostFragment
-            )
-        )
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_options, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return super.onOptionsItemSelected(item) || item.onNavDestinationSelected(
+//            findNavController(
+//                R.id.myNavHostFragment
+//            )
+//        )
+//    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_options, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
 
 
     fun alertDialogBoxLeave() {
