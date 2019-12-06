@@ -54,6 +54,11 @@
     <string name="title_activity_maps">Map</string>
     //title activity/fragment
     <string name="add_property">Add Property</string>
+    //details property
+    <string name="opinion_agent">The opinion of the professional :</string>
+    <string name="nearby_point">Nearby point :</string>
+    <string name="location">Location :</string>
+    <string name="date_sale">Put on sale :</string>
 
 
     //api key

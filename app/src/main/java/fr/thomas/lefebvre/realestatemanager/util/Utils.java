@@ -43,5 +43,20 @@ public class Utils {
         WifiManager wifi = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         return wifi.isWifiEnabled();
     }
+
+
+    /**                                         CORRECTION
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+
+    public static String getTodayDateCorrection(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(new Date());
+    }
 }
 

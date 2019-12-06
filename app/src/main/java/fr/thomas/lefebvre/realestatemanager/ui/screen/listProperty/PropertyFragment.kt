@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Property
@@ -74,6 +75,12 @@ class PropertyFragment : Fragment() {
 
 
         recyclerview_property.layoutManager = layoutManager
+        recyclerview_property.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         viewModel.listProperty.observe(this, Observer { propertys ->
             recyclerview_property.adapter =

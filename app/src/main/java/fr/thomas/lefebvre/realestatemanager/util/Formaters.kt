@@ -1,9 +1,10 @@
 package fr.thomas.lefebvre.realestatemanager.util
 
 
-import android.net.Uri
-import androidx.room.TypeConverter
 import fr.thomas.lefebvre.realestatemanager.database.Agent
+import kotlinx.coroutines.delay
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -27,4 +28,60 @@ fun validateEmail(email: String): Boolean {
     matcher = pattern.matcher(email)
     return matcher.matches()
 }
+
+fun formatSurfaceToStringSurface(surface: Int?): String {
+    val stringSurface: String
+    if (surface != null) {
+        stringSurface = "$surface m²"
+    } else {
+        stringSurface = "To inform"
+    }
+    return stringSurface
+}
+
+fun formatPriceToStringPrice(price: Long?): String {
+    val stringPrice: String
+    if (price != null) stringPrice = "$price $"
+    else {
+        stringPrice = "To inform"
+    }
+    return stringPrice
+}
+
+fun formatNumberRoomToString(room: Int?): String {
+    val stringRoom: String
+    if (room != null) stringRoom = "$room rooms"
+    else {
+        stringRoom = "To inform"
+    }
+    return stringRoom
+}
+
+fun formatStringDescription(description: String?): String {
+    val stringDescription: String
+    if (description != null) {
+        stringDescription = description
+    } else {
+        stringDescription = "Complete the description for users"
+    }
+    return stringDescription
+}
+
+fun formatDateLongToString(dateLong: Long?): String {
+    val date = Date(dateLong!!)
+    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    return simpleDateFormat.format(date)
+}
+
+fun formatAddress(address: String?): String {
+    val addresseString: String
+    if (address != null) {
+        addresseString = address.substring(address.indexOf(",") + 2)
+    } else {
+        addresseString = "To inform"
+    }
+    return addresseString
+}
+
+
 

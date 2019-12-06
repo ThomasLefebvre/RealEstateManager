@@ -21,6 +21,8 @@ import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.Looper
 import android.os.Handler
 import com.squareup.picasso.Picasso
+import fr.thomas.lefebvre.realestatemanager.util.formatAddress
+import fr.thomas.lefebvre.realestatemanager.util.formatPriceToStringPrice
 
 
 class PropertyAdapter(
@@ -58,9 +60,9 @@ class PropertyAdapter(
         fun bind(database: MediaDAO, property: Property, listener: (Property) -> Unit) {
 
             textViewTypeProperty.text = property.type
-            val city = property.address?.substring(property.address!!.indexOf(",") + 2)
+            val city = formatAddress(property.address)
             textViewCityProperty.text = city
-            textViewPriceProperty.text = property.price.toString() + " $"
+            textViewPriceProperty.text = formatPriceToStringPrice(property.price)
 
             uiScope.launch {
 
