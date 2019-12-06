@@ -82,6 +82,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
 
         binding.lifecycleOwner = this
 
+
         return binding.root
     }
 

@@ -15,7 +15,8 @@
             app:cardCornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+        >
 
         <ImageView
                 android:id="@+id/imageViewPropertyList"
@@ -23,6 +24,23 @@
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 app:srcCompat="@color/colorAccent" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="15dp">
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="dskjsdfjhklj"/>
+        </androidx.cardview.widget.CardView>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

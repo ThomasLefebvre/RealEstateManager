@@ -193,7 +193,6 @@ class AddPropertyActivity : AppCompatActivity() {
                     }
                 }
             }
-
     }
 
     private fun galleryAddPic() {
