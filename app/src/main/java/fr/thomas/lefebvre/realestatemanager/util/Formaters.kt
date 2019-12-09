@@ -73,6 +73,14 @@ fun formatDateLongToString(dateLong: Long?): String {
     return simpleDateFormat.format(date)
 }
 
+fun formatStringDateToLong(dateString:String):Long{
+    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    val date=simpleDateFormat.parse(dateString)
+    return date.time
+
+
+}
+
 fun formatAddress(address: String?): String {
     val addresseString: String
     if (address != null) {

@@ -115,7 +115,6 @@ class AddPropertyViewModel(
     private suspend fun insertNewProperty(property: Property) {
         withContext(Dispatchers.IO) {
             database.insert(property)
-            Log.i("DEBUG", "Insert new property in database ${property.idProperty}")
 
         }
 
@@ -135,7 +134,7 @@ class AddPropertyViewModel(
         withContext(Dispatchers.IO) {
             val media = Media(0L, uri, description,idProperty)
             databasePhoto.insert(media)
-            Log.i("DEBUG", "MEDIA INSERT ON DATABASE")
+
         }
 
     }

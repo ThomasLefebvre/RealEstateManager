@@ -70,8 +70,12 @@
     <string name="loan_amount">Loan Amount</string>
     <string name="loan_term">Loan Term</string>
     <string name="interest_rate">Interest Rate</string>
-    <string name="bring">Bring Amount
-    </string>
+    <string name="bring">Bring Amount</string>
+    <string name="in_years">in years</string>
+    <string name="calculate">Calculate</string>
+    <string name="total_cost">Total Cost Loan :</string>
+    <string name="payment_mont">Payment Every Month :</string>
+    <string name="total_interest">Total Interests :</string>
 
     //api key
     <string name="api_key_maps">AIzaSyC7VWXxeOgJAg5XoJdRRcldT6uNxtHMq2o</string>

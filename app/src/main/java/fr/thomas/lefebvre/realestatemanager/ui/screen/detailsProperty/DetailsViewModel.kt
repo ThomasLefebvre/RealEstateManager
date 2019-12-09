@@ -38,15 +38,15 @@ class DetailsViewModel(
     val type: LiveData<String>
         get() = _type
 
-    private val _surface = MutableLiveData<String>()
+     val _surface = MutableLiveData<String>()
     val surface: LiveData<String>
         get() = _surface
 
-    private val _room = MutableLiveData<String>()
+     val _room = MutableLiveData<String>()
     val room: LiveData<String>
         get() = _room
 
-    private val _price = MutableLiveData<String>()
+     val _price = MutableLiveData<String>()
     val price: LiveData<String>
         get() = _price
 
@@ -54,28 +54,28 @@ class DetailsViewModel(
     val agent: LiveData<String>
         get() = _agent
 
-    private val _address = MutableLiveData<String>()
+     val _address = MutableLiveData<String>()
     val address: LiveData<String>
         get() = _address
 
-    private val _description = MutableLiveData<String>()
+     val _description = MutableLiveData<String>()
     val description: LiveData<String>
         get() = _description
 
-    private val _sports = MutableLiveData<Boolean>()
+     val _sports = MutableLiveData<Boolean>()
     val sports: LiveData<Boolean>
         get() = _sports
 
-    private val _school = MutableLiveData<Boolean>()
+     val _school = MutableLiveData<Boolean>()
     val school: LiveData<Boolean>
         get() = _school
 
 
-    private val _transport = MutableLiveData<Boolean>()
+     val _transport = MutableLiveData<Boolean>()
     val transport: LiveData<Boolean>
         get() = _transport
 
-    private val _parc = MutableLiveData<Boolean>()
+     val _parc = MutableLiveData<Boolean>()
     val parc: LiveData<Boolean>
         get() = _parc
 
@@ -105,9 +105,16 @@ class DetailsViewModel(
     val OnIsCreated:LiveData<Boolean>
     get() = _OneIsCreated
 
+    val stateProperty=MutableLiveData<Boolean>()
+
+    val saleDate=MutableLiveData<Long>()
+    val idAgent=MutableLiveData<Long>()
 
 
-    fun initProperty(idProperty: Long) {
+
+    // ----                            LOAD DETAILS PROPERTY                ----
+
+    fun initPropertyDetails(idProperty: Long) {
         uiScope.launch {
 
             _property.value = loadPropertyFromDatabase(idProperty)
@@ -117,15 +124,13 @@ class DetailsViewModel(
                 initNearbyPoint()
                 initLocationProperty()
                 _OneIsCreated.value=true
+
             }
             else _OneIsCreated.value=false
 
-
-
-
         }
-
     }
+
 
 
     private suspend fun loadPropertyFromDatabase(idProperty: Long): Property? {
@@ -161,6 +166,9 @@ class DetailsViewModel(
         _room.value = formatNumberRoomToString(property.value?.numberRoom)
         _price.value = formatPriceToStringPrice(property.value?.price)
         _dateCreation.value= formatDateLongToString(property.value?.creationDate)
+        stateProperty.value=property.value!!.stateProperty
+        saleDate.value=property.value!!.saleDate
+        idAgent.value=property.value!!.idAgent
     }
 
     private fun initNearbyPoint() {
@@ -177,6 +185,78 @@ class DetailsViewModel(
         _lng.value = property.value?.lng//get the lng
         _latLng.value = LatLng(_lat.value!!, _lng.value!!)//set the latLng location
         _locationIsInformed.value = _latLng.value != latLngDefault//check if location is informed
+    }
+
+
+
+    // ---                                 UPDATE  PROPERTY                         ---
+
+
+
+    fun initPropertyEdit(idProperty: Long) {
+        uiScope.launch {
+
+            _property.value = loadPropertyFromDatabase(idProperty)
+
+
+            initInformationPropertyEdit()
+            initNearbyPointEdit()
+            initLocationPropertyEdit()
+
+        }
+
+    }
+
+
+    private fun initInformationPropertyEdit() {
+
+        _address.value = property.value?.address
+        _description.value = property.value?.description
+        _type.value = property.value?.type
+        _surface.value = property.value?.surface.toString()
+        _room.value = property.value?.numberRoom.toString()
+        _price.value = property.value?.price.toString()
+        stateProperty.value=property.value!!.stateProperty
+        saleDate.value=property.value!!.saleDate
+        idAgent.value=property.value!!.idAgent
+    }
+
+    private fun initNearbyPointEdit() {
+
+        _sports.value = property.value?.sport//get the boolean for sport
+        _school.value = property.value?.school//get the boolean for school
+        _transport.value = property.value?.transport//get the boolean for transport
+        _parc.value = property.value?.parc//get the boolean for parc
+    }
+
+    private fun initLocationPropertyEdit() {
+
+        _lat.value = property.value?.lat//get the lat
+        _lng.value = property.value?.lng//get the lng
+        _latLng.value = LatLng(_lat.value!!, _lng.value!!)//set the latLng location
+        _locationIsInformed.value = _latLng.value != latLngDefault//check if location is informed
+    }
+
+     fun updateLatLng(lat:Double,lng:Double){
+        _lat.value=lat
+        _lng.value=lng
+    }
+
+    fun updateProperty(idProperty: Long){
+        val property=Property(idProperty,type.value,price.value!!.toLong(),surface.value!!.toInt()
+        ,room.value!!.toInt(),description.value,address.value,lat.value,lng.value,parc.value!!,
+            sports.value!!,school.value!!,transport.value!!,stateProperty.value!!,
+          _property.value!!.creationDate,saleDate.value!!,idAgent.value!!)
+
+        uiScope.launch {
+            updatePropertyDatabase(property)
+        }
+    }
+
+    private suspend fun  updatePropertyDatabase(property: Property){
+        withContext(Dispatchers.IO){
+            database.update(property)
+        }
     }
 
 

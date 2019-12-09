@@ -1,6 +1,7 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty
 
 import android.app.Application
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.databinding.DetailsFragmentBinding
+import fr.thomas.lefebvre.realestatemanager.ui.screen.editProperty.EditActivity
 import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyViewModelFactory
 import kotlinx.android.synthetic.main.details_fragment.*
@@ -38,12 +40,14 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var gmap: GoogleMap
     private lateinit var mMapVIew: MapView
 
+    private lateinit var binding:DetailsFragmentBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: DetailsFragmentBinding =
+         binding=
             DataBindingUtil.inflate(inflater, R.layout.details_fragment, container, false)
 
         //init the service map
@@ -82,6 +86,8 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
 
         binding.lifecycleOwner = this
 
+        onClickEdit()
+
 
         return binding.root
     }
@@ -103,7 +109,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
 
         //if tab update the idProperty with observable liveData on the property view model
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
-            viewModel.initProperty(idProperty)
+            viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
 
         })
@@ -113,7 +119,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-    fun setRecyclerViewPhoto() {
+   private fun setRecyclerViewPhoto() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
@@ -132,20 +138,16 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
-    fun initDataForMobile(application: Application, binding: DetailsFragmentBinding) {
-        val viewModelFactory =
-            DetailsViewModelFactory(
-                databaseProperty,
-                databaseMedia,
-                application
+    private fun onClickEdit(){
+            binding.floatingActionButtonEdit.setOnClickListener {
+                val intentEdit= Intent(requireContext(),EditActivity::class.java)
+                intentEdit.putExtra("idProperty",viewModel.property.value!!.idProperty)
+                startActivity(intentEdit)
 
-
-            )
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
-
-        binding.detailsFragmentViewModel = viewModel
+            }
     }
+
+
 
 
 }

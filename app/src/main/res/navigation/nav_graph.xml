@@ -19,22 +19,7 @@
                 app:popExitAnim="@anim/slide_out_right"
                 app:popUpToInclusive="false" />
     </fragment>
-    <fragment
-            android:id="@+id/mapFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.MapFragment"
-            android:label="map_fragment"
-            tools:layout="@layout/map_fragment" />
 
-    <fragment
-            android:id="@+id/editFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.EditFragment"
-            android:label="edit_fragment"
-            tools:layout="@layout/edit_fragment" />
-    <fragment
-            android:id="@+id/findFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.fragment.FindFragment"
-            android:label="find_fragment"
-            tools:layout="@layout/find_fragment" />
     <fragment
             android:id="@+id/detailsFragment"
             android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsFragment"

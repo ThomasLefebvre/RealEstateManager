@@ -19,7 +19,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:theme="@style/floating_button"
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/floatingActionButtonSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

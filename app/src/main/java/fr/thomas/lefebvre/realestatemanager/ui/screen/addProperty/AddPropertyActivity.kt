@@ -116,11 +116,9 @@ class AddPropertyActivity : AppCompatActivity() {
     }
 
 
-
-
     fun onClickButtonSave() {
 
-        binding.floatingActionButton.setOnClickListener {
+        binding.floatingActionButtonSave.setOnClickListener {
             if (viewModel.listAgent.value!!.isNotEmpty()) {
                 val agentId =
                     viewModel.listAgent.value?.get(spinnerAgent.selectedItemPosition)?.idAgent
@@ -244,21 +242,17 @@ class AddPropertyActivity : AppCompatActivity() {
             openGallery()
             // Change the app background color
         }
-
         // Display a negative button on alert dialog
         builder.setNegativeButton("CAMERA") { dialog, which ->
             openCamera()
         }
-
         // Display a neutral button on alert dialog
         builder.setNeutralButton("Cancel") { _, _ ->
             Toast.makeText(applicationContext, "You cancelled the dialog.", Toast.LENGTH_SHORT)
                 .show()
         }
-
         // Finally, make the alert dialog using builder
         val dialog: AlertDialog = builder.create()
-
         // Display the alert dialog on app interface
         dialog.show()
     }
