@@ -7,7 +7,7 @@
         >
 
     <item
-            android:id="@+id/addAgentFragment"
+            android:id="@+id/addAgentActivity"
             android:icon="@drawable/ic_person_add_black_24dp"
             android:title="@string/menu_add_agent"
             app:showAsAction="ifRoom"
@@ -15,10 +15,15 @@
             />
 
     <item
-            android:id="@+id/addPropertyActivity"
-            android:icon="@drawable/ic_add_black_24dp"
-            android:title="@string/menu_add_property"
-            app:showAsAction="ifRoom" />
+    android:id="@+id/addPropertyActivity"
+    android:icon="@drawable/house_ic"
+    android:title="@string/menu_add_property"
+    app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/loanCalculatorActivity"
+        android:title="@string/loan"
+        app:showAsAction="never" />
 
 
 <!--    <item-->

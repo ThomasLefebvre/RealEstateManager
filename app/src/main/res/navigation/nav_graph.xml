@@ -45,13 +45,17 @@
                 android:defaultValue="0L"
                 app:argType="long" />
     </fragment>
-    <fragment
-            android:id="@+id/addAgentFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentFragment"
-            android:label="add_agent_fragment"
-            tools:layout="@layout/add_agent_fragment" />
     <activity
             android:id="@+id/addPropertyActivity"
             android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.AddPropertyActivity"
             android:label="AddPropertyActivity" />
+    <activity
+        android:id="@+id/addAgentActivity"
+        android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentActivity"
+        android:label="AddAgentActivity" />
+    <activity
+        android:id="@+id/loanCalculatorActivity"
+        android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.loanCalculator.LoanCalculatorActivity"
+        android:label="activity_loan_calculator"
+        tools:layout="@layout/activity_loan_calculator" />
 </navigation>

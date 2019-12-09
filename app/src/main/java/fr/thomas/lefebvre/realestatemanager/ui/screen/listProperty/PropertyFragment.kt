@@ -23,7 +23,6 @@ import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
-import fr.thomas.lefebvre.realestatemanager.databinding.AddAgentFragmentBinding
 import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
 import fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentViewModelFactory

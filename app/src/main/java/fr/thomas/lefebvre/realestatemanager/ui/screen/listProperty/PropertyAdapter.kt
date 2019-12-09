@@ -20,6 +20,7 @@ import org.w3c.dom.Text
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.Looper
 import android.os.Handler
+import androidx.cardview.widget.CardView
 import com.squareup.picasso.Picasso
 import fr.thomas.lefebvre.realestatemanager.util.formatAddress
 import fr.thomas.lefebvre.realestatemanager.util.formatPriceToStringPrice
@@ -52,6 +53,7 @@ class PropertyAdapter(
         val textViewCityProperty: TextView = itemView.findViewById(R.id.textViewCityProperty)
         val textViewPriceProperty: TextView = itemView.findViewById(R.id.textViewPriceProperty)
         val imageViewProperty: ImageView = itemView.findViewById(R.id.imageViewPropertyList)
+        val cardViewSold:CardView=itemView.findViewById(R.id.cardViewSold)
 
         private var viewModelJob = Job()
         private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -63,6 +65,13 @@ class PropertyAdapter(
             val city = formatAddress(property.address)
             textViewCityProperty.text = city
             textViewPriceProperty.text = formatPriceToStringPrice(property.price)
+
+            if(property.stateProperty){
+                cardViewSold.visibility=View.VISIBLE
+            }
+            else{
+                cardViewSold.visibility=View.GONE
+            }
 
             uiScope.launch {
 

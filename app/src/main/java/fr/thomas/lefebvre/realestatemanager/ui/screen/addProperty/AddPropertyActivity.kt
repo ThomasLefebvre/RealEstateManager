@@ -24,6 +24,9 @@ import java.util.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import android.R.attr.apiKey
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
@@ -32,6 +35,8 @@ import android.os.Environment
 import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.libraries.places.widget.AutocompleteActivity
@@ -53,9 +58,13 @@ class AddPropertyActivity : AppCompatActivity() {
 
     lateinit var currentPhotoPath: String //name of the photo taken
 
+    private val CHANNEL_ID = "fr.thomas.lefebvre.realestatemanager"//channel id for notification
+    private val NOTIFICATION_ID = 0//notification id
 
-    companion object {//CODE REQUESTS
-        const val CODE_TAKE_PHOTO=400
+
+    companion object {
+        //CODE REQUESTS
+        const val CODE_TAKE_PHOTO = 400
         const val CODE_CHOOSE_PHOTO = 300
         const val PHOTO_PERMISSION: Int = 200
         private const val AUTOCOMPLETE_REQUEST = 100
@@ -107,6 +116,8 @@ class AddPropertyActivity : AppCompatActivity() {
     }
 
 
+
+
     fun onClickButtonSave() {
 
         binding.floatingActionButton.setOnClickListener {
@@ -115,6 +126,7 @@ class AddPropertyActivity : AppCompatActivity() {
                     viewModel.listAgent.value?.get(spinnerAgent.selectedItemPosition)?.idAgent
                 val type = viewModel.listType.value!![spinnerType.selectedItemPosition]
                 viewModel.onSaveProperty(agentId!!, type, getDescriptionPhotoValue())
+                showNotification(this)
                 super.onBackPressed()
 
             } else {
@@ -171,28 +183,28 @@ class AddPropertyActivity : AppCompatActivity() {
 
     private fun openCamera() {
 
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                // Ensure that there's a camera activity to handle the intent
-                takePictureIntent.resolveActivity(packageManager)?.also {
-                    // Create the File where the photo should go
-                    val photoFile: File? = try {
-                        createImageFile()
-                    } catch (ex: IOException) {
-                        // Error occurred while creating the File
-                        null
-                    }
-                    // Continue only if the File was successfully created
-                    photoFile?.also {
-                        val photoURI: Uri = FileProvider.getUriForFile(
-                            this,
-                            "fr.thomas.lefebvre.realestatemanager.fileprovider",
-                            it
-                        )
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        startActivityForResult(takePictureIntent, CODE_TAKE_PHOTO)
-                    }
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        this,
+                        "fr.thomas.lefebvre.realestatemanager.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, CODE_TAKE_PHOTO)
                 }
             }
+        }
     }
 
     private fun galleryAddPic() {
@@ -202,7 +214,6 @@ class AddPropertyActivity : AppCompatActivity() {
             sendBroadcast(mediaScanIntent)
         }
     }
-
 
 
     @Throws(IOException::class)
@@ -280,7 +291,7 @@ class AddPropertyActivity : AppCompatActivity() {
 
             CODE_CHOOSE_PHOTO -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.d("DEBUG",data!!.data!!.toString())
+                    Log.d("DEBUG", data!!.data!!.toString())
                     saveUriPhotoInDatabase(data!!.data!!)
 
                     mAdapter.notifyItemInserted(0)
@@ -289,13 +300,13 @@ class AddPropertyActivity : AppCompatActivity() {
                 }
             }
 
-            CODE_TAKE_PHOTO->{
-                if(resultCode==Activity.RESULT_OK){
-                    Log.d("DEBUG",Uri.parse(currentPhotoPath!!).toString())
-                    saveUriPhotoInDatabase(Uri.parse("file://"+currentPhotoPath))
+            CODE_TAKE_PHOTO -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.d("DEBUG", Uri.parse(currentPhotoPath!!).toString())
+                    saveUriPhotoInDatabase(Uri.parse("file://" + currentPhotoPath))
                     mAdapter.notifyItemInserted(0)
                     galleryAddPic()
-                    }
+                }
             }
 
             AUTOCOMPLETE_REQUEST -> {
@@ -366,9 +377,9 @@ class AddPropertyActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDescriptionPhotoValue(): ArrayList<String> {
+    private fun getDescriptionPhotoValue(): ArrayList<String> {//get description photo for save in data
         val listDescription = ArrayList<String>()
-        for (i in 0 until recycler_view_photo_propertie.childCount) {
+        for (i in 0 until recycler_view_photo_propertie.childCount) {//get the number of list
             val view = recycler_view_photo_propertie.layoutManager?.findViewByPosition(i)
 
             val stringDescription =
@@ -381,6 +392,38 @@ class AddPropertyActivity : AppCompatActivity() {
 
         }
         return listDescription
+    }
+
+    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    private fun createNotificationChannel(context: Context) {
+        // Create  the channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Notification channel name"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance)
+            channel.description = "Notification channel description"
+            Log.i("ALARM RECEVEIR", "Create the channel in the system")
+            // SAVE THE CHANNEL IN THE SYSTEM
+            val notificationManager = context.getSystemService(NotificationManager::class.java)
+            Objects.requireNonNull(notificationManager).createNotificationChannel(channel)
+            Log.i("ALARM RECEVEIR", "Save the channel in the system")
+        }
+    }
+
+    fun showNotification(context: Context) {
+        //SET CHANNEL
+        createNotificationChannel(context)
+        //SET NOTIFICATION
+        val notificationManager = NotificationManagerCompat.from(context)
+        val notifBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.house_ic)
+            .setContentTitle(getString(R.string.title_notif))
+            .setContentText(getString(R.string.body_notif))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        //SET SHOW NOTIFICATION
+        notificationManager.notify(NOTIFICATION_ID, notifBuilder.build())
+
+
     }
 
 }

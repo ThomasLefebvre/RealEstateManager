@@ -24,12 +24,16 @@
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 app:srcCompat="@color/colorAccent" />
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewDescription"
+            android:id="@+id/cardViewSold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
+            android:rotation="-45"
+            android:visibility="gone"
             app:cardCornerRadius="15dp"
             app:cardElevation="15dp">
 
@@ -38,7 +42,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="dskjsdfjhklj"/>
+                android:textColor="@color/red"
+                tools:text="@string/sold"
+                android:text="@string/sold"
+
+                />
         </androidx.cardview.widget.CardView>
 
     </androidx.cardview.widget.CardView>

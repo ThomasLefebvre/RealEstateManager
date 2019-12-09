@@ -101,6 +101,10 @@ class DetailsViewModel(
     val dateCreation: LiveData<String>
         get() = _dateCreation
 
+   private val _OneIsCreated=MutableLiveData<Boolean>()
+    val OnIsCreated:LiveData<Boolean>
+    get() = _OneIsCreated
+
 
 
     fun initProperty(idProperty: Long) {
@@ -108,9 +112,15 @@ class DetailsViewModel(
 
             _property.value = loadPropertyFromDatabase(idProperty)
 
-            initInformationProperty()
-            initNearbyPoint()
-            initLocationProperty()
+            if(_property.value!=null){
+                initInformationProperty()
+                initNearbyPoint()
+                initLocationProperty()
+                _OneIsCreated.value=true
+            }
+            else _OneIsCreated.value=false
+
+
 
 
         }

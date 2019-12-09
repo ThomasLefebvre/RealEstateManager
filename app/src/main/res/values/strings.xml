@@ -59,7 +59,19 @@
     <string name="nearby_point">Nearby point :</string>
     <string name="location">Location :</string>
     <string name="date_sale">Put on sale :</string>
+    <string name="sold">SOLD</string>
+    <string name="no_property">No property in database</string>
+    //notification
+    <string name="title_notif">Property Created</string>
+    <string name="body_notif">Property has been created</string>
 
+    //simulator
+    <string name="loan">Loan Calculator</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="loan_term">Loan Term</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="bring">Bring Amount
+    </string>
 
     //api key
     <string name="api_key_maps">AIzaSyC7VWXxeOgJAg5XoJdRRcldT6uNxtHMq2o</string>

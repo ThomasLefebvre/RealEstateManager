@@ -1,27 +1,13 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty
 
-import android.media.Image
-import android.net.Uri
-import android.net.Uri.EMPTY
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Database
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Media
-import fr.thomas.lefebvre.realestatemanager.database.Property
-import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
-import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
-import fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.PhotoAdapter
-import kotlinx.coroutines.*
-import org.w3c.dom.Text
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
-import android.os.Looper
-import android.os.Handler
 import androidx.cardview.widget.CardView
 import com.squareup.picasso.Picasso
 
@@ -51,7 +37,7 @@ class DetailsPhotoAdapter(
 
         val textDescription: TextView = itemView.findViewById(R.id.textViewDescription)
         val photoProperty: ImageView = itemView.findViewById(R.id.imageViewPhotoDetails)
-        val cardView: CardView = itemView.findViewById(R.id.cardViewDescription)
+        val cardView: CardView = itemView.findViewById(R.id.cardViewSold)
 
 
         fun bind(media: Media) {
