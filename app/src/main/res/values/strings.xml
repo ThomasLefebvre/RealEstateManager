@@ -64,6 +64,8 @@
     //notification
     <string name="title_notif">Property Created</string>
     <string name="body_notif">Property has been created</string>
+    <string name="property_sold">The property has been sold?</string>
+    <string name="sold_the">Sold the :</string>
 
     //simulator
     <string name="loan">Loan Calculator</string>

@@ -1,11 +1,14 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.editProperty
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.DatePicker
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.libraries.places.api.Places
@@ -21,12 +24,13 @@ import fr.thomas.lefebvre.realestatemanager.databinding.ActivityEditBinding
 import fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.AddPropertyActivity
 import fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsViewModelFactory
+import fr.thomas.lefebvre.realestatemanager.util.formatDateLongToString
 import kotlinx.android.synthetic.main.activity_add_property.*
 import kotlinx.android.synthetic.main.activity_add_property.buttonSelectAddress
 import kotlinx.android.synthetic.main.activity_edit.*
 import java.util.*
 
-class EditActivity : AppCompatActivity() {
+class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
     private lateinit var viewModel: DetailsViewModel
@@ -35,7 +39,7 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var databaseMedia: MediaDAO
 
-    lateinit var binding:ActivityEditBinding
+    lateinit var binding: ActivityEditBinding
 
 
     companion object {
@@ -46,17 +50,15 @@ class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_edit)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit)
 
-        val idProperty=intent.getLongExtra("idProperty",0)
+        val idProperty = intent.getLongExtra("idProperty", 0)
 
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
         databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
 
         // Initialize the SDK
         Places.initialize(applicationContext, getString(R.string.api_key_maps))
-
-
 
 
         //init the details view model
@@ -80,6 +82,8 @@ class EditActivity : AppCompatActivity() {
         onClickButtonAddAddress()
 
         onClickButtonUpdate(idProperty)
+
+        onClickSwitchSold()
 
 
     }
@@ -111,8 +115,8 @@ class EditActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK) {
                     val place = Autocomplete.getPlaceFromIntent(data!!)
                     textAddressEdit.setText(place.address)
-                   viewModel.updateLatLng(place.latLng!!.latitude,place.latLng!!.longitude)
-                    Log.d("LATLNG", viewModel.lat.value.toString())
+                    viewModel.updateLatLng(place.latLng!!.latitude, place.latLng!!.longitude)
+
                 } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {//if error in request
                     val status = Autocomplete.getStatusFromIntent(data!!)
                     Log.i("DEBUG_AUTOCOMPLETE", status.statusMessage!!)
@@ -123,10 +127,46 @@ class EditActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun onClickButtonUpdate(idProperty:Long){
+    private fun onClickButtonUpdate(idProperty: Long) {
         floatingActionButtonSaveEdit.setOnClickListener {
             viewModel.updateProperty(idProperty)
             onBackPressed()
         }
     }
+
+    private fun onClickSwitchSold() {
+        switchSold.setOnClickListener {
+            if (switchSold.isChecked) {
+                showDatePickerDialog()
+            } else {
+
+            }
+
+
+        }
+    }
+
+    private fun showDatePickerDialog() {
+        val datePickerDialog = DatePickerDialog(//build datepicker dialog and
+            this,
+            this,
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()//show date picker dialog
+
+        datePickerDialog.setOnCancelListener {//if click on cancel button, swtich the button switch to false (no date)
+            switchSold.isChecked = false
+        }
+    }
+
+    override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
+        val calendar = GregorianCalendar(year, month, day)
+        val dateSold = calendar.timeInMillis
+        Toast.makeText(this, formatDateLongToString(dateSold), Toast.LENGTH_LONG).show()
+        viewModel.updateSaleDate(dateSold)
+
+    }
+
 }

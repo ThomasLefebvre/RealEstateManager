@@ -40,6 +40,10 @@ class AddAgentActivity : AppCompatActivity() {
         binding.addAgentViewModel = viewModel
         binding.lifecycleOwner = this
 
+        checkEmail()
+
+        setTitle(getString(R.string.add_new_agent))
+
     }
 
 

@@ -83,7 +83,7 @@ fun formatStringDateToLong(dateString:String):Long{
 
 fun formatAddress(address: String?): String {
     val addresseString: String
-    if (address != null) {
+    if (address != null&&address!="") {
         addresseString = address.substring(address.indexOf(",") + 2)
     } else {
         addresseString = "To inform"

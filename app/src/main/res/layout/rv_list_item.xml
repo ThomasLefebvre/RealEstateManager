@@ -29,7 +29,7 @@
             android:id="@+id/cardViewSold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:layout_margin="8dp"
             android:layout_marginBottom="8dp"
             android:rotation="-45"
@@ -42,11 +42,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColor="@color/red"
-                tools:text="@string/sold"
                 android:text="@string/sold"
+                android:textColor="@color/red"
+                android:textStyle="bold"
 
-                />
+                tools:text="@string/sold" />
         </androidx.cardview.widget.CardView>
 
     </androidx.cardview.widget.CardView>

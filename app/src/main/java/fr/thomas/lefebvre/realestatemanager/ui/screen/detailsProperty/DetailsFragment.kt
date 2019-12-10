@@ -118,6 +118,17 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onResume() {//update information if edit property
+        //if tab update the idProperty with observable liveData on the property view model
+        viewModelProperty.idProperty.observe(this, Observer { idProperty ->
+            viewModel.initPropertyDetails(idProperty)
+            viewModel.initMedia(idProperty)
+
+        })
+        setRecyclerViewPhoto()
+        super.onResume()
+    }
+
 
    private fun setRecyclerViewPhoto() {
         val layoutManager =
@@ -143,6 +154,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
                 val intentEdit= Intent(requireContext(),EditActivity::class.java)
                 intentEdit.putExtra("idProperty",viewModel.property.value!!.idProperty)
                 startActivity(intentEdit)
+
 
             }
     }

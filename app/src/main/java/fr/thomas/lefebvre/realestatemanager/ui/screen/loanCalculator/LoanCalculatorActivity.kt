@@ -24,5 +24,6 @@ class LoanCalculatorActivity : AppCompatActivity() {
 
         binding.viewModelCalculator = viewModel
         binding.lifecycleOwner = this
+        setTitle(getString(R.string.loan))
     }
 }
