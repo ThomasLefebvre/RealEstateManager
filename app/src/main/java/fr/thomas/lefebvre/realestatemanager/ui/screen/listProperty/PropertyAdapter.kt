@@ -22,11 +22,13 @@ import android.os.Looper
 import android.os.Handler
 import androidx.cardview.widget.CardView
 import com.squareup.picasso.Picasso
+import fr.thomas.lefebvre.realestatemanager.util.convertDollarToEuro
 import fr.thomas.lefebvre.realestatemanager.util.formatAddress
 import fr.thomas.lefebvre.realestatemanager.util.formatPriceToStringPrice
 
 
 class PropertyAdapter(
+    private val convertToEuro:Boolean,
     private val database: MediaDAO,
     private val listProperty: List<Property>,
     private val listener: (Property) -> Unit
@@ -44,7 +46,7 @@ class PropertyAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(database, listProperty[position], listener)
+        holder.bind(convertToEuro,database, listProperty[position], listener)
     }
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
@@ -59,12 +61,26 @@ class PropertyAdapter(
         private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-        fun bind(database: MediaDAO, property: Property, listener: (Property) -> Unit) {
+        fun bind(convertToEuro: Boolean,database: MediaDAO, property: Property, listener: (Property) -> Unit) {
 
             textViewTypeProperty.text = property.type
             val city = formatAddress(property.address)
             textViewCityProperty.text = city
-            textViewPriceProperty.text = formatPriceToStringPrice(property.price)
+
+
+            if(property.price!=null){
+                if (convertToEuro){
+                    textViewPriceProperty.text = formatPriceToStringPrice(convertDollarToEuro(property.price!!))
+                }
+                else{
+                    textViewPriceProperty.text = formatPriceToStringPrice(property.price)
+                }
+            }
+            else {
+                textViewPriceProperty.text = formatPriceToStringPrice(property.price)
+            }
+
+
 
             if(property.stateProperty){
                 cardViewSold.visibility=View.VISIBLE

@@ -28,6 +28,8 @@ class PropertyViewModel(
     val idProperty:LiveData<Long>
     get() = _idProperty
 
+    val convertDollarToEuro=MutableLiveData<Boolean>()
+
 
 
 
@@ -38,6 +40,7 @@ class PropertyViewModel(
 
     init {
         initLastId()
+        convertDollarToEuro.value=false
     }
 
 
@@ -58,6 +61,14 @@ class PropertyViewModel(
 
             lastId
         }
+    }
+
+    fun convertToEuro(){
+        convertDollarToEuro.value=true
+    }
+
+    fun convertToDollar(){
+        convertDollarToEuro.value=false
     }
 
 

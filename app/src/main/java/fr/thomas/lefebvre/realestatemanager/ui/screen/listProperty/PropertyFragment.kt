@@ -40,6 +40,9 @@ class PropertyFragment : Fragment() {
     private lateinit var databaseMedia: MediaDAO
 
 
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,27 +70,46 @@ class PropertyFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+
+
+
+
         return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu_options,menu)
+        inflater?.inflate(R.menu.menu_options, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item!!,view!!.findNavController())
-                ||super.onOptionsItemSelected(item)
+
+        when (item.itemId) {
+            R.id.convertDollarEuro -> {
+                if (viewModel.convertDollarToEuro.value == true) {
+                    viewModel.convertToDollar()
+                    item.setIcon(R.drawable.ic_attach_money_black_24dp)
+
+
+                } else {
+                    viewModel.convertToEuro()
+                    item.setIcon(R.drawable.ic_euro_ic)
+                }
+
+            }
+        }
+        return NavigationUI.onNavDestinationSelected(item!!, view!!.findNavController())
+                || super.onOptionsItemSelected(item)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerview_property.layoutManager = layoutManager
+
+
+        //build recycler view
         recyclerview_property.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
@@ -95,16 +117,26 @@ class PropertyFragment : Fragment() {
             )
         )
 
-        viewModel.listProperty.observe(this, Observer { propertys ->
-            recyclerview_property.adapter =
-                PropertyAdapter(databaseMedia, propertys) { property: Property ->
-                    articleClick(property)
-                }
-        })
+        viewModel.convertDollarToEuro.observe(this, Observer { convert ->
 
+            viewModel.listProperty.observe(this, Observer { propertys ->
+                //set list property when data is ready
+                recyclerview_property.adapter =
+                    PropertyAdapter(
+                        viewModel.convertDollarToEuro.value!!,
+                        databaseMedia,
+                        propertys
+                    ) { property: Property ->
+                        articleClick(property)
+                    }
+
+            })
+        })
 
         super.onViewCreated(view, savedInstanceState)
     }
+
+
 
 
     private fun articleClick(property: Property) {//method for remove the item on the clic
@@ -115,9 +147,14 @@ class PropertyFragment : Fragment() {
             viewModel.changeIdProperty(property.idProperty)
             view!!.findNavController().navigate(R.id.action_propertyFragment_to_detailsFragment)
         }
-
-
     }
+
+    override fun onResume() {
+        viewModel.convertToDollar()
+        super.onResume()
+    }
+
+
 
 
 }

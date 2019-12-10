@@ -91,5 +91,9 @@ fun formatAddress(address: String?): String {
     return addresseString
 }
 
+fun convertDollarToEuro(dollars: Long): Long {
+    return Math.round(dollars * 0.812).toLong()
+}
+
 
 
