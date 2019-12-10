@@ -31,35 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.myNavHostFragment)
 
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
+
 
 
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return super.onOptionsItemSelected(item) || item.onNavDestinationSelected(
-//            findNavController(
-//                R.id.myNavHostFragment
-//            )
-//        )
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_options, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
 
-
-    fun alertDialogBoxLeave() {
-        val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setTitle(R.string.dialog_leave_title)
-        alertDialog.setMessage(R.string.dialog_leave_message)
-        alertDialog.setPositiveButton(R.string.dialog_yes) { dialogInterface, i ->
-            super.onBackPressed()
-        }
-        alertDialog.setNegativeButton(R.string.dialog_no) { dialogInterface, i -> }
-        alertDialog.show()
-    }
 
 
 }

@@ -18,6 +18,13 @@
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"
                 app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_propertyFragment_to_fragmentMap"
+            app:destination="@id/fragmentMap"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -43,4 +50,9 @@
         android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.loanCalculator.LoanCalculatorActivity"
         android:label="activity_loan_calculator"
         tools:layout="@layout/activity_loan_calculator" />
+    <fragment
+        android:id="@+id/fragmentMap"
+        android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

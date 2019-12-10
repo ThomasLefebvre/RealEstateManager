@@ -1,21 +1,14 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 
-import android.net.Uri
+
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDirections
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.thomas.lefebvre.realestatemanager.R
@@ -24,10 +17,6 @@ import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
-import fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentViewModel
-import fr.thomas.lefebvre.realestatemanager.ui.screen.addAgent.AddAgentViewModelFactory
-import fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.PhotoAdapter
-import kotlinx.android.synthetic.main.activity_add_property.*
 import kotlinx.android.synthetic.main.property_fragment.*
 
 

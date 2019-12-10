@@ -40,12 +40,12 @@
             android:layout_height="wrap_content"
             android:text="@string/no_property"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="No property in database"
-            android:visibility="@{detailsFragmentViewModel.onIsCreated? View.GONE:View.VISIBLE}"/>
+            tools:text="No property in database" />
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -324,7 +324,7 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
                     app:layout_constraintTop_toBottomOf="@+id/imageView"
                     app:liteMode="true"
-                    app:mapType="hybrid" />
+                    app:mapType="normal" />
 
                 <TextView
                     android:id="@+id/textView14"

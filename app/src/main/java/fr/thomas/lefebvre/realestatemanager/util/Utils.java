@@ -58,5 +58,9 @@ public class Utils {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(new Date());
     }
+
+    public static int convertEuroToDollarCorrestion(int euro){
+        return (int) Math.round(euro / 0.812);
+    }
 }
 
