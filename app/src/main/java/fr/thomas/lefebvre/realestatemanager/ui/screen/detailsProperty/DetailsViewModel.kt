@@ -165,7 +165,7 @@ class DetailsViewModel(
         _type.value = property.value?.type
         _surface.value = formatSurfaceToStringSurface(property.value?.surface)
         _room.value = formatNumberRoomToString(property.value?.numberRoom)
-        _price.value = formatPriceToStringPrice(property.value?.price)
+        _price.value = formatPriceToStringPriceDollar(property.value?.price)
         _dateCreation.value = formatDateLongToString(property.value?.creationDate)
         stateProperty.value = property.value!!.stateProperty
         saleDate.value = property.value!!.saleDate

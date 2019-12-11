@@ -3,6 +3,7 @@ package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -20,6 +21,7 @@ import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
 import kotlinx.android.synthetic.main.property_fragment.*
 
 
+
 class PropertyFragment : Fragment() {
 
 
@@ -28,8 +30,10 @@ class PropertyFragment : Fragment() {
     private lateinit var databaseProperty: PropertyDAO
     private lateinit var databaseMedia: MediaDAO
 
+    private lateinit var mAdapter: PropertyAdapter
+    private var listPropertyFragment = ArrayList<Property>()
 
-
+    private var isConvert=false
 
 
     override fun onCreateView(
@@ -86,6 +90,17 @@ class PropertyFragment : Fragment() {
                 }
 
             }
+            R.id.filterProperty -> {
+                viewModel.filterListProperty()
+                viewModel.listPropertyFilter.observe(this, Observer { propertyFilter->
+
+                    listPropertyFragment.clear()
+                    listPropertyFragment.addAll(propertyFilter)
+                    mAdapter.notifyDataSetChanged()
+
+                })
+
+            }
         }
         return NavigationUI.onNavDestinationSelected(item!!, view!!.findNavController())
                 || super.onOptionsItemSelected(item)
@@ -94,7 +109,8 @@ class PropertyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerview_property.layoutManager = layoutManager
 
 
@@ -105,27 +121,43 @@ class PropertyFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
+        //set list property when data is ready
+        mAdapter =
+            PropertyAdapter(
+                isConvert,
+                databaseMedia,
+                listPropertyFragment
+            ) { property: Property ->
+                articleClick(property)
+            }
+
+        recyclerview_property.adapter = mAdapter
+
+
+
+
 
         viewModel.convertDollarToEuro.observe(this, Observer { convert ->
 
-            viewModel.listProperty.observe(this, Observer { propertys ->
-                //set list property when data is ready
-                recyclerview_property.adapter =
-                    PropertyAdapter(
-                        viewModel.convertDollarToEuro.value!!,
-                        databaseMedia,
-                        propertys
-                    ) { property: Property ->
-                        articleClick(property)
-                    }
+            activity!!.runOnUiThread {
+                isConvert=convert
+                mAdapter.updateCurrency(isConvert,listPropertyFragment)
+                mAdapter.notifyDataSetChanged()
 
-            })
+            }
+        })
+
+        viewModel.listProperty.observe(this, Observer { propertys ->
+
+                listPropertyFragment.clear()
+                listPropertyFragment.addAll(propertys)
+                mAdapter.notifyDataSetChanged()
+
+
         })
 
         super.onViewCreated(view, savedInstanceState)
     }
-
-
 
 
     private fun articleClick(property: Property) {//method for remove the item on the clic
@@ -142,8 +174,6 @@ class PropertyFragment : Fragment() {
         viewModel.convertToDollar()
         super.onResume()
     }
-
-
 
 
 }

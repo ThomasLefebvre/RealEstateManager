@@ -22,15 +22,13 @@ import android.os.Looper
 import android.os.Handler
 import androidx.cardview.widget.CardView
 import com.squareup.picasso.Picasso
-import fr.thomas.lefebvre.realestatemanager.util.convertDollarToEuro
-import fr.thomas.lefebvre.realestatemanager.util.formatAddress
-import fr.thomas.lefebvre.realestatemanager.util.formatPriceToStringPrice
+import fr.thomas.lefebvre.realestatemanager.util.*
 
 
 class PropertyAdapter(
-    private val convertToEuro:Boolean,
+    private var convertToEuro: Boolean,
     private val database: MediaDAO,
-    private val listProperty: List<Property>,
+    private val listProperty: ArrayList<Property>,
     private val listener: (Property) -> Unit
 
 ) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>() {
@@ -46,8 +44,18 @@ class PropertyAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(convertToEuro,database, listProperty[position], listener)
+        holder.bind(convertToEuro, database, listProperty[position], listener)
     }
+
+    fun updateCurrency(newConvertToEuro: Boolean,listProperty: ArrayList<Property>) {
+        convertToEuro = newConvertToEuro
+
+        listProperty.forEach {  property->
+            notifyItemChanged(listProperty.indexOf(property))
+        }
+
+    }
+
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
@@ -55,38 +63,42 @@ class PropertyAdapter(
         val textViewCityProperty: TextView = itemView.findViewById(R.id.textViewCityProperty)
         val textViewPriceProperty: TextView = itemView.findViewById(R.id.textViewPriceProperty)
         val imageViewProperty: ImageView = itemView.findViewById(R.id.imageViewPropertyList)
-        val cardViewSold:CardView=itemView.findViewById(R.id.cardViewSold)
+        val cardViewSold: CardView = itemView.findViewById(R.id.cardViewSold)
 
         private var viewModelJob = Job()
         private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-        fun bind(convertToEuro: Boolean,database: MediaDAO, property: Property, listener: (Property) -> Unit) {
+
+        fun bind(
+            convertToEuro: Boolean,
+            database: MediaDAO,
+            property: Property,
+            listener: (Property) -> Unit
+        ) {
 
             textViewTypeProperty.text = property.type
             val city = formatAddress(property.address)
             textViewCityProperty.text = city
 
 
-            if(property.price!=null){
-                if (convertToEuro){
-                    textViewPriceProperty.text = formatPriceToStringPrice(convertDollarToEuro(property.price!!))
+            if (property.price != null) {
+                if (convertToEuro) {
+                    textViewPriceProperty.text =
+                        formatPriceToStringPriceEuro(convertDollarToEuro(property.price!!))
+                } else {
+                    textViewPriceProperty.text = formatPriceToStringPriceDollar(property.price)
                 }
-                else{
-                    textViewPriceProperty.text = formatPriceToStringPrice(property.price)
-                }
-            }
-            else {
-                textViewPriceProperty.text = formatPriceToStringPrice(property.price)
+            } else {
+                textViewPriceProperty.text = formatPriceToStringPriceDollar(property.price)
             }
 
 
 
-            if(property.stateProperty){
-                cardViewSold.visibility=View.VISIBLE
-            }
-            else{
-                cardViewSold.visibility=View.GONE
+            if (property.stateProperty) {
+                cardViewSold.visibility = View.VISIBLE
+            } else {
+                cardViewSold.visibility = View.GONE
             }
 
             uiScope.launch {

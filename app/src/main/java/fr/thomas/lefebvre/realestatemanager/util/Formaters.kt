@@ -39,9 +39,18 @@ fun formatSurfaceToStringSurface(surface: Int?): String {
     return stringSurface
 }
 
-fun formatPriceToStringPrice(price: Long?): String {
+fun formatPriceToStringPriceDollar(price: Long?): String {
     val stringPrice: String
     if (price != null) stringPrice = "$price $"
+    else {
+        stringPrice = "To inform"
+    }
+    return stringPrice
+}
+
+fun formatPriceToStringPriceEuro(price: Long?): String {
+    val stringPrice: String
+    if (price != null) stringPrice = "$price €"
     else {
         stringPrice = "To inform"
     }
