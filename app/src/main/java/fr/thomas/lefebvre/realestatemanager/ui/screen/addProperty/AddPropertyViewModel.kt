@@ -60,7 +60,7 @@ class AddPropertyViewModel(
 
     fun initData() {
         editTextComplement.value = ""
-        listType.value = listOf("House", "Apartment", "Villa", "Studio", "Castle")//TODO MAKE IN ENUM
+        listType.value = listOf("House", "Apartment", "Villa", "Studio")//TODO MAKE IN ENUM
         lat.value=-1.0
         lng.value=-1.0
         parcIsNearby.value=false

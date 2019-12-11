@@ -138,11 +138,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         switchSold.setOnClickListener {
             if (switchSold.isChecked) {
                 showDatePickerDialog()
-            } else {
-
             }
-
-
         }
     }
 

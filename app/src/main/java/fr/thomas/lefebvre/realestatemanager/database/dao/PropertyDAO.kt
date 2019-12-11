@@ -38,5 +38,5 @@ interface PropertyDAO{
 
 
     @Query("SELECT * FROM property_table WHERE address LIKE :address AND price BETWEEN :minPrice AND :maxPrice AND number_room BETWEEN :minRoom AND :maxRoom AND surface BETWEEN :minSurface AND :maxSurface AND state_property=:sold AND creation_date >= :creationDate AND sale_date >= :soldDate AND school=:school AND sport=:sport AND transport=:transport AND parc=:parc AND type IN (:listType)" )
-    fun getAllPropertyQuery(address:String,minPrice:Long,maxPrice:Long,minRoom:Int,maxRoom:Int,minSurface:Int,maxSurface:Int,sold:Boolean,creationDate:Long,soldDate:Long,school:Boolean,sport:Boolean,transport:Boolean,parc:Boolean,listType:List<String>):List<Property>
+    fun getAllPropertyQuery(address:String,minPrice:Long,maxPrice:Long,minRoom:Int,maxRoom:Int,minSurface:Int,maxSurface:Int,sold:Boolean,creationDate:Long,soldDate:Long,school:Boolean,sport:Boolean,transport:Boolean,parc:Boolean,listType:List<String>):LiveData<List<Property>>
 }

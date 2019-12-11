@@ -17,7 +17,7 @@
     <string name="spinner_agent">Agent</string>
     <string name="spinner_type">Type</string>
     //string add properties
-    <string name="type">Type:</string>
+    <string name="type">Type :</string>
     <string name="price">Price</string>
     <string name="surface">Surface</string>
     <string name="room">Number Room</string>
@@ -32,7 +32,7 @@
     <string name="agent">Agent</string>
     <string name="state">State</string>
     <string name="estate">Estate</string>
-    <string name="nearby">Nearby</string>
+    <string name="nearby">Nearby :</string>
     <string name="new_property">Add a new properties</string>
     <string name="add_photo">Add photo</string>
     <string name="select_address">Select Address</string>
@@ -79,6 +79,24 @@
     <string name="payment_mont">Payment Every Month :</string>
     <string name="total_interest">Total Interests :</string>
     <string name="convert">Convert</string>
+
+    //search dialog
+    <string name="no_filter">No Filter</string>
+    <string name="filter">Apply Filter</string>
+    <string name="location_helper">State, City, Postal Code…</string>
+    <string name="min_surface">Min surface</string>
+    <string name="max_surface">Max surface</string>
+    <string name="min_price">Min price</string>
+    <string name="max_price">Max price</string>
+    <string name="min_room">Min room</string>
+    <string name="max_room">Max room</string>
+    <string name="title_dialog">Filter</string>
+    <string name="sold_since">Sold since :</string>
+    <string name="sale_since">Sale since :</string>
+    <string name="house">House</string>
+    <string name="apartment">Apartment</string>
+    <string name="studio">Studio</string>
+    <string name="villa">Villa</string>
 
     //api key
     <string name="api_key_maps">AIzaSyC7VWXxeOgJAg5XoJdRRcldT6uNxtHMq2o</string>

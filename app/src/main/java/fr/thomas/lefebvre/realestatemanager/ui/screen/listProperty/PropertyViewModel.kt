@@ -1,6 +1,7 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,15 +22,14 @@ class PropertyViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-     var _listProperty =
-        database.getAllPropertyLiveData()//load list property to display on list fragment
+    var _listProperty:LiveData<List<Property>> //load list property to display on list fragment
 
-//    private val _listProperty = MutableLiveData<List<Property>>()
+    //    private val _listProperty = MutableLiveData<List<Property>>()
     val listProperty: LiveData<List<Property>>
         get() = _listProperty
 
 
-        private val _listPropertyFilter = MutableLiveData<List<Property>>()
+    private val _listPropertyFilter = MutableLiveData<List<Property>>()
     val listPropertyFilter: LiveData<List<Property>>
         get() = _listPropertyFilter
 
@@ -38,8 +38,8 @@ class PropertyViewModel(
         get() = _idProperty
 
     private val _convertDollarToEuro = MutableLiveData<Boolean>()
-    val convertDollarToEuro:LiveData<Boolean>
-    get() = _convertDollarToEuro
+    val convertDollarToEuro: LiveData<Boolean>
+        get() = _convertDollarToEuro
 
 
     fun changeIdProperty(idProperty: Long) {//change id property for details fragment
@@ -48,6 +48,12 @@ class PropertyViewModel(
 
     init {
 //        initListProperty()
+
+        _listProperty= database.getAllPropertyLiveData()
+
+
+
+        Log.d("DEBUG", "init view model property")
         initLastId()
         _convertDollarToEuro.value = false
     }
@@ -84,23 +90,59 @@ class PropertyViewModel(
         }
     }
 
-    fun filterListProperty() {
-        uiScope.launch {
-            _listPropertyFilter.value = loadListFilterProperty()
-        }
+    fun filterListProperty(address:String) {
+        val listType = listOf<String>("House")
+        _listProperty=database.getAllPropertyQuery(
+            "%$address%",
+            0,
+            999999999,
+            0,
+            999,
+            0,
+            999999,
+            false,
+            0,
+            0,
+            true,
+            true,
+            true,
+            true,
+            listType)
+//        uiScope.launch {
+//            _listProperty = loadListFilterProperty()
+//        }
 
     }
 
-    private suspend fun loadListFilterProperty(): List<Property>? {//load last property from database
+    fun noFilterListProperty(){
+        _listProperty=database.getAllPropertyLiveData()
+    }
+
+    private suspend fun loadListFilterProperty(): LiveData<List<Property>> {//load last property from database
         return withContext(Dispatchers.IO) {
 
-            val listType= listOf<String>("House")
-            val listProperty = database.getAllPropertyQuery("%%",50000,130000,0,10,0,120,false,0,0,true,true,true,true,listType)
+            val listType = listOf<String>("House")
+            val listProperty = database.getAllPropertyQuery(
+                "%%",
+                50000,
+                130000,
+                0,
+                10,
+                0,
+                120,
+                false,
+                0,
+                0,
+                true,
+                true,
+                true,
+                true,
+                listType
+            )
 
             listProperty
         }
     }
-
 
 
     fun convertToEuro() {//change boolean convert

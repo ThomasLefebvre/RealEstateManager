@@ -1,10 +1,15 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.DatePicker
+import android.widget.Switch
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -18,11 +23,15 @@ import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
+import fr.thomas.lefebvre.realestatemanager.util.formatDateLongToString
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.property_fragment.*
+import kotlinx.android.synthetic.main.query_dialog.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-
-class PropertyFragment : Fragment() {
+class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
 
 
     private lateinit var viewModel: PropertyViewModel
@@ -91,14 +100,9 @@ class PropertyFragment : Fragment() {
 
             }
             R.id.filterProperty -> {
-                viewModel.filterListProperty()
-                viewModel.listPropertyFilter.observe(this, Observer { propertyFilter->
 
-                    listPropertyFragment.clear()
-                    listPropertyFragment.addAll(propertyFilter)
-                    mAdapter.notifyDataSetChanged()
+                alertDialogQuery()
 
-                })
 
             }
         }
@@ -138,23 +142,13 @@ class PropertyFragment : Fragment() {
 
 
         viewModel.convertDollarToEuro.observe(this, Observer { convert ->
-
-            activity!!.runOnUiThread {
                 isConvert=convert
                 mAdapter.updateCurrency(isConvert,listPropertyFragment)
                 mAdapter.notifyDataSetChanged()
 
-            }
         })
 
-        viewModel.listProperty.observe(this, Observer { propertys ->
-
-                listPropertyFragment.clear()
-                listPropertyFragment.addAll(propertys)
-                mAdapter.notifyDataSetChanged()
-
-
-        })
+       loadProperty()
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -174,6 +168,76 @@ class PropertyFragment : Fragment() {
         viewModel.convertToDollar()
         super.onResume()
     }
+
+    private fun alertDialogQuery(){
+
+        val mDialog = LayoutInflater.from(requireContext()).inflate(R.layout.query_dialog,null)//Inflate dialog with custom layout
+        val mBuilder=AlertDialog.Builder(requireContext())//build the dialog with custom view
+            .setView(mDialog)//custom view (layout)
+//            .setTitle(getString(R.string.title_dialog))//set title
+        val mAlertDialog=mBuilder.show()//show dialog
+
+        mDialog.material_text_button_no_filter.setOnClickListener { //all list of property
+            viewModel.noFilterListProperty()
+            loadProperty()
+            mAlertDialog.dismiss()
+        }
+
+        mDialog.material_text_button_filter.setOnClickListener { //query list of property
+            viewModel.filterListProperty(mDialog.input_address.text.toString())
+            loadProperty()
+            mAlertDialog.dismiss()
+
+        }
+        onClickSwitchSold(mDialog.switchSaleSince)
+        onClickSwitchSold(mDialog.switchSoldSince)
+
+    }
+
+    private fun onClickSwitchSold(switch:Switch) {
+        switch.setOnClickListener {
+            if (switch.isChecked) {
+                showDatePickerDialog(switch)
+            }
+        }
+    }
+
+    private fun showDatePickerDialog(switch:Switch) {
+        val datePickerDialog = DatePickerDialog(//build datepicker dialog and
+            requireContext(),
+            this,
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()//show date picker dialog
+
+        datePickerDialog.setOnCancelListener {//if click on cancel button, swtich the button switch to false (no date)
+            switch.isChecked = false
+        }
+    }
+
+    override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
+        val calendar = GregorianCalendar(year, month, day)
+        val dateSold = calendar.timeInMillis
+        Toast.makeText(requireContext(), formatDateLongToString(dateSold), Toast.LENGTH_LONG).show()
+
+
+    }
+
+    private fun loadProperty(){
+        viewModel.listProperty.observe(this, Observer { propertyFilter->
+
+            listPropertyFragment.clear()
+            listPropertyFragment.addAll(propertyFilter)
+            mAdapter.notifyDataSetChanged()
+
+        })
+    }
+
+
+
+
 
 
 }
