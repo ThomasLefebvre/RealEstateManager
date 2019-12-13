@@ -1,9 +1,15 @@
 # RealEstateManager
 
-### Tablet display:
-## Main screen:
+## Phone display:
+### Main screen
+
+<img src="./readme/phone_display.jpg" width="50%" height="50%">
+
+## Tablet display:
+### Main screen
 
 <img src="./readme/tablet_display.jpg" width="50%" height="50%">
+
 
 
 
