@@ -73,7 +73,6 @@ class AddPropertyViewModel(
 
     fun onSaveProperty(idAgent: Long, type: String,listDescriptionPhoto:ArrayList<String>) {
 
-
         uiScope.launch {
 
             val property = Property(
@@ -105,6 +104,9 @@ class AddPropertyViewModel(
 
             if (listUriPhoto.isNotEmpty()) {
                 onSavePhoto(listUriPhoto, property.idProperty,listDescriptionPhoto)
+            }
+            if (parcIsNearby.value==true){
+
             }
 
         }

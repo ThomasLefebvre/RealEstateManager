@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/input_min_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -81,6 +81,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/input_max_price"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,6 +103,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/input_min_surface"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,6 +125,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/input_max_surface"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -151,7 +154,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxSchool" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -178,6 +181,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/input_min_room"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -199,6 +203,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/input_max_room"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,7 +216,7 @@
                 android:text="@string/nearby"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox7" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxVilla" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -225,34 +230,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/switchSaleSince" />
 
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/checkBoxStudio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="@string/studio"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/checkBox" />
+                app:layout_constraintTop_toTopOf="@+id/checkBoxHouse" />
 
             <CheckBox
-                android:id="@+id/checkBox8"
+                android:id="@+id/checkBoxApartment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:text="@string/transport"
+                android:text="@string/apartment"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxHouse" />
 
             <CheckBox
-                android:id="@+id/checkBox7"
+                android:id="@+id/checkBoxVilla"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="@string/villa"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxHouse" />
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/checkBoxHouse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -262,7 +267,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/checkBoxTransport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -272,16 +277,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/checkBoxSchool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="@string/school"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxTransport" />
 
             <CheckBox
-                android:id="@+id/checkBox4"
+                android:id="@+id/checkBoxParc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -291,13 +296,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <CheckBox
-                android:id="@+id/checkBox5"
+                android:id="@+id/checkBoxSport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="@string/sports"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox4" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxParc" />
 
 
             <Switch

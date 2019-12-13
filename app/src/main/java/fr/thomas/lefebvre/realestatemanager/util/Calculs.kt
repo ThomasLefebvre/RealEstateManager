@@ -1,5 +1,7 @@
 package fr.thomas.lefebvre.realestatemanager.util
 
+import com.google.android.material.textfield.TextInputEditText
+
 
 fun calculLoan(amout:Double,term:Double,bring:Double,interest:Double):List<String> {
     //init variables for the calcul
@@ -22,4 +24,24 @@ fun calculLoan(amout:Double,term:Double,bring:Double,interest:Double):List<Strin
     return listCalcul
 
 
+}
+
+ fun initMaxQuery(editable: TextInputEditText, maxValue:Long):Long{
+    val max:Long
+    if(editable.text.toString()!=""&&editable.text.toString()<= Long.MAX_VALUE.toString()){
+        max=editable.text.toString().toLong()
+    }
+    else max=maxValue
+
+    return max
+}
+
+fun initMinQuery(editable: TextInputEditText):Long{
+    val min:Long
+    if(editable.text.toString()!=""){
+        min=editable.text.toString().toLong()
+    }
+    else min=0
+
+    return min
 }

@@ -58,20 +58,6 @@ class PropertyViewModel(
         _convertDollarToEuro.value = false
     }
 
-//    private fun initListProperty() {
-//        uiScope.launch {
-//            _listProperty.value=loadLastListProperty()
-//        }
-//    }
-//
-//
-//    private suspend fun loadLastListProperty(): List<Property>? {//load last property from database
-//        return withContext(Dispatchers.IO) {
-//            val listProperty = database.getAllProperty()
-//
-//            listProperty
-//        }
-//    }
 
 
     fun initLastId() { //init last property created for display on details fragment in tablet at launch
@@ -90,59 +76,32 @@ class PropertyViewModel(
         }
     }
 
-    fun filterListProperty(address:String) {
-        val listType = listOf<String>("House")
+    fun filterListProperty(address:String,minPrice:Long,maxPrice:Long,minRoom:Int,maxRoom:Int,minSurface:Int,maxSurface:Int,
+                           sold:Boolean,school:Boolean,sport:Boolean,transport:Boolean,parc:Boolean,creationDate:Long,soldDate:Long,listType:List<String>) {
+
         _listProperty=database.getAllPropertyQuery(
             "%$address%",
-            0,
-            999999999,
-            0,
-            999,
-            0,
-            999999,
-            false,
-            0,
-            0,
-            true,
-            true,
-            true,
-            true,
+            minPrice,
+            maxPrice,
+            minRoom,
+            maxRoom,
+            minSurface,
+            maxSurface,
+            sold,
+            creationDate,
+            soldDate,
+            school,
+            sport,
+            transport,
+            parc,
             listType)
-//        uiScope.launch {
-//            _listProperty = loadListFilterProperty()
-//        }
-
     }
 
     fun noFilterListProperty(){
         _listProperty=database.getAllPropertyLiveData()
     }
 
-    private suspend fun loadListFilterProperty(): LiveData<List<Property>> {//load last property from database
-        return withContext(Dispatchers.IO) {
 
-            val listType = listOf<String>("House")
-            val listProperty = database.getAllPropertyQuery(
-                "%%",
-                50000,
-                130000,
-                0,
-                10,
-                0,
-                120,
-                false,
-                0,
-                0,
-                true,
-                true,
-                true,
-                true,
-                listType
-            )
-
-            listProperty
-        }
-    }
 
 
     fun convertToEuro() {//change boolean convert

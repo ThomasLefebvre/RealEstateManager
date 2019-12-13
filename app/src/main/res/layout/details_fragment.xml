@@ -225,9 +225,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="128dp"
                     android:text="@string/nearby_point"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chip11"
                     tools:text="Nearby point:" />
@@ -238,9 +240,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="64dp"
                     android:text="@string/sports"
                     android:textSize="12sp"
                     android:visibility="@{detailsFragmentViewModel.sports? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -250,9 +254,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="64dp"
                     android:text="@string/school"
                     android:textSize="12sp"
                     android:visibility="@{detailsFragmentViewModel.school? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/chip6"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -262,9 +268,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="64dp"
                     android:text="@string/transport"
                     android:textSize="12sp"
                     android:visibility="@{detailsFragmentViewModel.transport? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/chip7"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -274,9 +282,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="64dp"
                     android:text="@string/parc"
                     android:textSize="12sp"
                     android:visibility="@{detailsFragmentViewModel.parc? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/chip8"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
 

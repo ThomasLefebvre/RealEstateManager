@@ -290,7 +290,6 @@ class AddPropertyActivity : AppCompatActivity() {
 
                     mAdapter.notifyItemInserted(0)
 
-
                 }
             }
 

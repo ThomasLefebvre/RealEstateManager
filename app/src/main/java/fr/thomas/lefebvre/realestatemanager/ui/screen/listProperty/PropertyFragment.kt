@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.*
 import android.widget.DatePicker
@@ -17,6 +18,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputEditText
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
@@ -24,6 +26,8 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
 import fr.thomas.lefebvre.realestatemanager.util.formatDateLongToString
+import fr.thomas.lefebvre.realestatemanager.util.initMaxQuery
+import fr.thomas.lefebvre.realestatemanager.util.initMinQuery
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.property_fragment.*
 import kotlinx.android.synthetic.main.query_dialog.view.*
@@ -31,7 +35,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
+class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
     private lateinit var viewModel: PropertyViewModel
@@ -42,7 +46,11 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
     private lateinit var mAdapter: PropertyAdapter
     private var listPropertyFragment = ArrayList<Property>()
 
-    private var isConvert=false
+    private var isConvert = false
+
+    private var creationDate: Long = 0//init creation date ton filter dialog
+    private var soldDate: Long = 0//init sold date ton filter dialog
+    private var dateIsCreationDate: Boolean = true//init boolean for recover type date
 
 
     override fun onCreateView(
@@ -58,24 +66,18 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
         databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
 
-        val viewModelFactory =
+        val viewModelFactory =//build view model factory
             PropertyViewModelFactory(
                 databaseProperty,
                 application
             )
 
-        viewModel = activity!!.run {
+        viewModel = activity!!.run {//build view model
             ViewModelProviders.of(this, viewModelFactory).get(PropertyViewModel::class.java)
         }
 
         binding.lifecycleOwner = this
-
         setHasOptionsMenu(true)
-
-
-
-
-
         return binding.root
     }
 
@@ -87,23 +89,20 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.convertDollarEuro -> {
-                if (viewModel.convertDollarToEuro.value == true) {
+            R.id.convertDollarEuro -> {//if click convert icon
+                if (viewModel.convertDollarToEuro.value == true) {//if already in euro convert to dollar
                     viewModel.convertToDollar()
                     item.setIcon(R.drawable.ic_attach_money_black_24dp)
 
 
-                } else {
+                } else {//if already in dollar convert to euro
                     viewModel.convertToEuro()
                     item.setIcon(R.drawable.ic_euro_ic)
                 }
 
             }
             R.id.filterProperty -> {
-
-                alertDialogQuery()
-
-
+                alertDialogQuery()//if click icon filter launch alert dialog filter
             }
         }
         return NavigationUI.onNavDestinationSelected(item!!, view!!.findNavController())
@@ -141,20 +140,20 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
 
 
 
-        viewModel.convertDollarToEuro.observe(this, Observer { convert ->
-                isConvert=convert
-                mAdapter.updateCurrency(isConvert,listPropertyFragment)
-                mAdapter.notifyDataSetChanged()
+        viewModel.convertDollarToEuro.observe(this, Observer { convert ->//observe view model convert to refresh list property
+            isConvert = convert
+            mAdapter.updateCurrency(isConvert, listPropertyFragment)
+            mAdapter.notifyDataSetChanged()
 
         })
 
-       loadProperty()
+        refreshListProperty()//refresh list property at launch app
 
         super.onViewCreated(view, savedInstanceState)
     }
 
 
-    private fun articleClick(property: Property) {//method for remove the item on the clic
+    private fun articleClick(property: Property) {//method for remove the item on the click
         val isLarge: Boolean = resources.getBoolean(R.bool.isLarge)
         if (isLarge) {
             viewModel.changeIdProperty(property.idProperty)
@@ -169,40 +168,87 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         super.onResume()
     }
 
-    private fun alertDialogQuery(){
+    private fun alertDialogQuery() {
 
-        val mDialog = LayoutInflater.from(requireContext()).inflate(R.layout.query_dialog,null)//Inflate dialog with custom layout
-        val mBuilder=AlertDialog.Builder(requireContext())//build the dialog with custom view
+        val mDialog = LayoutInflater.from(requireContext())
+            .inflate(R.layout.query_dialog, null)//Inflate dialog with custom layout
+        val mBuilder = AlertDialog.Builder(requireContext())//build the dialog with custom view
             .setView(mDialog)//custom view (layout)
-//            .setTitle(getString(R.string.title_dialog))//set title
-        val mAlertDialog=mBuilder.show()//show dialog
+        val mAlertDialog = mBuilder.show()//show dialog
 
-        mDialog.material_text_button_no_filter.setOnClickListener { //all list of property
+        onClickSwitch(mDialog.switchSaleSince, true)
+        onClickSwitch(mDialog.switchSoldSince, false)
+
+        mDialog.material_text_button_no_filter.setOnClickListener {
+            //all list of property
             viewModel.noFilterListProperty()
-            loadProperty()
-            mAlertDialog.dismiss()
+            refreshListProperty()//refresh list property with no filter
+            mAlertDialog.dismiss()//dismiss dialog filter
         }
 
-        mDialog.material_text_button_filter.setOnClickListener { //query list of property
-            viewModel.filterListProperty(mDialog.input_address.text.toString())
-            loadProperty()
-            mAlertDialog.dismiss()
+        mDialog.material_text_button_filter.setOnClickListener {
+            //init variable for filter
+            val minPrice: Long = initMinQuery(mDialog.input_min_price)//min price if informed or not
+            val maxPrice: Long = initMaxQuery(mDialog.input_max_price, Long.MAX_VALUE)//max price if informed or not
+            val minRoom: Int = initMinQuery(mDialog.input_min_room).toInt()//min room if informed or not
+            val maxRoom: Int = initMaxQuery(mDialog.input_max_room, Int.MAX_VALUE.toLong()).toInt()//max room if informed or not
+            val minSurface: Int = initMinQuery(mDialog.input_min_surface).toInt()//min surface if informed or not
+            val maxSurface: Int = initMaxQuery(mDialog.input_max_surface, Int.MAX_VALUE.toLong()).toInt()// max surface if informed or not
+            val listType = ArrayList<String>()//init list type empty
+
+                if (mDialog.checkBoxHouse.isChecked) {//if checkbox house if checked add house on list type
+                    listType.add(getString(R.string.house))
+                }
+                if (mDialog.checkBoxStudio.isChecked) {//if checkbox studio if checked add house on list type
+                    listType.add(getString(R.string.studio))
+                }
+                if (mDialog.checkBoxApartment.isChecked) {//if checkbox apartment if checked add house on list type
+                    listType.add(getString(R.string.apartment))
+                }
+                if (mDialog.checkBoxVilla.isChecked) {//if checkbox villa if checked add house on list type
+                    listType.add(getString(R.string.villa))
+                }
+
+
+
+            viewModel.filterListProperty(
+                mDialog.input_address.text.toString(), //query list of property
+                minPrice,
+                maxPrice,
+                minRoom,
+                maxRoom,
+                minSurface,
+                maxSurface,
+                mDialog.switchSoldSince.isChecked,
+                mDialog.checkBoxSchool.isChecked,
+                mDialog.checkBoxSport.isChecked,
+                mDialog.checkBoxTransport.isChecked,
+                mDialog.checkBoxParc.isChecked,
+                creationDate,
+                soldDate,
+                listType
+            )
+            refreshListProperty() //refresh list property with filter
+            mAlertDialog.dismiss()//dismiss dialog filter
 
         }
-        onClickSwitchSold(mDialog.switchSaleSince)
-        onClickSwitchSold(mDialog.switchSoldSince)
+
 
     }
 
-    private fun onClickSwitchSold(switch:Switch) {
+
+    private fun onClickSwitch(switch: Switch, typeDate: Boolean) {
         switch.setOnClickListener {
+            //switch listener
             if (switch.isChecked) {
-                showDatePickerDialog(switch)
+                showDatePickerDialog(switch)//show dialog picker date
+                dateIsCreationDate = typeDate //type date for get date if creation or sold date
+
             }
         }
     }
 
-    private fun showDatePickerDialog(switch:Switch) {
+    private fun showDatePickerDialog(switch: Switch) {
         val datePickerDialog = DatePickerDialog(//build datepicker dialog and
             requireContext(),
             this,
@@ -212,21 +258,37 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         )
         datePickerDialog.show()//show date picker dialog
 
-        datePickerDialog.setOnCancelListener {//if click on cancel button, swtich the button switch to false (no date)
+        datePickerDialog.setOnCancelListener {
+            //if click on cancel button, swtich the button switch to false (no date)
             switch.isChecked = false
         }
     }
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
         val calendar = GregorianCalendar(year, month, day)
-        val dateSold = calendar.timeInMillis
-        Toast.makeText(requireContext(), formatDateLongToString(dateSold), Toast.LENGTH_LONG).show()
+        val dateSet = calendar.timeInMillis
+        Toast.makeText(requireContext(), formatDateLongToString(dateSet), Toast.LENGTH_LONG).show()
+        if (dateIsCreationDate) {//if is creation date
+            creationDate = dateSet
+            Toast.makeText(
+                requireContext(),
+                "creation date is :" + formatDateLongToString(dateSet),
+                Toast.LENGTH_LONG
+            ).show()
+        } else {//else if sold date
+            Toast.makeText(
+                requireContext(),
+                "sold date is :" + formatDateLongToString(dateSet),
+                Toast.LENGTH_LONG
+            ).show()
+            soldDate = dateSet
+        }
 
 
     }
 
-    private fun loadProperty(){
-        viewModel.listProperty.observe(this, Observer { propertyFilter->
+    private fun refreshListProperty() {
+        viewModel.listProperty.observe(this, Observer { propertyFilter ->
 
             listPropertyFragment.clear()
             listPropertyFragment.addAll(propertyFilter)
@@ -234,10 +296,6 @@ class PropertyFragment : Fragment(),DatePickerDialog.OnDateSetListener {
 
         })
     }
-
-
-
-
 
 
 }
