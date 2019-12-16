@@ -15,8 +15,7 @@ import kotlinx.coroutines.*
 class CalculatorViewModel(
     application: Application
 ) : AndroidViewModel(application) {
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
 
     val loanAmount = MutableLiveData<String>()
     val loanTerm = MutableLiveData<String>()

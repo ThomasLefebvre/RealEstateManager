@@ -25,5 +25,12 @@ class LoanCalculatorActivity : AppCompatActivity() {
         binding.viewModelCalculator = viewModel
         binding.lifecycleOwner = this
         setTitle(getString(R.string.loan))
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {//set action with click on support action bar
+        onBackPressed()
+        return true
     }
 }

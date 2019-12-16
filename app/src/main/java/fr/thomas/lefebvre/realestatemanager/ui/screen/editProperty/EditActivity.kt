@@ -1,12 +1,14 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.editProperty
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -85,8 +87,18 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         onClickSwitchSold()
 
+        setTitle(getString(R.string.edit_title))
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {//set action with click on support action bar
+        onBackPressed()
+        return true
+    }
+
 
 
     private fun initAutoCompleteIntent() {
@@ -130,7 +142,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private fun onClickButtonUpdate(idProperty: Long) {
         floatingActionButtonSaveEdit.setOnClickListener {
             viewModel.updateProperty(idProperty)
-            onBackPressed()
+            finish()
         }
     }
 
@@ -162,7 +174,9 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val dateSold = calendar.timeInMillis
         Toast.makeText(this, formatDateLongToString(dateSold), Toast.LENGTH_LONG).show()
         viewModel.updateSaleDate(dateSold)
+        textViewDate.setText(formatDateLongToString(dateSold))
 
     }
+
 
 }

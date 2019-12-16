@@ -1,5 +1,6 @@
 package fr.thomas.lefebvre.realestatemanager.database
 
+import android.content.ContentValues
 import android.net.Uri
 import androidx.room.*
 import java.util.*
@@ -132,5 +133,7 @@ data class Agent(
     var mail: String = ""
 
 )
+
+
 
 

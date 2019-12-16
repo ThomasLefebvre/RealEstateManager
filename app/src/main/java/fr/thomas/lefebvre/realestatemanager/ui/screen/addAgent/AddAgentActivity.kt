@@ -43,7 +43,14 @@ class AddAgentActivity : AppCompatActivity() {
         checkEmail()
 
         setTitle(getString(R.string.add_new_agent))
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {//set action with click on support action bar
+        onBackPressed()
+        return true
     }
 
 

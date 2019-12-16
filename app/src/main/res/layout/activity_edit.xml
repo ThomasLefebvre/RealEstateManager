@@ -120,7 +120,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/description"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSurface">
 
@@ -157,6 +157,33 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutType"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:hint="@string/type"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRoom">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textTypeEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@={editViewModel._type}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
@@ -180,11 +207,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/nearby"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutAddress" />
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAddress" />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -285,6 +312,15 @@
                     android:text="@string/sold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/switchSold"
+                    app:layout_constraintStart_toEndOf="@+id/switchSold"
+                    app:layout_constraintTop_toTopOf="@+id/switchSold" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

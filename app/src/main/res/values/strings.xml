@@ -61,6 +61,7 @@
     <string name="date_sale">Put on sale :</string>
     <string name="sold">SOLD</string>
     <string name="no_property">No property in database</string>
+    <string name="edit_title">Edit property</string>
     //notification
     <string name="title_notif">Property Created</string>
     <string name="body_notif">Property has been created</string>
@@ -93,10 +94,10 @@
     <string name="title_dialog">Filter</string>
     <string name="sold_since">Sold since :</string>
     <string name="sale_since">Sale since :</string>
-    <string name="house">House</string>
-    <string name="apartment">Apartment</string>
-    <string name="studio">Studio</string>
-    <string name="villa">Villa</string>
+    <string name="house">HOUSE</string>
+    <string name="apartment">APARTMENT</string>
+    <string name="studio">STUDIO</string>
+    <string name="villa">VILLA</string>
 
     //api key
     <string name="api_key_maps">AIzaSyC7VWXxeOgJAg5XoJdRRcldT6uNxtHMq2o</string>

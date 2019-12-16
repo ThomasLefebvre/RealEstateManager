@@ -57,5 +57,10 @@ class AddAgentViewModel(
     private fun allFieldInformed(): Boolean = (editTextEmailAgent.value != null &&
             editTextNameAgent.value != null)
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
 
 }

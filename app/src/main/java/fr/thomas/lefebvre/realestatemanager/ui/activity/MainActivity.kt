@@ -10,8 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,9 +33,22 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.myNavHostFragment)
 
+        NavigationUI.setupActionBarWithNavController(this,navController)
+        appBarConfiguration = AppBarConfiguration.Builder(navController.graph)
+            .build()
+
+        setTitle(getString(R.string.add_new_agent))
 
 
 
+
+
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController=this.findNavController(R.id.myNavHostFragment)
+        return NavigationUI.navigateUp(navController,appBarConfiguration)
     }
 
 

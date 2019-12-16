@@ -6,18 +6,18 @@
         app:startDestination="@+id/propertyFragment">
 
     <fragment
-            android:id="@+id/propertyFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyFragment"
-            android:label="property_fragment"
-            tools:layout="@layout/property_fragment">
+        android:id="@+id/propertyFragment"
+        android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyFragment"
+        android:label="Property"
+        tools:layout="@layout/property_fragment">
         <action
-                android:id="@+id/action_propertyFragment_to_detailsFragment"
-                app:destination="@id/detailsFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"
-                app:popUpToInclusive="false" />
+            android:id="@+id/action_propertyFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -46,8 +46,8 @@
     <fragment
         android:id="@+id/fragmentMap"
         android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.map.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" >
+        android:label="Map"
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_fragmentMap_to_detailsFragment"
             app:destination="@id/detailsFragment"

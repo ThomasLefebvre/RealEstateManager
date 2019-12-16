@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -223,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/type"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -234,6 +233,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
+                android:checked="true"
                 android:text="@string/studio"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toTopOf="@+id/checkBoxHouse" />
@@ -243,6 +243,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
+                android:checked="true"
                 android:text="@string/apartment"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxHouse" />
@@ -252,6 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
+                android:checked="true"
                 android:text="@string/villa"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxHouse" />
@@ -262,6 +264,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
+                android:checked="true"
                 android:text="@string/house"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -329,6 +332,24 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
 
+            <TextView
+                android:id="@+id/textViewDateSince"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                app:layout_constraintEnd_toEndOf="@+id/switchSaleSince"
+                app:layout_constraintStart_toStartOf="@+id/switchSaleSince"
+                app:layout_constraintTop_toBottomOf="@+id/switchSaleSince" />
+
+            <TextView
+                android:id="@+id/textViewDateSold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/switchSoldSince"
+                app:layout_constraintStart_toStartOf="@+id/switchSoldSince"
+                app:layout_constraintTop_toBottomOf="@+id/switchSoldSince" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

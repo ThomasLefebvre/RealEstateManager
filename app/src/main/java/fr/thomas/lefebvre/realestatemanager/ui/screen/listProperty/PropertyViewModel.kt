@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel;
 import fr.thomas.lefebvre.realestatemanager.database.Property
-import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
-import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import kotlinx.coroutines.*
 
@@ -29,10 +26,6 @@ class PropertyViewModel(
         get() = _listProperty
 
 
-    private val _listPropertyFilter = MutableLiveData<List<Property>>()
-    val listPropertyFilter: LiveData<List<Property>>
-        get() = _listPropertyFilter
-
     private val _idProperty = MutableLiveData<Long>()
     val idProperty: LiveData<Long>
         get() = _idProperty
@@ -47,9 +40,9 @@ class PropertyViewModel(
     }
 
     init {
-//        initListProperty()
 
-        _listProperty= database.getAllPropertyLiveData()
+
+        _listProperty= database.getAllPropertyLiveData()//        initListProperty()
 
 
 
@@ -110,6 +103,12 @@ class PropertyViewModel(
 
     fun convertToDollar() {//change boolean convert
         _convertDollarToEuro.value = false
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
 

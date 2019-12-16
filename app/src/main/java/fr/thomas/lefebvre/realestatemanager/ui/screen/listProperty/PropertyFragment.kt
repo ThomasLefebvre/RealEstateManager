@@ -3,6 +3,7 @@ package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.icu.text.CaseMap
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.Editable
@@ -15,7 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputEditText
@@ -60,6 +64,8 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val binding: PropertyFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.property_fragment, container, false)
 
+
+
         val application = requireNotNull(this.activity).application
 
 
@@ -75,6 +81,9 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         viewModel = activity!!.run {//build view model
             ViewModelProviders.of(this, viewModelFactory).get(PropertyViewModel::class.java)
         }
+
+
+
 
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
@@ -135,8 +144,6 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             }
 
         recyclerview_property.adapter = mAdapter
-
-
 
 
 
@@ -272,13 +279,13 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             creationDate = dateSet
             Toast.makeText(
                 requireContext(),
-                "creation date is :" + formatDateLongToString(dateSet),
+                "Creation date is :" + formatDateLongToString(dateSet),
                 Toast.LENGTH_LONG
             ).show()
         } else {//else if sold date
             Toast.makeText(
                 requireContext(),
-                "sold date is :" + formatDateLongToString(dateSet),
+                "Sold date is :" + formatDateLongToString(dateSet),
                 Toast.LENGTH_LONG
             ).show()
             soldDate = dateSet

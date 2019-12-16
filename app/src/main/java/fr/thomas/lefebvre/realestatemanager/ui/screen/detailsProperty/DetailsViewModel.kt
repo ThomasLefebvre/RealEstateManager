@@ -34,7 +34,7 @@ class DetailsViewModel(
         get() = _property
 
 
-    private val _type = MutableLiveData<String>()
+    val _type = MutableLiveData<String>()
     val type: LiveData<String>
         get() = _type
 
@@ -107,10 +107,16 @@ class DetailsViewModel(
 
     val stateProperty = MutableLiveData<Boolean>()
 
+
     val saleDate = MutableLiveData<Long>()
     val saleDateString=MutableLiveData<String>()
     val idAgent = MutableLiveData<Long>()
 
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
     // -----------------------------------------
     //

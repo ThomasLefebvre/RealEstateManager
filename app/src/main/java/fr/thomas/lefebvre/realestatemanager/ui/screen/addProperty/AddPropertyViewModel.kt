@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import fr.thomas.lefebvre.realestatemanager.database.Media
 import fr.thomas.lefebvre.realestatemanager.database.Property
+import fr.thomas.lefebvre.realestatemanager.database.Type
 import fr.thomas.lefebvre.realestatemanager.database.dao.AgentDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
@@ -60,8 +61,7 @@ class AddPropertyViewModel(
 
     fun initData() {
         editTextComplement.value = ""
-        listType.value = listOf("House", "Apartment", "Villa", "Studio")//TODO MAKE IN ENUM
-        lat.value=-1.0
+        listType.value = listOf(Type.HOUSE.name,Type.APARTMENT.name,Type.STUDIO.name,Type.VILLA.name)
         lng.value=-1.0
         parcIsNearby.value=false
         schoolIsNearby.value=false
