@@ -7,19 +7,19 @@ import android.net.ConnectivityManager
 import com.google.android.material.textfield.TextInputEditText
 
 
-fun calculLoan(amout:Double,term:Double,bring:Double,interest:Double):List<String> {
+fun calculLoan(amout: Double, term: Double, bring: Double, interest: Double): List<String> {
     //init variables for the calcul
 
-    val listCalcul=ArrayList<String>()
-
+    val listCalcul = ArrayList<String>()
     val interestPourcent = interest / 100
+    val monthOfYear: Double = 12.0
 
-    val up = ((amout - bring) * (interestPourcent / 12.0))
-    val downPow=Math.pow((1 + interestPourcent / 12),-(12*term))
-    val down= 1 - downPow
-    val paymentMensuality=(up/down).toInt()
-    val totalCostInt=(paymentMensuality*(term*12)).toInt()
-    val totalInterest=totalCostInt-amout.toInt()
+    val up = ((amout - bring) * (interestPourcent / monthOfYear))
+    val downPow = Math.pow((1 + interestPourcent / monthOfYear), -(monthOfYear * term))
+    val down = 1 - downPow
+    val paymentMensuality = (up / down).toInt()
+    val totalCostInt = (paymentMensuality * (term * monthOfYear)).toInt()
+    val totalInterest = totalCostInt - amout.toInt()
 
     listCalcul.add(paymentMensuality.toString())
     listCalcul.add(totalCostInt.toString())
@@ -30,22 +30,24 @@ fun calculLoan(amout:Double,term:Double,bring:Double,interest:Double):List<Strin
 
 }
 
- fun initMaxQuery(editable: TextInputEditText, maxValue:Long):Long{
-    val max:Long
-    if(editable.text.toString()!=""&&editable.text.toString()<= Long.MAX_VALUE.toString()){
-        max=editable.text.toString().toLong()
+fun initMaxQuery(text: String, maxValue: Long): Long {
+    val max: Long
+    if (text == "") {
+        max = maxValue
+    } else if (text.toLong() <= maxValue) {
+        max = text.toLong()
+    } else {
+        max=maxValue
     }
-    else max=maxValue
 
     return max
 }
 
-fun initMinQuery(editable: TextInputEditText):Long{
-    val min:Long
-    if(editable.text.toString()!=""){
-        min=editable.text.toString().toLong()
-    }
-    else min=0
+fun initMinQuery(text: String): Long {
+    val min: Long
+    if (text != "") {
+        min = text.toLong()
+    } else min = 0
 
     return min
 }
@@ -53,9 +55,4 @@ fun initMinQuery(editable: TextInputEditText):Long{
 
 
 
-fun isInternetAvailableCorrection(context: Context): Boolean {
-    val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val activeNetwork=connectivityManager.activeNetworkInfo
-    return activeNetwork!=null
-}
+

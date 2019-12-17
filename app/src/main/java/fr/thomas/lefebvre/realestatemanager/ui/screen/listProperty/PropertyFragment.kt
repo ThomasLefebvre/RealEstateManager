@@ -195,12 +195,12 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         mDialog.material_text_button_filter.setOnClickListener {
             //init variable for filter
-            val minPrice: Long = initMinQuery(mDialog.input_min_price)//min price if informed or not
-            val maxPrice: Long = initMaxQuery(mDialog.input_max_price, Long.MAX_VALUE)//max price if informed or not
-            val minRoom: Int = initMinQuery(mDialog.input_min_room).toInt()//min room if informed or not
-            val maxRoom: Int = initMaxQuery(mDialog.input_max_room, Int.MAX_VALUE.toLong()).toInt()//max room if informed or not
-            val minSurface: Int = initMinQuery(mDialog.input_min_surface).toInt()//min surface if informed or not
-            val maxSurface: Int = initMaxQuery(mDialog.input_max_surface, Int.MAX_VALUE.toLong()).toInt()// max surface if informed or not
+            val minPrice: Long = initMinQuery(mDialog.input_min_price.text.toString())//min price if informed or not
+            val maxPrice: Long = initMaxQuery(mDialog.input_max_price.text.toString(), Long.MAX_VALUE)//max price if informed or not
+            val minRoom: Int = initMinQuery(mDialog.input_min_room.text.toString()).toInt()//min room if informed or not
+            val maxRoom: Int = initMaxQuery(mDialog.input_max_room.text.toString(), Int.MAX_VALUE.toLong()).toInt()//max room if informed or not
+            val minSurface: Int = initMinQuery(mDialog.input_min_surface.text.toString()).toInt()//min surface if informed or not
+            val maxSurface: Int = initMaxQuery(mDialog.input_max_surface.text.toString(), Int.MAX_VALUE.toLong()).toInt()// max surface if informed or not
             val listType = ArrayList<String>()//init list type empty
 
                 if (mDialog.checkBoxHouse.isChecked) {//if checkbox house if checked add house on list type

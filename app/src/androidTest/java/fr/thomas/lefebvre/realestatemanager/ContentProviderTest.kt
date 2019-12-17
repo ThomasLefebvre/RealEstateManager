@@ -10,7 +10,7 @@ import android.content.ContentUris
 import android.content.ContentValues
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import fr.thomas.lefebvre.realestatemanager.provider.ContentProvider
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 
