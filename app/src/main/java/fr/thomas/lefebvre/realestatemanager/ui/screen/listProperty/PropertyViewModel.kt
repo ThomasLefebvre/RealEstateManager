@@ -35,9 +35,7 @@ class PropertyViewModel(
         get() = _convertDollarToEuro
 
 
-    fun changeIdProperty(idProperty: Long) {//change id property for details fragment
-        _idProperty.value = idProperty
-    }
+
 
     init {
 
@@ -49,6 +47,10 @@ class PropertyViewModel(
         Log.d("DEBUG", "init view model property")
         initLastId()
         _convertDollarToEuro.value = false
+    }
+
+    fun changeIdProperty(idProperty: Long) {//change id property for details fragment
+        _idProperty.value = idProperty
     }
 
 

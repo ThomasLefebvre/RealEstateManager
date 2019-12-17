@@ -64,10 +64,7 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val binding: PropertyFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.property_fragment, container, false)
 
-
-
         val application = requireNotNull(this.activity).application
-
 
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
         databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
@@ -78,46 +75,16 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 application
             )
 
-        viewModel = activity!!.run {//build view model
+        viewModel = activity!!.run {
+            //build view model
             ViewModelProviders.of(this, viewModelFactory).get(PropertyViewModel::class.java)
         }
-
-
-
 
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu_options, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.convertDollarEuro -> {//if click convert icon
-                if (viewModel.convertDollarToEuro.value == true) {//if already in euro convert to dollar
-                    viewModel.convertToDollar()
-                    item.setIcon(R.drawable.ic_attach_money_black_24dp)
-
-
-                } else {//if already in dollar convert to euro
-                    viewModel.convertToEuro()
-                    item.setIcon(R.drawable.ic_euro_ic)
-                }
-
-            }
-            R.id.filterProperty -> {
-                alertDialogQuery()//if click icon filter launch alert dialog filter
-            }
-        }
-        return NavigationUI.onNavDestinationSelected(item!!, view!!.findNavController())
-                || super.onOptionsItemSelected(item)
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -145,9 +112,10 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         recyclerview_property.adapter = mAdapter
 
+        checkIfNoProperty()
 
-
-        viewModel.convertDollarToEuro.observe(this, Observer { convert ->//observe view model convert to refresh list property
+        viewModel.convertDollarToEuro.observe(this, Observer { convert ->
+            //observe view model convert to refresh list property
             isConvert = convert
             mAdapter.updateCurrency(isConvert, listPropertyFragment)
             mAdapter.notifyDataSetChanged()
@@ -159,8 +127,51 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun checkIfNoProperty(){
+        if  (mAdapter.itemCount==0){
+            textViewNoProperty.visibility=View.VISIBLE
+        }
+        else textViewNoProperty.visibility=View.GONE
+    }
 
-    private fun articleClick(property: Property) {//method for remove the item on the click
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_options, menu)
+    }
+
+    override fun onResume() {
+        viewModel.convertToDollar()
+        checkIfNoProperty()
+        super.onResume()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.convertDollarEuro -> {//if click convert icon
+                if (viewModel.convertDollarToEuro.value == true) {//if already in euro convert to dollar
+                    viewModel.convertToDollar()
+                    item.setIcon(R.drawable.ic_attach_money_black_24dp)
+
+                } else {//if already in dollar convert to euro
+                    viewModel.convertToEuro()
+                    item.setIcon(R.drawable.ic_euro_ic)
+                }
+            }
+            R.id.filterProperty -> {
+                alertDialogQuery()//if click icon filter launch alert dialog filter
+            }
+        }
+        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
+                || super.onOptionsItemSelected(item)
+
+    }
+
+
+    private fun articleClick(property: Property) {//method for the click on property
         val isLarge: Boolean = resources.getBoolean(R.bool.isLarge)
         if (isLarge) {
             viewModel.changeIdProperty(property.idProperty)
@@ -170,10 +181,7 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
     }
 
-    override fun onResume() {
-        viewModel.convertToDollar()
-        super.onResume()
-    }
+
 
     private fun alertDialogQuery() {
 
@@ -195,26 +203,38 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         mDialog.material_text_button_filter.setOnClickListener {
             //init variable for filter
-            val minPrice: Long = initMinQuery(mDialog.input_min_price.text.toString())//min price if informed or not
-            val maxPrice: Long = initMaxQuery(mDialog.input_max_price.text.toString(), Long.MAX_VALUE)//max price if informed or not
-            val minRoom: Int = initMinQuery(mDialog.input_min_room.text.toString()).toInt()//min room if informed or not
-            val maxRoom: Int = initMaxQuery(mDialog.input_max_room.text.toString(), Int.MAX_VALUE.toLong()).toInt()//max room if informed or not
-            val minSurface: Int = initMinQuery(mDialog.input_min_surface.text.toString()).toInt()//min surface if informed or not
-            val maxSurface: Int = initMaxQuery(mDialog.input_max_surface.text.toString(), Int.MAX_VALUE.toLong()).toInt()// max surface if informed or not
+            val minPrice: Long =
+                initMinQuery(mDialog.input_min_price.text.toString())//min price if informed or not
+            val maxPrice: Long = initMaxQuery(
+                mDialog.input_max_price.text.toString(),
+                Long.MAX_VALUE
+            )//max price if informed or not
+            val minRoom: Int =
+                initMinQuery(mDialog.input_min_room.text.toString()).toInt()//min room if informed or not
+            val maxRoom: Int = initMaxQuery(
+                mDialog.input_max_room.text.toString(),
+                Int.MAX_VALUE.toLong()
+            ).toInt()//max room if informed or not
+            val minSurface: Int =
+                initMinQuery(mDialog.input_min_surface.text.toString()).toInt()//min surface if informed or not
+            val maxSurface: Int = initMaxQuery(
+                mDialog.input_max_surface.text.toString(),
+                Int.MAX_VALUE.toLong()
+            ).toInt()// max surface if informed or not
             val listType = ArrayList<String>()//init list type empty
 
-                if (mDialog.checkBoxHouse.isChecked) {//if checkbox house if checked add house on list type
-                    listType.add(getString(R.string.house))
-                }
-                if (mDialog.checkBoxStudio.isChecked) {//if checkbox studio if checked add house on list type
-                    listType.add(getString(R.string.studio))
-                }
-                if (mDialog.checkBoxApartment.isChecked) {//if checkbox apartment if checked add house on list type
-                    listType.add(getString(R.string.apartment))
-                }
-                if (mDialog.checkBoxVilla.isChecked) {//if checkbox villa if checked add house on list type
-                    listType.add(getString(R.string.villa))
-                }
+            if (mDialog.checkBoxHouse.isChecked) {//if checkbox house if checked add house on list type
+                listType.add(getString(R.string.house))
+            }
+            if (mDialog.checkBoxStudio.isChecked) {//if checkbox studio if checked add house on list type
+                listType.add(getString(R.string.studio))
+            }
+            if (mDialog.checkBoxApartment.isChecked) {//if checkbox apartment if checked add house on list type
+                listType.add(getString(R.string.apartment))
+            }
+            if (mDialog.checkBoxVilla.isChecked) {//if checkbox villa if checked add house on list type
+                listType.add(getString(R.string.villa))
+            }
 
 
 
@@ -239,8 +259,6 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             mAlertDialog.dismiss()//dismiss dialog filter
 
         }
-
-
     }
 
 

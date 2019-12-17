@@ -7,7 +7,9 @@ import org.junit.Assert.assertEquals
 class FormatersTest(){
 
     @Test
-    fun testFormatSurface
+    fun testFormatSurface(){
+        var surface=""
+    }
 }
 
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -111,8 +112,9 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
             viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
-
+           textView7.visibility=View.GONE
         })
+
 
         setRecyclerViewPhoto()
         super.onViewCreated(view, savedInstanceState)
@@ -123,8 +125,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
             viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
-
-        })
+                  })
         setRecyclerViewPhoto()
         super.onResume()
     }
