@@ -276,6 +276,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/transport"
+                android:checked="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -285,6 +286,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="@string/school"
+                android:checked="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxTransport" />
 
@@ -295,6 +297,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/parc"
+                android:checked="true"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -304,6 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="@string/sports"
+                android:checked="true"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxParc" />
 

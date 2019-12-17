@@ -34,7 +34,7 @@
 
         <provider
             android:authorities="fr.thomas.lefebvre.realestatemanager.provider"
-            android:name=".provider.AgentContentProvider"
+            android:name=".provider.ContentProvider"
             android:exported="true"/>
 
         <meta-data

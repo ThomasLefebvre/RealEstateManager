@@ -1,6 +1,8 @@
 package fr.thomas.lefebvre.realestatemanager.util;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
 import java.text.DateFormat;
@@ -61,6 +63,16 @@ public class Utils {
 
     public static int convertEuroToDollarCorrestion(int euro){
         return (int) Math.round(euro / 0.812);
+    }
+
+    public static Boolean isInternetAvailableCorrection(Context context){
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+       return activeNetwork != null ;
+
     }
 }
 

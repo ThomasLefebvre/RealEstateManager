@@ -21,14 +21,14 @@
     </fragment>
 
     <fragment
-            android:id="@+id/detailsFragment"
-            android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsFragment"
-            android:label="details_fragment"
-            tools:layout="@layout/details_fragment">
+        android:id="@+id/detailsFragment"
+        android:name="fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/details_fragment">
         <argument
-                android:name="idProperty"
-                android:defaultValue="0L"
-                app:argType="long" />
+            android:name="idProperty"
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
     <activity
             android:id="@+id/addPropertyActivity"

@@ -1,5 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package fr.thomas.lefebvre.realestatemanager.util
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -44,4 +48,14 @@ fun initMinQuery(editable: TextInputEditText):Long{
     else min=0
 
     return min
+}
+
+
+
+
+fun isInternetAvailableCorrection(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork=connectivityManager.activeNetworkInfo
+    return activeNetwork!=null
 }

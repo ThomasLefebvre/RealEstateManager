@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -16,6 +17,8 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.databinding.ActivityMainBinding
+import fr.thomas.lefebvre.realestatemanager.util.Utils
+import fr.thomas.lefebvre.realestatemanager.util.isInternetAvailableCorrection
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -32,26 +35,18 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         val navController = findNavController(R.id.myNavHostFragment)
-
-        NavigationUI.setupActionBarWithNavController(this,navController)
+        //set up action bar with onBackPressed
+        NavigationUI.setupActionBarWithNavController(this, navController)
         appBarConfiguration = AppBarConfiguration.Builder(navController.graph)
             .build()
 
-        setTitle(getString(R.string.add_new_agent))
-
-
-
-
-
 
     }
-
+    //set up action bar with onBackPressed
     override fun onSupportNavigateUp(): Boolean {
-        val navController=this.findNavController(R.id.myNavHostFragment)
-        return NavigationUI.navigateUp(navController,appBarConfiguration)
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
-
-
 
 
 }
