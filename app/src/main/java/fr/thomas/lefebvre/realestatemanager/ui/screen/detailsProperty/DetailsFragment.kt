@@ -112,7 +112,6 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
             viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
-           textView7.visibility=View.GONE
         })
 
 
@@ -125,7 +124,11 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
             viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
-                  })
+
+
+
+
+        })
         setRecyclerViewPhoto()
         super.onResume()
     }
