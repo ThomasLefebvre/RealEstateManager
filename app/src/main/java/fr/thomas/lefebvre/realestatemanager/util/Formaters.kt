@@ -34,7 +34,7 @@ fun formatSurfaceToStringSurface(surface: Int?): String {
     if (surface != null) {
         stringSurface = "$surface m²"
     } else {
-        stringSurface = "To inform"
+        stringSurface = "To inform surface"
     }
     return stringSurface
 }
@@ -43,7 +43,7 @@ fun formatPriceToStringPriceDollar(price: Long?): String {
     val stringPrice: String
     if (price != null) stringPrice = "$price $"
     else {
-        stringPrice = "To inform"
+        stringPrice = "To inform price"
     }
     return stringPrice
 }
@@ -52,7 +52,7 @@ fun formatPriceToStringPriceEuro(price: Long?): String {
     val stringPrice: String
     if (price != null) stringPrice = "$price €"
     else {
-        stringPrice = "To inform"
+        stringPrice = "To inform price"
     }
     return stringPrice
 }
@@ -61,7 +61,7 @@ fun formatNumberRoomToString(room: Int?): String {
     val stringRoom: String
     if (room != null) stringRoom = "$room rooms"
     else {
-        stringRoom = "To inform"
+        stringRoom = "To inform number room"
     }
     return stringRoom
 }
@@ -95,7 +95,7 @@ fun formatAddress(address: String?): String {
     if (address != null&&address!="") {
         addresseString = address.substring(address.indexOf(",") + 2)
     } else {
-        addresseString = "To inform"
+        addresseString = "To inform address"
     }
     return addresseString
 }

@@ -1,10 +1,7 @@
-@file:Suppress("DEPRECATION")
+
 
 package fr.thomas.lefebvre.realestatemanager.util
 
-import android.content.Context
-import android.net.ConnectivityManager
-import com.google.android.material.textfield.TextInputEditText
 
 
 fun calculLoan(amout: Double, term: Double, bring: Double, interest: Double): List<String> {

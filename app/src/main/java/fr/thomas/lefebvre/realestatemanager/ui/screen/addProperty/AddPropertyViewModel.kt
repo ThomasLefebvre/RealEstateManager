@@ -62,6 +62,7 @@ class AddPropertyViewModel(
     fun initData() {
         editTextComplement.value = ""
         listType.value = listOf(Type.HOUSE.name,Type.APARTMENT.name,Type.STUDIO.name,Type.VILLA.name)
+        lat.value=-1.0
         lng.value=-1.0
         parcIsNearby.value=false
         schoolIsNearby.value=false
