@@ -124,9 +124,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
             viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
-
-
-
+            
 
         })
         setRecyclerViewPhoto()

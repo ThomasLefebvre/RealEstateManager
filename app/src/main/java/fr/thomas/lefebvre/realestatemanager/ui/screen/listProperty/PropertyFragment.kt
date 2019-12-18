@@ -112,7 +112,7 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         recyclerview_property.adapter = mAdapter
 
-        checkIfNoProperty()
+
 
         viewModel.convertDollarToEuro.observe(this, Observer { convert ->
             //observe view model convert to refresh list property
@@ -236,8 +236,6 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 listType.add(getString(R.string.villa))
             }
 
-
-
             viewModel.filterListProperty(
                 mDialog.input_address.text.toString(), //query list of property
                 minPrice,
@@ -318,6 +316,7 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             listPropertyFragment.clear()
             listPropertyFragment.addAll(propertyFilter)
             mAdapter.notifyDataSetChanged()
+            checkIfNoProperty()
 
         })
     }
