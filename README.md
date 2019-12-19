@@ -40,7 +40,7 @@ This allows:
 - Map sdk Android
 - Place sdk Android 
 
-###Developed By LEFEBVRE Thomas
+### Developed By LEFEBVRE Thomas
 
     Copyright 2019 TEKZ Dev
 
