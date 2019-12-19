@@ -15,8 +15,11 @@ This allows:
 ### Main screen
 
 <img src="./readme/phone_display.jpg" width="40%" height="40%">
+
 ### Details
-<img src="./readme/phone_details_start.jpg" width="40%" height="40%">  <img src="./readme/phone_details_end.jpg" width="40%" height="40%">
+
+<img src="./readme/phone_details_start.jpg" width="40%" height="40%"> <img src="./readme/phone_details_end.jpg" width="40%" height="40%">
+
 ## Tablet display:
 ### Main screen
 
