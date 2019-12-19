@@ -18,7 +18,10 @@ This allows:
 
 ### Details
 
-<img src="./readme/phone_details_start.jpg" width="40%" height="40%"> <img src="./readme/phone_details_end.jpg" width="41%" height="41%">
+<img src="./readme/phone_details_start.jpg" width="40%" height="40%"> 
+
+### Add Property
+<img src="./readme/phone_add_start.jpg" width="40%" height="40%"> <img src="./readme/phone_add_end.jpg" width="40%" height="40%"> 
 
 ## Tablet display:
 ### Main screen
