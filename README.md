@@ -1,5 +1,9 @@
 # RealEstateManager
 
+An android application that allows the management of real estate.
+
+This allows:
+
 ## Phone display:
 ### Main screen
 
