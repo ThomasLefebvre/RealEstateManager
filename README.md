@@ -28,6 +28,10 @@ This allows:
 
 <img src="./readme/tablet_display.jpg" width="50%" height="50%">
 
+### Map
+<img src="./readme/tablet_map.jpg" width="50%" height="50%">
+
+
 
 
 
