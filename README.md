@@ -9,6 +9,8 @@ This allows:
 - convert the price into euro
 - perform a loan simulation
 
+<img src="./readme/presentation.gif" width="30%" height="30%">
+
 ## Phone display:
 ### Main screen
 
