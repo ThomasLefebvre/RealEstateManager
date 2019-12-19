@@ -13,11 +13,14 @@ import fr.thomas.lefebvre.realestatemanager.provider.ContentProvider
 import org.junit.Assert.assertEquals
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.After
 
 
 class ContentProviderTest {
 
     lateinit var mContentResolver: ContentResolver
+
+    private var bdd:PropertyDatabase?=null
 
     companion object {
         val AGENT_ID: Long = System.currentTimeMillis()
@@ -29,13 +32,19 @@ class ContentProviderTest {
 
     @Before
     fun setUpDatabase() {
-        Room.inMemoryDatabaseBuilder(
+        bdd=Room.inMemoryDatabaseBuilder(
             InstrumentationRegistry.getInstrumentation().context,
             PropertyDatabase::class.java
         )
             .allowMainThreadQueries()
             .build()
         mContentResolver = InstrumentationRegistry.getInstrumentation().context.contentResolver
+    }
+
+
+    @After
+    fun closeBdd(){
+        bdd!!.close()
     }
 
     // ----         AGENT PROVIDER ----

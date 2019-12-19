@@ -22,6 +22,9 @@ interface AgentDAO {
     @Query("SELECT * FROM agent_table WHERE id_agent=:idAgent")
     fun getAgent(idAgent: Long): Agent?
 
+    @Query("SELECT * FROM agent_table WHERE name=:name")
+    fun getAgentByName(name:String):Agent?
+
     @Query("DELETE FROM agent_table WHERE id_agent=:idAgent")
     fun deleteAgent(idAgent: Long)
 

@@ -58,7 +58,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         mMapVIew.getMapAsync(this)
 
 
-        val application = requireNotNull(this.activity).application
+        val application = requireNotNull(value = this.activity).application
 
 
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
@@ -124,12 +124,12 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         viewModelProperty.idProperty.observe(this, Observer { idProperty ->
             viewModel.initPropertyDetails(idProperty)
             viewModel.initMedia(idProperty)
-            
 
         })
         setRecyclerViewPhoto()
         super.onResume()
     }
+
 
 
    private fun setRecyclerViewPhoto() {
@@ -155,6 +155,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
             binding.floatingActionButtonEdit.setOnClickListener {
                 val intentEdit= Intent(requireContext(),EditActivity::class.java)
                 intentEdit.putExtra("idProperty",viewModel.property.value!!.idProperty)
+                viewModelProperty.noFilterListProperty()
                 startActivity(intentEdit)
 
 

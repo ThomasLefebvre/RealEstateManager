@@ -26,17 +26,7 @@ import fr.thomas.lefebvre.realestatemanager.databinding.FragmentMapBinding
 import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty.PropertyViewModelFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [MapFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [MapFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
 

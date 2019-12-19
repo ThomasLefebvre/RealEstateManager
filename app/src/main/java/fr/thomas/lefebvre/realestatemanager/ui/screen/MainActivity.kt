@@ -1,4 +1,4 @@
-package fr.thomas.lefebvre.realestatemanager.ui.activity
+package fr.thomas.lefebvre.realestatemanager.ui.screen
 
 
 import androidx.appcompat.app.AppCompatActivity

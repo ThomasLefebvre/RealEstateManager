@@ -41,7 +41,6 @@
     <string name="parc">Parc</string>
     <string name="shopping">Shopping</string>
     <string name="transport">Transports</string>
-    <string name="doctor">Doctor</string>
     <string name="sports">Sports</string>
     //add new agent
     <string name="add_new_agent">Add a new agent</string>
@@ -60,7 +59,7 @@
     <string name="location">Location :</string>
     <string name="date_sale">Put on sale :</string>
     <string name="sold">SOLD</string>
-    <string name="no_property">No property in database</string>
+    <string name="no_property">No property in database or no result for your filters. Please create property or change filters.</string>
     <string name="edit_title">Edit property</string>
     //notification
     <string name="title_notif">Property Created</string>

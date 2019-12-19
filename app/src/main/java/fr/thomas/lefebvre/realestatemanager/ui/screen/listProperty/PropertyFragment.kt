@@ -64,7 +64,7 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val binding: PropertyFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.property_fragment, container, false)
 
-        val application = requireNotNull(this.activity).application
+        val application = requireNotNull(value = this.activity).application
 
         databaseProperty = PropertyDatabase.getInstance(application).propertyDAO
         databaseMedia = PropertyDatabase.getInstance(application).mediaDAO
@@ -127,14 +127,11 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun checkIfNoProperty(){
-        if  (mAdapter.itemCount==0){
-            textViewNoProperty.visibility=View.VISIBLE
-        }
-        else textViewNoProperty.visibility=View.GONE
+    private fun checkIfNoProperty() {
+        if (mAdapter.itemCount == 0) {
+            textViewNoProperty.visibility = View.VISIBLE
+        } else textViewNoProperty.visibility = View.GONE
     }
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -180,7 +177,6 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             view!!.findNavController().navigate(R.id.action_propertyFragment_to_detailsFragment)
         }
     }
-
 
 
     private fun alertDialogQuery() {
