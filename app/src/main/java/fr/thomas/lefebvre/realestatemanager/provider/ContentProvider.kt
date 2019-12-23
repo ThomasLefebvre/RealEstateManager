@@ -6,7 +6,6 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
-import fr.thomas.lefebvre.realestatemanager.database.Agent
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 
 class ContentProvider : ContentProvider() {

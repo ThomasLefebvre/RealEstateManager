@@ -8,7 +8,7 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.AgentDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 
-class PropertyViewModelFactory (
+class PropertyViewModelFactory(
     private val dataSource: PropertyDAO,
     private val application: Application
 ) : ViewModelProvider.Factory {

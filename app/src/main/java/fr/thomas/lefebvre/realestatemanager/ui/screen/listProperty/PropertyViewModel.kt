@@ -19,7 +19,7 @@ class PropertyViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    var _listProperty:LiveData<List<Property>> //load list property to display on list fragment
+    var _listProperty: LiveData<List<Property>> //load list property to display on list fragment
 
     //    private val _listProperty = MutableLiveData<List<Property>>()
     val listProperty: LiveData<List<Property>>
@@ -35,13 +35,10 @@ class PropertyViewModel(
         get() = _convertDollarToEuro
 
 
-
-
     init {
 
 
-        _listProperty= database.getAllPropertyLiveData()//        initListProperty()
-
+        _listProperty = database.getAllPropertyLiveData()//        initListProperty()
 
 
         Log.d("DEBUG", "init view model property")
@@ -52,7 +49,6 @@ class PropertyViewModel(
     fun changeIdProperty(idProperty: Long) {//change id property for details fragment
         _idProperty.value = idProperty
     }
-
 
 
     fun initLastId() { //init last property created for display on details fragment in tablet at launch
@@ -71,10 +67,25 @@ class PropertyViewModel(
         }
     }
 
-    fun filterListProperty(address:String,minPrice:Long,maxPrice:Long,minRoom:Int,maxRoom:Int,minSurface:Int,maxSurface:Int,
-                           sold:Boolean,school:Boolean,sport:Boolean,transport:Boolean,parc:Boolean,creationDate:Long,soldDate:Long,listType:List<String>) {
+    fun filterListProperty(
+        address: String,
+        minPrice: Long,
+        maxPrice: Long,
+        minRoom: Int,
+        maxRoom: Int,
+        minSurface: Int,
+        maxSurface: Int,
+        sold: Boolean,
+        school: Boolean,
+        sport: Boolean,
+        transport: Boolean,
+        parc: Boolean,
+        creationDate: Long,
+        soldDate: Long,
+        listType: List<String>
+    ) {
 
-        _listProperty=database.getAllPropertyQuery(
+        _listProperty = database.getAllPropertyQuery(
             "%$address%",
             minPrice,
             maxPrice,
@@ -89,14 +100,13 @@ class PropertyViewModel(
             sport,
             transport,
             parc,
-            listType)
+            listType
+        )
     }
 
-    fun noFilterListProperty(){
-        _listProperty=database.getAllPropertyLiveData()
+    fun noFilterListProperty() {
+        _listProperty = database.getAllPropertyLiveData()
     }
-
-
 
 
     fun convertToEuro() {//change boolean convert

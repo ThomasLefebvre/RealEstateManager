@@ -1,7 +1,6 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty
 
 import android.app.Application
-import android.media.MediaDataSource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fr.thomas.lefebvre.realestatemanager.database.dao.AgentDAO

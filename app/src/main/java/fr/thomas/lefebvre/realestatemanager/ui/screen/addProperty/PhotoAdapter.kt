@@ -37,7 +37,7 @@ class PhotoAdapter(
         val descriptionPhoto: EditText = itemView.findViewById(R.id.editTextDescriptionRv)
 
         fun bind(position: Int, uri: Uri, listener: (Int, Uri) -> Unit) {
-            Picasso
+            Picasso//display photo
                 .get()
                 .load(uri)
                 .resize(300,300)
@@ -45,7 +45,7 @@ class PhotoAdapter(
                 .into(photo)
 
 
-            descriptionPhoto.text = null
+            descriptionPhoto.text = null//set up init text
 
 
             iconSuppres.setOnClickListener {

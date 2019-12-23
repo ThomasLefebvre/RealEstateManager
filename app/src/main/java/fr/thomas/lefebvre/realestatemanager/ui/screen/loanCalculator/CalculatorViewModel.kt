@@ -1,16 +1,12 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.loanCalculator
 
 import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import fr.thomas.lefebvre.realestatemanager.R
-import fr.thomas.lefebvre.realestatemanager.database.Agent
-import fr.thomas.lefebvre.realestatemanager.database.dao.AgentDAO
 import fr.thomas.lefebvre.realestatemanager.util.calculLoan
-import kotlinx.coroutines.*
+
 
 class CalculatorViewModel(
     application: Application
@@ -35,13 +31,10 @@ class CalculatorViewModel(
         get() = _totalInterest
 
 
-
-
-    fun onClickCalcul(){
-        if(checkCompleteInfo()){
+    fun onClickCalcul() {
+        if (checkCompleteInfo()) {
             calcul()
-        }
-        else{
+        } else {
             Toast.makeText(
                 getApplication(),
                 "Complete all informations",
@@ -59,18 +52,23 @@ class CalculatorViewModel(
         } else {
             bring = 0.0
         }
-        val listCalcul= calculLoan(loanAmount.value!!.toDouble(),loanTerm.value!!.toDouble(),bring,loanInterest.value!!.toDouble())
+        val listCalcul = calculLoan(
+            loanAmount.value!!.toDouble(),
+            loanTerm.value!!.toDouble(),
+            bring,
+            loanInterest.value!!.toDouble()
+        )
 
         //set value of mensuality, total cost and total interest
         _mensuality.value = listCalcul[0]
-        _totalCost.value=listCalcul[1]
-        _totalInterest.value=listCalcul[2]
+        _totalCost.value = listCalcul[1]
+        _totalInterest.value = listCalcul[2]
 
 
     }
 
-    fun checkCompleteInfo():Boolean{
-        return loanAmount.value!=null&&loanInterest.value!=null&&loanTerm.value!=null&&loanAmount.value!=""&&loanTerm.value!=""&&loanInterest.value!=""
+    fun checkCompleteInfo(): Boolean {
+        return loanAmount.value != null && loanInterest.value != null && loanTerm.value != null && loanAmount.value != "" && loanTerm.value != "" && loanInterest.value != ""
     }
 
 }

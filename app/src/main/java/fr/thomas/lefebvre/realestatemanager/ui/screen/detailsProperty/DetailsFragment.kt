@@ -1,6 +1,5 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty
 
-import android.app.Application
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,12 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import fr.thomas.lefebvre.realestatemanager.R
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
@@ -41,14 +38,14 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var gmap: GoogleMap
     private lateinit var mMapVIew: MapView
 
-    private lateinit var binding:DetailsFragmentBinding
+    private lateinit var binding: DetailsFragmentBinding
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         binding=
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.details_fragment, container, false)
 
         //init the service map
@@ -98,8 +95,8 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         gmap = googleMap!!
         //observe the position of property and get this
         viewModel.latLng.observe(this, Observer { latLng ->
-                gmap.moveCamera(CameraUpdateFactory.newLatLng(latLng))//move camera to property
-                googleMap.addMarker(MarkerOptions().position(latLng))//add marker to property
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(latLng))//move camera to property
+            googleMap.addMarker(MarkerOptions().position(latLng))//add marker to property
         })
 
 
@@ -131,8 +128,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-
-   private fun setRecyclerViewPhoto() {
+    private fun setRecyclerViewPhoto() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
@@ -140,29 +136,31 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         recycler_view_photo_details.layoutManager = layoutManager
 
         viewModel.listMedia.observe(this, Observer { medias ->
-            if (medias.isNotEmpty()) {
+            //set up recycler view photos
+            if (medias.isNotEmpty()) {//if property have photo init recycler view
                 recycler_view_photo_details.adapter = DetailsPhotoAdapter(medias)
                 recycler_view_photo_details.visibility = View.VISIBLE
                 textViewNoPhoto.visibility = View.GONE
-            } else {
+            } else {//if property have not photo init imageview default
                 textViewNoPhoto.visibility = View.VISIBLE
                 recycler_view_photo_details.visibility = View.GONE
             }
         })
     }
 
-    private fun onClickEdit(){
-            binding.floatingActionButtonEdit.setOnClickListener {
-                val intentEdit= Intent(requireContext(),EditActivity::class.java)
-                intentEdit.putExtra("idProperty",viewModel.property.value!!.idProperty)
-                viewModelProperty.noFilterListProperty()
-                startActivity(intentEdit)
+    private fun onClickEdit() {//init click on button edit
+        binding.floatingActionButtonEdit.setOnClickListener {
+            val intentEdit = Intent(requireContext(), EditActivity::class.java)
+            intentEdit.putExtra(
+                "idProperty",
+                viewModel.property.value!!.idProperty
+            )//put id property for edit activity
+            viewModelProperty.noFilterListProperty()
+            startActivity(intentEdit)
 
 
-            }
+        }
     }
-
-
 
 
 }

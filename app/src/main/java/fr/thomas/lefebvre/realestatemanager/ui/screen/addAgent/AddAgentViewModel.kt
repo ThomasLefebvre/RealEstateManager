@@ -20,7 +20,7 @@ class AddAgentViewModel(
     val editTextEmailAgent = MutableLiveData<String>()
 
 
-    fun onSaveAgent() {
+    fun onSaveAgent() {//save agent on database
 
         uiScope.launch {
             if (allFieldInformed()) {
@@ -47,14 +47,14 @@ class AddAgentViewModel(
         }
     }
 
-    private fun cleanAllEditText() {
+    private fun cleanAllEditText() {//clean edit text after save
         editTextEmailAgent.value = null
         editTextNameAgent.value = null
 
 
     }
 
-    private fun allFieldInformed(): Boolean = (editTextEmailAgent.value != null &&
+    private fun allFieldInformed(): Boolean = (editTextEmailAgent.value != null && //check if informed
             editTextNameAgent.value != null)
 
     override fun onCleared() {

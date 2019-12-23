@@ -1,14 +1,11 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.editProperty
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -23,11 +20,9 @@ import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.databinding.ActivityEditBinding
-import fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty.AddPropertyActivity
 import fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsViewModel
 import fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty.DetailsViewModelFactory
 import fr.thomas.lefebvre.realestatemanager.util.formatDateLongToString
-import kotlinx.android.synthetic.main.activity_add_property.*
 import kotlinx.android.synthetic.main.activity_add_property.buttonSelectAddress
 import kotlinx.android.synthetic.main.activity_edit.*
 import java.util.*
@@ -87,9 +82,8 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         onClickSwitchSold()
 
-        setTitle(getString(R.string.edit_title))
+        title = getString(R.string.edit_title)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
 
 
     }
@@ -98,7 +92,6 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         onBackPressed()
         return true
     }
-
 
 
     private fun initAutoCompleteIntent() {
@@ -139,14 +132,14 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun onClickButtonUpdate(idProperty: Long) {
+    private fun onClickButtonUpdate(idProperty: Long) {//click on button save
         floatingActionButtonSaveEdit.setOnClickListener {
             viewModel.updateProperty(idProperty)
             finish()
         }
     }
 
-    private fun onClickSwitchSold() {
+    private fun onClickSwitchSold() {//launch date picker dialog when click on switch
         switchSold.setOnClickListener {
             if (switchSold.isChecked) {
                 showDatePickerDialog()
@@ -164,12 +157,18 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         )
         datePickerDialog.show()//show date picker dialog
 
-        datePickerDialog.setOnCancelListener {//if click on cancel button, swtich the button switch to false (no date)
+        datePickerDialog.setOnCancelListener {
+            //if click on cancel button, swtich the button switch to false (no date)
             switchSold.isChecked = false
         }
     }
 
-    override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
+    override fun onDateSet(
+        p0: DatePicker?,
+        year: Int,
+        month: Int,
+        day: Int
+    ) {//set up date for date picker sold property
         val calendar = GregorianCalendar(year, month, day)
         val dateSold = calendar.timeInMillis
         Toast.makeText(this, formatDateLongToString(dateSold), Toast.LENGTH_LONG).show()

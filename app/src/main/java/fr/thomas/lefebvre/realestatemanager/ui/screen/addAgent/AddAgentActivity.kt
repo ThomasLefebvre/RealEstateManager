@@ -19,7 +19,8 @@ class AddAgentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding:ActivityAddAgentBinding=DataBindingUtil.setContentView(this,R.layout.activity_add_agent)
+        val binding: ActivityAddAgentBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_add_agent)
 
 
         val application = requireNotNull(this).application
@@ -54,15 +55,13 @@ class AddAgentActivity : AppCompatActivity() {
     }
 
 
-
-
-
     fun checkEmail() {
         inputEmail.addTextChangedListener(object : TextWatcher {
+            //text watcher for address mail of agent
             override fun afterTextChanged(p0: Editable?) {
-                if (validateEmail(viewModel.editTextEmailAgent.value!!)) {
+                if (validateEmail(viewModel.editTextEmailAgent.value!!)) {//if mail is ok
                     textInputLayoutEmail.isErrorEnabled = false
-                } else {
+                } else {//if email is false
                     textInputLayoutEmail.isErrorEnabled
                     textInputLayoutEmail.error = getString(R.string.email_not_valid)
                 }

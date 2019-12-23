@@ -1,7 +1,6 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.detailsProperty
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

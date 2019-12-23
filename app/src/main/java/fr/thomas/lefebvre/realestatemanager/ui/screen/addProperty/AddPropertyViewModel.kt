@@ -2,10 +2,8 @@ package fr.thomas.lefebvre.realestatemanager.ui.screen.addProperty
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.google.android.gms.maps.model.LatLng
 import fr.thomas.lefebvre.realestatemanager.database.Media
 import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.Type
@@ -14,7 +12,7 @@ import fr.thomas.lefebvre.realestatemanager.database.dao.MediaDAO
 import fr.thomas.lefebvre.realestatemanager.database.dao.PropertyDAO
 import fr.thomas.lefebvre.realestatemanager.util.formatListAgentToListString
 import kotlinx.coroutines.*
-import kotlin.math.ln
+
 
 class AddPropertyViewModel(
     val database: PropertyDAO,
@@ -59,7 +57,7 @@ class AddPropertyViewModel(
         initData()
     }
 
-    fun initData() {
+    fun initData() {//init generic data
         editTextComplement.value = ""
         listType.value = listOf(Type.HOUSE.name,Type.APARTMENT.name,Type.STUDIO.name,Type.VILLA.name)
         lat.value=-1.0
@@ -72,7 +70,7 @@ class AddPropertyViewModel(
     }
 
 
-    fun onSaveProperty(idAgent: Long, type: String,listDescriptionPhoto:ArrayList<String>) {
+    fun onSaveProperty(idAgent: Long, type: String,listDescriptionPhoto:ArrayList<String>) {//save property with edit text info
 
         uiScope.launch {
 

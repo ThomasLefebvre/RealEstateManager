@@ -1,12 +1,9 @@
 package fr.thomas.lefebvre.realestatemanager.database
 
-import android.content.ContentValues
 import android.net.Uri
 import androidx.room.*
-import java.util.*
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
-import com.google.android.gms.maps.model.LatLng
 
 
 @Entity(

@@ -2,7 +2,6 @@ package fr.thomas.lefebvre.realestatemanager.database.dao
 
 import android.database.Cursor
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import fr.thomas.lefebvre.realestatemanager.database.Property
 
