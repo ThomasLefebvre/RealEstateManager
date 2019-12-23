@@ -73,7 +73,7 @@ public class Utils {
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-       return activeNetwork != null ;
+       return activeNetwork != null && activeNetwork.isConnected();
 
     }
 }

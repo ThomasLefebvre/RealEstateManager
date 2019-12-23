@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
 
 public class UtilsTest {
 
-    private Utils utils=new Utils();
 
 
 
@@ -21,22 +20,22 @@ public class UtilsTest {
     @Test
     public void testFormatDate(){
 
-        Long dateToday=new Long(System.currentTimeMillis());
+        Long dateToday= System.currentTimeMillis();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        assertEquals(dateFormat.format(dateToday),utils.getTodayDateCorrection());
+        assertEquals(dateFormat.format(dateToday),Utils.getTodayDateCorrection());
     }
 
     @Test
     public void testConvertDollarToEuro(){
         int euro=812;
         int dollar=1000;
-        assertEquals(euro,utils.convertDollarToEuro(1000));
+        assertEquals(euro,Utils.convertDollarToEuro(dollar));
     }
 
     @Test
     public void testConvertEuroToDollar(){
         int euro=1232;
         int dollar=1000;
-        assertEquals(euro,utils.convertEuroToDollarCorrestion(1000));
+        assertEquals(euro,Utils.convertEuroToDollarCorrestion(dollar));
     }
 }

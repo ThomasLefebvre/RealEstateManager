@@ -101,7 +101,7 @@
     //api key
     <string name="api_key_maps">AIzaSyC7VWXxeOgJAg5XoJdRRcldT6uNxtHMq2o</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

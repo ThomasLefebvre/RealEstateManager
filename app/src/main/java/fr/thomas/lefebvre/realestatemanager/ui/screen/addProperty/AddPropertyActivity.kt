@@ -80,8 +80,6 @@ class AddPropertyActivity : AppCompatActivity() {
         // Initialize the SDK
         Places.initialize(applicationContext, getString(R.string.api_key_maps))
 
-        // Create a new Places client instance
-        val placesClient = Places.createClient(this)
 
         val database = PropertyDatabase.getInstance(application).propertyDAO
         val databaseAgent = PropertyDatabase.getInstance(application).agentDAO
@@ -273,12 +271,12 @@ class AddPropertyActivity : AppCompatActivity() {
         when (requestCode) {
 
             PHOTO_PERMISSION -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission from popup was granted
                     openGallery()
                 } else {
                     //permission from popup was denied
-                    Toast.makeText(this, "Permission was denied", Toast.LENGTH_LONG)//TODO
+                    Toast.makeText(this, "Permission was denied", Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -292,7 +290,7 @@ class AddPropertyActivity : AppCompatActivity() {
             CODE_CHOOSE_PHOTO -> {
                 if (resultCode == Activity.RESULT_OK) {
                     Log.d("DEBUG", data!!.data!!.toString())
-                    saveUriPhotoInDatabase(data!!.data!!)
+                    saveUriPhotoInDatabase(data.data!!)
 
                     mAdapter.notifyItemInserted(0)
 
@@ -301,7 +299,7 @@ class AddPropertyActivity : AppCompatActivity() {
 
             CODE_TAKE_PHOTO -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.d("DEBUG", Uri.parse(currentPhotoPath!!).toString())
+                    Log.d("DEBUG", Uri.parse(currentPhotoPath).toString())
                     saveUriPhotoInDatabase(Uri.parse("file://" + currentPhotoPath))
                     mAdapter.notifyItemInserted(0)
                     galleryAddPic()
