@@ -65,6 +65,8 @@ public class Utils {
         return (int) Math.round(euro / 0.812);
     }
 
+
+
     public static Boolean isInternetAvailableCorrection(Context context){
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);

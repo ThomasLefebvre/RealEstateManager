@@ -346,13 +346,9 @@ class AddPropertyActivity : AppCompatActivity() {
     }
 
     private fun articleClick(position: Int, uri: Uri) {//method for remove the item on the clic
-        Toast.makeText(
-            this,
-            recycler_view_photo_propertie.childCount.toString() + " position: $position " + viewModel.listUriPhoto.size.toString(),
-            Toast.LENGTH_LONG
-        ).show()
+
         viewModel.listUriPhoto.removeAt(position)//remove item on the list uri
-        mAdapter.notifyItemRemoved(position)
+        mAdapter.notifyItemRemoved(position)//notify adapter of remove
 
 
     }

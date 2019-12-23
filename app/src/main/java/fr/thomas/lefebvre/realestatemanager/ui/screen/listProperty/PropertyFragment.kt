@@ -1,6 +1,9 @@
 package fr.thomas.lefebvre.realestatemanager.ui.screen.listProperty
 
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.icu.text.CaseMap
@@ -12,6 +15,8 @@ import android.view.*
 import android.widget.DatePicker
 import android.widget.Switch
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.animation.addListener
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -32,6 +37,7 @@ import fr.thomas.lefebvre.realestatemanager.databinding.PropertyFragmentBinding
 import fr.thomas.lefebvre.realestatemanager.util.formatDateLongToString
 import fr.thomas.lefebvre.realestatemanager.util.initMaxQuery
 import fr.thomas.lefebvre.realestatemanager.util.initMinQuery
+import kotlinx.android.synthetic.main.activity_add_property.*
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.property_fragment.*
 import kotlinx.android.synthetic.main.query_dialog.view.*
@@ -106,8 +112,8 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 isConvert,
                 databaseMedia,
                 listPropertyFragment
-            ) { property: Property ->
-                articleClick(property)
+            ) {position:Int, property: Property ->
+                articleClick(position,property)
             }
 
         recyclerview_property.adapter = mAdapter
@@ -168,10 +174,11 @@ class PropertyFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
 
-    private fun articleClick(property: Property) {//method for the click on property
+    private fun articleClick(position:Int,property: Property) {//method for the click on property
         val isLarge: Boolean = resources.getBoolean(R.bool.isLarge)
         if (isLarge) {
             viewModel.changeIdProperty(property.idProperty)
+           
         } else {
             viewModel.changeIdProperty(property.idProperty)
             view!!.findNavController().navigate(R.id.action_propertyFragment_to_detailsFragment)

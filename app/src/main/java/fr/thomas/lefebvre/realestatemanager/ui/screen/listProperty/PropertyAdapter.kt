@@ -29,7 +29,7 @@ class PropertyAdapter(
     private var convertToEuro: Boolean,
     private val database: MediaDAO,
     private val listProperty: ArrayList<Property>,
-    private val listener: (Property) -> Unit
+    private val listener: (Int, Property) -> Unit
 
 ) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>() {
 
@@ -47,10 +47,10 @@ class PropertyAdapter(
         holder.bind(convertToEuro, database, listProperty[position], listener)
     }
 
-    fun updateCurrency(newConvertToEuro: Boolean,listProperty: ArrayList<Property>) {
+    fun updateCurrency(newConvertToEuro: Boolean, listProperty: ArrayList<Property>) {
         convertToEuro = newConvertToEuro
 
-        listProperty.forEach {  property->
+        listProperty.forEach { property ->
             notifyItemChanged(listProperty.indexOf(property))
         }
 
@@ -69,12 +69,11 @@ class PropertyAdapter(
         private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-
         fun bind(
             convertToEuro: Boolean,
             database: MediaDAO,
             property: Property,
-            listener: (Property) -> Unit
+            listener: (Int, Property) -> Unit
         ) {
 
             textViewTypeProperty.text = property.type
@@ -137,7 +136,7 @@ class PropertyAdapter(
 
             }
             itemView.setOnClickListener {
-                listener(property)
+                listener(adapterPosition, property)
             }
         }
     }
