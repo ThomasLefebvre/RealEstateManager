@@ -16,7 +16,7 @@ fun calculLoan(amout: Double, term: Double, bring: Double, interest: Double): Li
     val down = 1 - downPow
     val paymentMensuality = (up / down).toInt()
     val totalCostInt = (paymentMensuality * (term * monthOfYear)).toInt()
-    val totalInterest = totalCostInt - amout.toInt()
+    val totalInterest = totalCostInt - (amout-bring).toInt()
 
     listCalcul.add(paymentMensuality.toString())
     listCalcul.add(totalCostInt.toString())
