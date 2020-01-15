@@ -49,7 +49,12 @@ class MainActivityTest {
         onView(withId(R.id.filterProperty))
             .perform(click())
 
-        onView(withId(R.id.material_text_button_no_filter)).check(matches(isDisplayed()))
+        Thread.sleep(1500)
+
+        onView(withText("NO FILTER"))
+            .perform(click())
+
+//        onView(withId(R.id.material_text_button_no_filter)).check(matches(isDisplayed()))
     }
 
     @Test

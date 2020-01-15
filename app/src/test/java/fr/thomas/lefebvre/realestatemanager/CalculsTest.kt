@@ -18,7 +18,7 @@ class CalculsTest {
         val listResult= calculLoan(amount,term,bring,interest)
         assertEquals("451",listResult[0])
         assertEquals("108240",listResult[1])
-        assertEquals("8240",listResult[2])
+        assertEquals("18240",listResult[2])
     }
 
     @Test

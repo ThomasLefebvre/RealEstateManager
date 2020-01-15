@@ -6,11 +6,10 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import fr.thomas.lefebvre.realestatemanager.database.Property
 import fr.thomas.lefebvre.realestatemanager.database.PropertyDatabase
 
 class ContentProvider : ContentProvider() {
-
-    private var myDB: PropertyDatabase? = null
 
     private val CODE_AGENT_DIR = 1
     private val CODE_AGENT_ITEM = 2
@@ -67,7 +66,7 @@ class ContentProvider : ContentProvider() {
                 }
                 else -> throw IllegalArgumentException("Wrong information $uri")
             }
-        } else throw java.lang.IllegalArgumentException("Failed to query row $uri")
+        } else throw java.lang.IllegalArgumentException("Failed to insert row $uri")
 
 
     }
@@ -118,8 +117,35 @@ class ContentProvider : ContentProvider() {
         throw IllegalArgumentException("Impossible to update $uri")
     }
 
-    override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {
-        throw IllegalArgumentException("Impossible to delete data")
+    override fun delete(uri: Uri, p1: String?, p2: Array<out String>?): Int {
+        if (context != null) {
+            when (URIMatcher.match(uri)) {
+
+                CODE_PROPERTY_ITEM -> {
+                    val id=uri.lastPathSegment
+                    val db = PropertyDatabase.getInstance(context!!).propertyDAO
+                    db.deleteProperty(id!!.toLong())
+                    return 1
+                }
+
+                CODE_PROPERTY_DIR -> {
+                    throw java.lang.IllegalArgumentException("need id for delete")
+
+                }
+                CODE_AGENT_ITEM -> {
+                    val id=uri.lastPathSegment
+                    val db = PropertyDatabase.getInstance(context!!).agentDAO
+                    db.deleteAgent(id!!.toLong())
+                    return 1
+                }
+
+                CODE_AGENT_DIR -> {
+                    throw java.lang.IllegalArgumentException("need id for delete")
+
+                }
+                else -> throw IllegalArgumentException("Wrong information $uri")
+            }
+        } else throw java.lang.IllegalArgumentException("Failed to insert row $uri")
     }
 
     override fun getType(uri: Uri): String? {
